@@ -1,0 +1,134 @@
+---
+title: "Replication of Study X by Sample & Sample (20xx, Psychological Science)"
+author: "Replication Author[s] (contact information)"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+format:
+  html:
+    toc: true
+    toc_depth: 3
+---
+
+<!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
+
+## Introduction
+
+<!-- [No abstract is needed.]  Each replication project will have a straightforward, no frills report of the study and results.  These reports will be publicly available as supplementary material for the aggregate report(s) of the project as a whole.  Also, to maximize project integrity, the intro and methods will be written and critiqued in advance of data collection.  Introductions can be just 1-2 paragraphs clarifying the main idea of the original study, the target finding for replication, and any other essential information.  It will NOT have a literature review -- that is in the original publication. You can write both the introduction and the methods in past tense.   -->
+
+This experiment replicated work from Han and Moulton (2022) on the processing of singular *they*. In previous work (e.g., Conrod 2019), bound-variable singular *they* (1) was found to be rated as more acceptable than referential singular *they* (2).
+
+(1) Bound *they*: Every child loves their mother.
+
+(2) Referential *they*: My friend's child loves their mother.
+
+Han and Moulton (2022) built on this work, exploring the relationship between bound vs. referential singular *they* and gender specificity of the antecedent as it relates to ease of processing a sentence. They found that bound-variable singular *they* with a gendered antecedent has a processing advantage over both referential singular *they* and bound-variable singular *they* without a gendered antecedent.
+
+This experiment replicated the sentence processing experiment that Han and Moulton ran, aiming to (dis)confirm their observed interaction between bound-variable vs. referential singular *they* and gender specificity of the antecedent, as well as introducing two further types of antecedent that Han and Moulton did not consider, shown below:
+
+(3) Generic unbound *they*: One loves their mother.
+<!-- Context: I'm saying that my mother is a terrible person, but I haven't been able to cut ties with her. In trying to explain why it's so complicated, I say that "well of course I can't help caring about her, right? One loves their mother, at least on some level, so it's complicated. (P.S. my mom is great I was just trying to maintain the same type of example lol.) -->
+
+(4) Referential and named *they*: Alex loves their mother.
+
+
+## Methods
+
+### Power Analysis
+
+Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size.
+
+### Planned Sample
+
+Planned sample size and/or termination rule, sampling frame, known demographics if any, preselection rules if any.
+
+### Materials
+
+<!-- All materials - can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article. -->
+
+The original experiment materials cross 'two two-level factors, Antecedent (QUANT vs. REF) and Pronoun (THEY vs. HE), yielding four experimental conditions' (Han&Moulton 2022, 283). This replication introduces additional levels in the Antecedent factor (QUANT vs. REF vs. GENERIC vs. NAMED), yielding eight total experimental conditions. 'The test sentences in [this experiment] were made to be [long] so that the sentences do not end with the target region containing the critical pronoun. Also, the definite description in the embedded specificational clause began with the one who to ensure a singular interpretation of the post-copula pronoun.' (Han&Moulton 2022, 283).
+
+(5) Only one competitor could win the race.
+a. Every competitor thought that they one who would win the race would be them when the times were finally announced. QUANT.THEY
+
+b. Every competitor that that the one who would win the race would be him when the times were finally announced. QUANT.HE
+
+c. The youngest competitor that that the one who would win the race would be them when the times were finally announced. REF.THEY
+
+d. The youngest competitor that that the one who would win the race would be him when the times were finally announced. REF.HE
+
+e. Some competitor thought that the one who would win the race would be them when the times were finally announced. GENERIC.THEY
+
+f. Some competitor thought that the one who would win the race would be him when the times were finally announced. GENERIC.HE
+
+g. Avery thought that the one who would win the race would be them when the times were finally announced. NAMED.THEY
+
+h. Avery thought that the one who would win the race would be him when the times were finally announced. NAMED.HE
+
+(Adapted from Han&Moulton 2022, (13))
+
+### Procedure	
+
+<!-- Can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article. -->
+
+TBA number of native English users participated in this study online via Prolific. The age of the participants ranges from 18-TBA, with the mean age at TBA. Participants self-reported to be native users of English by answering a survey question at the end of the experiment. Each participant received TBA AMOUNT as compensation upon completion of the experiment. Twenty item sets like (5) were distributed over four lists in a Latin-square design. `In addition, each list contained a set of 40 fillers. The sentences were presented on [Prolific] in a uniquely generated random order for each participant, using the moving-window paradigm (Just et al. 1982). After reading the context sentence, participants advanced to the next region by pressing on the space bar. No region could be displayed more than once. After each experimental sentence was read, a comprehension question was presented, which could be answered by pressing one key for ‘yes’ or another key for ‘no’. The comprehension questions tested participants’ understanding of the sentence, but not their interpretation of the critical pronoun. The comprehension question for the item in [(5)] is in [(6)]'. (Adapted from Han and Moulton 2022, 283-284)
+
+(6) Was there going to be a winner of a race? (Han&Moulton 2022, (14))
+
+### Analysis Plan
+
+Can also quote directly, though it is less often spelled out effectively for an analysis strategy section.  The key is to report an analysis strategy that is as close to the original - data cleaning rules, data exclusion rules, covariates, etc. - as possible.  
+
+**Clarify key analysis of interest here**  You can also pre-specify additional analyses you plan to do.
+
+### Differences from Original Study
+
+Explicitly describe known differences in sample, setting, procedure, and analysis plan from original study.  The goal, of course, is to minimize those differences, but differences will inevitably occur.  Also, note whether such differences are anticipated to make a difference based on claims in the original article or subsequent published research on the conditions for obtaining the effect.
+
+### Methods Addendum (Post Data Collection)
+
+You can comment this section out prior to final report with data collection.
+
+#### Actual Sample
+  Sample size, demographics, data exclusions based on rules spelled out in analysis plan
+
+#### Differences from pre-data collection methods plan
+  Any differences from what was described as the original plan, or “none”.
+
+
+## Results
+
+
+### Data preparation
+
+Data preparation following the analysis plan.
+	
+```{r include=F}
+### Data Preparation
+
+#### Load Relevant Libraries and Functions
+
+#### Import data
+
+#### Data exclusion / filtering
+
+#### Prepare data for analysis - create columns etc.
+```
+
+### Confirmatory analysis
+
+The analyses as specified in the analysis plan.  
+
+*Side-by-side graph with original graph is ideal here*
+
+### Exploratory analyses
+
+Any follow-up analyses desired (not required).  
+
+## Discussion
+
+### Summary of Replication Attempt
+
+Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
+
+### Commentary
+
+Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
