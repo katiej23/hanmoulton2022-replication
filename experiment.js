@@ -271,16 +271,28 @@ const debrief = {
   choices: [" "]
 };
 
+const subject_id = jsPsych.randomization.randomID(10);
+const filename = `${subject_id}.csv`;
+
+const save_data = {
+  type: jsPsychPipe,
+  action: "save",
+  experiment_id: "Hz3czB8mbA9z",
+  filename: filename,
+  data_string: ()=>jsPsych.data.get().csv()
+};
+
 // --- Run experiment ---
 const timeline = [
   welcomeScreen,
   instructionsScreen,
-  ...practiceTimeline,
-  endPractice,
-  ...firstBlock,
-  restBreak,
-  ...secondBlock,
-  debrief
+  // ...practiceTimeline,
+  // endPractice,
+  // ...firstBlock,
+  // restBreak,
+  // ...secondBlock,
+  // debrief,
+  save_data
 ];
 
 jsPsych.run(timeline);
