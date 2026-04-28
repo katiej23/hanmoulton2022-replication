@@ -208,10 +208,6 @@
         };
         trials.push(trial);
 
-        // The below code was feedback for when participants are reading too
-        // slowly, but it occasionally made my experiment lag. Given that this
-        // was an optional stretch goal, I decided not to troubleshoot it for
-        // today. :)
         var feedback_trial = {
           type: jsPsychHtmlKeyboardResponse,
           choices: ["NO_KEYS"],
@@ -317,6 +313,20 @@
     //   - What is the RT column called? It's just called "rt"!
     //   - How would you filter to just the spr_word trials? I don't know if I understand the question... I'd save the CSV output and then filter it?
     //   - Do RTs look reasonable? Any too_fast flags? The response times look reasonable and there are no too-fast flags
+
+
+    // Save information from the experiment
+    const subject_id = jsPsych.randomization.randomID(10);
+    const filename = `${subject_id}.csv`;
+
+    const save_data = {
+      type: jsPsychPipe,
+      action: "save",
+      experiment_id: "Hz3czB8mbA9z",
+      filename: filename,
+      data_string: ()=>jsPsych.data.get().csv()
+    };
+    timeline.push(save_data);
   
     const completion = {
       type: jsPsychHtmlKeyboardResponse,
