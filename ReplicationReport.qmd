@@ -38,7 +38,21 @@ Original effect size, power analysis for samples to achieve 80%, 90%, 95% power 
 
 ### Planned Sample
 
-Planned sample size and/or termination rule, sampling frame, known demographics if any, preselection rules if any.
+<!-- Planned sample size and/or termination rule, sampling frame, known demographics if any, preselection rules if any. -->
+
+All participants will be native English speakers. Han&Moulton report a t-value of 2.34 (p. 285) with 193 participants considered in their calculations. The Cohen's d is estimated as $d = \frac{t}{\sqrt{n}} = \frac{2.34}{\sqrt{193}} = 0.168$. From this, we can estimate power:
+
+```{r}
+power_result <- pwr.t.test(
+  d = 0.168,                 # Effect size (Cohen's d)
+  sig.level = 0.05,          # Alpha level (0.05 is conventional)
+  power = 0.80,              # Desired power (0.80 is conventional)
+  type = "paired",           # Every participant saw all the conditions (across different items)
+  alternative = "two.sided"  # Two-tailed test
+)
+plot(power_result)
+```
+These results suggest that at least 281 participants should be included in this replication. I propose collecting data from 300 people to be conservative and to allow exclusions of participants with low scores on comprehension questions. (Note: I have *no* idea how expensive it is to run experiments like this, so I don't know if this is an absurdly expensive proposal or not!)
 
 ### Materials
 
@@ -75,9 +89,14 @@ TBA number of native English users participated in this study online via Prolifi
 
 ### Analysis Plan
 
-Can also quote directly, though it is less often spelled out effectively for an analysis strategy section.  The key is to report an analysis strategy that is as close to the original - data cleaning rules, data exclusion rules, covariates, etc. - as possible.  
+<!-- Can also quote directly, though it is less often spelled out effectively for an analysis strategy section.  The key is to report an analysis strategy that is as close to the original - data cleaning rules, data exclusion rules, covariates, etc. - as possible.   -->
 
-**Clarify key analysis of interest here**  You can also pre-specify additional analyses you plan to do.
+Participants with low comprehension question response score (<50%) and extremely fast reading speed per region (<50ms) were excluded. Additionally, reading times of a region that were 10 standard deviations above the mean were removed, in order to exclude extreme outliers from analysis. The regions of analysis are Region 7 (the target region), Region 8 (the spillover region), and Region 9. We calculated RRTs using character length from the entire dataset (including fillers) to estimate the reading time for each region for each participant (Ferreira and Clifton 1986, Trueswell and Tanenhaus 1994, Phillips 2006). We analyzed each region’s RRTs with a mixed model, with a random-effects
+structure: RRT ∼ Antecedent * Pronoun + (1+Antecedent * Pronoun|Participant) + (1+Antecedent*Pronoun|Item). (Adapted from Han&Moulton 2022, p. 284).
+
+My addition to this experiment -- exploring four different types of antecedent instead of two -- does not require any changes to the analysis conducted in the original experiment.
+
+<!-- **Clarify key analysis of interest here**  You can also pre-specify additional analyses you plan to do. -->
 
 ### Differences from Original Study
 
