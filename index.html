@@ -34,7 +34,7 @@
   <script src="stims.js"></script>
 
   <style>
-    .spr-word {
+    .spr_word {
       font-size: 32px;
       font-family: 'Courier New', monospace;
     }
@@ -109,7 +109,8 @@
       pages: [
         `<div class="instruction-text">
           <h1>Welcome!</h1>
-          <p>In this experiment, you will read sentences one word at a time, revealing the next word by pressing the SPACEBAR key.</p>
+          <p>In this experiment, you will read sentences a few words at a time, revealing the next words by pressing the SPACEBAR key.</p>
+          <p>Please enter <b>full screen</b> now.</p>
           <p>Please read at a <b>natural</b> pace.</p>
           <p>After each sentence, you'll be asked to answer a Yes/No question.</p>
         </div>`
@@ -139,9 +140,35 @@
       }).join(" ");
     }
 
+    function parseChunks(text) {
+      // Split on both "\\" and "-"
+      return text
+        .split(/\\|-/)
+        .map(chunk => chunk.trim())
+        .filter(chunk => chunk.length > 0);
+    }
+
+    function maskChunk(chunk) {
+      // Replace every non-space character with "-"
+      return chunk.replace(/[^\s]/g, "-");
+    }
+
+    function revealChunk(text, revealIndex) {
+      const chunks = parseChunks(text);
+
+      return chunks
+        .map((chunk, idx) => {
+          return idx === revealIndex
+            ? chunk
+            : maskChunk(chunk);
+        })
+        .join(" ");
+    }
+
     function createReadingTrials(stimulus) {
       const trials = [];
-      const words = stimulus.sentence.split(" ");
+      // const words = stimulus.sentence.split(" ");
+      const sentence = stimulus.sentence;
 
       // --- Display fixation cross ---
       trials.push({
@@ -159,7 +186,8 @@
       });
 
       // --- Word-by-word reading ---
-      for (let i = 0; i < words.length; i++) {
+      const chunks = parseChunks(sentence);
+      for (let i = 0; i < chunks.length; i++) {
         // TODO: Create a trial using jsPsychHtmlKeyboardResponse that:
         //   - Shows the word centered on screen (use the spr-word CSS class)
         //   - Only accepts spacebar as a valid response
@@ -192,15 +220,16 @@
         const trial = {
           type: jsPsychHtmlKeyboardResponse,
           // stimulus: `<div class="spr_word"><p>${words[i]}</p></div>`,
-          stimulus: `<div class="spr_word"><p>${maskSentence(words, i)}</p></div>`,
+          // stimulus: `<div class="spr_word"><p>${maskSentence(words, i)}</p></div>`,
+          stimulus: `<div class="spr_word"><p>${revealChunk(sentence, i)}</p></div>`,
           choices: [' '],
           data: {
             trial_type_label: 'spr_word',
             item:       stimulus.item,
             condition:  stimulus.condition,
-            word:       words[i],
-            word_index: i,
-            word_count: words.length
+            word:       chunks[i],
+            word_index: i//,
+            // word_count: words.length
           },
           on_finish: function(data) {
             data.too_fast = data.rt < 100;
@@ -287,10 +316,40 @@
     // HINT: jsPsych.randomization.shuffle(array) returns a new shuffled array.
     // Docs: https://www.jspsych.org/v7/reference/jspsych-randomization/
 
-    const shuffledStimuli = jsPsych.randomization.shuffle(experimentStimuli);
+    // const shuffledStimuli = jsPsych.randomization.shuffle(experimentStimuli);
 
-    // Loop over stimuli and add to timeline
-    // (Change experimentStimuli to shuffledStimuli once you've done Stage 6)
+    // // Loop over stimuli and add to timeline
+    // // (Change experimentStimuli to shuffledStimuli once you've done Stage 6)
+    // for (let i = 0; i < shuffledStimuli.length; i++) {
+    //   const readingTrials = createReadingTrials(shuffledStimuli[i]);
+    //   timeline.push(...readingTrials);
+    // }
+
+    // 1. Separate critical items (1-20) from filler items (21+)
+    //TODO: make this more robust
+    const criticalStims = experimentStimuli.filter(s => s.item <= 20);
+    const fillerStims = experimentStimuli.filter(s => s.item > 20);
+
+    // 2. Pick exactly one random condition for each critical item
+    const selectedCriticals = [];
+    for (let i = 1; i <= 20; i++) {
+      // Get all 6 variants (conditions) for this specific item number
+      const itemVariants = criticalStims.filter(s => s.item === i);
+      
+      if (itemVariants.length > 0) {
+        // Randomly pick one from the available variants
+        const randomPick = jsPsych.randomization.sampleWithoutReplacement(itemVariants, 1)[0];
+        selectedCriticals.push(randomPick);
+      }
+    }
+
+    // 3. Combine the selected criticals with all the fillers
+    const allFinalStimuli = selectedCriticals.concat(fillerStims);
+
+    // 4. Shuffle the final list so criticals and fillers are mixed
+    const shuffledStimuli = jsPsych.randomization.shuffle(allFinalStimuli);
+
+    // 5. Loop over the final shuffled list and add to timeline
     for (let i = 0; i < shuffledStimuli.length; i++) {
       const readingTrials = createReadingTrials(shuffledStimuli[i]);
       timeline.push(...readingTrials);
