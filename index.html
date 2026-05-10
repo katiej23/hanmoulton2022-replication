@@ -38,6 +38,10 @@
       font-size: 32px;
       font-family: 'Courier New', monospace;
     }
+    .spr_chunk {
+      display: inline-block;
+      white-space: nowrap;
+    }
     .fixation {
       font-size: 48px;
       font-family: 'Courier New', monospace;
@@ -67,48 +71,12 @@
     // This list collects all trials in order
     const timeline = [];
 
-
-    // =========================================================================
-    // STAGE 1: Inspect your stimuli
-    // =========================================================================
-    // Open the browser console and type: experimentStimuli
-    // You should see an array of objects loaded from stims.js.
-    //
-    // Each object has:
-    //   item:            a number identifying the item
-    //   condition:       "upper_bound", "lower_bound", or "filler"
-    //   sentence:        the sentence as a string
-    //   question:        a comprehension question (Yes/No)
-    //   correct_answer:  "Yes" or "No"
-    //
-    // Try: experimentStimuli[0].sentence.split(" ")
-    // This splits a sentence string into an array of words — we'll use
-    // this trick in Stage 3.
-    //
-    // Nothing to code here — just make sure stims.js loaded without errors.
-
-
-    // =========================================================================
-    // STAGE 2: Add instructions
-    // =========================================================================
-    // TODO: Create an instructions trial using the jsPsychInstructions plugin.
-    //
-    // The instructions should tell the participant:
-    //   1. They will read sentences one word at a time
-    //   2. They press SPACEBAR to see each new word
-    //   3. They should read at a natural pace
-    //   4. After each sentence, they'll answer a Yes/No question
-    //
-    // HINT: The plugin takes a `pages` parameter (an array of HTML strings)
-    //       and `show_clickable_nav: true` gives them Previous/Next buttons.
-    //
-    // Docs: https://www.jspsych.org/v7/plugins/instructions/
-    //
     const instructions = {
       type: jsPsychInstructions,
       pages: [
         `<div class="instruction-text">
           <h1>Welcome!</h1>
+          <p><b>A CONSENT FORM WILL BE INCLUDED HERE</b></p>
           <p>In this experiment, you will read sentences a few words at a time, revealing the next words by pressing the SPACEBAR key.</p>
           <p>Please enter <b>full screen</b> now.</p>
           <p>Please read at a <b>natural</b> pace.</p>
@@ -119,16 +87,6 @@
       data: { trial_type_label: 'instructions' }
     };
     timeline.push(instructions);
-
-
-    // =========================================================================
-    // STAGE 3: Display one word at a time
-    // =========================================================================
-    // This is the core of self-paced reading. We need a function that takes
-    // a stimulus object and returns an array of trials — one per word.
-    //
-    // For now, just do the word-by-word display. We'll add the fixation
-    // cross (Stage 4) and comprehension question (Stage 5) later.
 
     function maskSentence(words, revealIndex) {
       return words.map((word, idx) => {
@@ -158,16 +116,17 @@
 
       return chunks
         .map((chunk, idx) => {
-          return idx === revealIndex
-            ? chunk
-            : maskChunk(chunk);
+          // Determine if this chunk should be revealed or masked
+          const content = idx === revealIndex ? chunk : maskChunk(chunk);
+          
+          // Wrap the content in a span that prevents line-breaks inside the chunk
+          return `<span class="spr_chunk">${content}</span>`;
         })
-        .join(" ");
+        .join(" "); // Join with a standard space (the only place a line-break can now occur)
     }
 
     function createReadingTrials(stimulus) {
       const trials = [];
-      // const words = stimulus.sentence.split(" ");
       const sentence = stimulus.sentence;
 
       // --- Display fixation cross ---
@@ -188,24 +147,6 @@
       // --- Word-by-word reading ---
       const chunks = parseChunks(sentence);
       for (let i = 0; i < chunks.length; i++) {
-        // TODO: Create a trial using jsPsychHtmlKeyboardResponse that:
-        //   - Shows the word centered on screen (use the spr-word CSS class)
-        //   - Only accepts spacebar as a valid response
-        //   - Saves these custom data fields:
-        //       trial_type_label: 'spr_word'
-        //       item:       stimulus.item
-        //       condition:  stimulus.condition
-        //       word:       words[i]
-        //       word_index: i
-        //       word_count: words.length
-        //
-        // HINT: Use the `data` parameter to store custom fields.
-        // HINT: `choices: [' ']` restricts input to spacebar only.
-        //
-        // BONUS: Add an on_finish callback that flags RTs < 100ms:
-        //   on_finish: function(data) { data.too_fast = data.rt < 100; }
-        //
-        // Docs: https://www.jspsych.org/v7/plugins/html-keyboard-response/
 
         if (stimulus.condition === 'upper_bound') {
           // Delay before displaying word
@@ -219,8 +160,6 @@
 
         const trial = {
           type: jsPsychHtmlKeyboardResponse,
-          // stimulus: `<div class="spr_word"><p>${words[i]}</p></div>`,
-          // stimulus: `<div class="spr_word"><p>${maskSentence(words, i)}</p></div>`,
           stimulus: `<div class="spr_word"><p>${revealChunk(sentence, i)}</p></div>`,
           choices: [' '],
           data: {
@@ -228,8 +167,7 @@
             item:       stimulus.item,
             condition:  stimulus.condition,
             word:       chunks[i],
-            word_index: i//,
-            // word_count: words.length
+            word_index: i
           },
           on_finish: function(data) {
             data.too_fast = data.rt < 100;
@@ -354,26 +292,6 @@
       const readingTrials = createReadingTrials(shuffledStimuli[i]);
       timeline.push(...readingTrials);
     }
-
-
-    // =========================================================================
-    // STAGE 7: Add progress bar
-    // =========================================================================
-    // Scroll back up to the initJsPsych call at the top of this file.
-    // Uncomment the line: show_progress_bar: true
-
-
-    // =========================================================================
-    // STAGE 8: Run it and look at the data!
-    // =========================================================================
-    // The completion screen shows comprehension accuracy, then the raw data.
-    //
-    // Once the experiment runs, look at the CSV output and find:
-    //   - Which columns contain your custom data? Columns reflecting the variables that I added collect my custom data (e.g., columns called "too_fast" and "too_slow")
-    //   - What is the RT column called? It's just called "rt"!
-    //   - How would you filter to just the spr_word trials? I don't know if I understand the question... I'd save the CSV output and then filter it?
-    //   - Do RTs look reasonable? Any too_fast flags? The response times look reasonable and there are no too-fast flags
-
 
     // Save information from the experiment
     const subject_id = jsPsych.randomization.randomID(10);
