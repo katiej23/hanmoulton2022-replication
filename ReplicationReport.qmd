@@ -130,7 +130,120 @@ Data preparation following the analysis plan.
 #### Data exclusion / filtering
 
 #### Prepare data for analysis - create columns etc.
+
+## ^ Instructions from original template
+
+
 ```
+
+```{r}
+## Libraries 
+library(tidyverse)
+library(readxl)    
+library(ordinal)   
+library(emmeans)   
+library(osfr)
+library(ggplot2)
+```
+
+```{r}
+# Connect to the project
+my_project <- osf_retrieve_node("aywjm") # Replace with your Node ID
+
+# List the files in the project to see what is available
+# osf_ls_files(my_project)
+
+# Locate your specific file (replace "my_reading_data.csv" with your actual file name)
+target_file <- osf_ls_files(my_project) %>%
+  filter(name == "ubpdgbvno7.csv" | name == "xl6ox8fp5m.csv")
+
+# Download the file to your computer
+osf_download(target_file, path = "./data/")
+
+# 1. Create a list of the file paths for all the CSVs on your computer
+local_files <- list.files(path = "data/", pattern = "\\.csv$", full.names = TRUE)
+
+# 2. Read and combine them all at once!
+# The 'id' argument is a lifesaver: it creates a new column in your data frame 
+# that records exactly which file (participant) that row came from.
+rt_data <- read_csv(local_files, id = "file_name")
+
+# Check out the resulting master data frame
+head(rt_data)
+
+```
+```{r}
+# Filter for the relevant conditions
+critical_data <- rt_data %>%
+  filter(condition %in% c("quantificational_they", "specific_they", "named_they", 
+                          "quantificational_he", "specific_he", "named_he"))
+
+# 2. Identify regions using string detection in 'stimulus'
+plotting_ready <- critical_data %>%
+  group_by(participant_id, item) %>%
+  mutate(
+    # Find the word_index where the stimulus CONTAINS our target words
+    # ignore_case = TRUE handles "Them", "them", "HIM", etc.
+    is_pronoun_region = str_detect(stimulus, regex("them|him", ignore_case = TRUE)),
+    
+    # Grab the index number for that specific row
+    # We use min() just in case the detection triggers twice in one trial
+    pron_idx = if(any(is_pronoun_region)) min(word_index[is_pronoun_region]) else NA_real_,
+    
+    # Define the three regions based on that index
+    region_label = case_when(
+      word_index == pron_idx ~ "1_Critical",
+      word_index == pron_idx + 1 ~ "2_Spillover_1",
+      word_index == pron_idx + 2 ~ "3_Spillover_2",
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  # Filter to keep only our three regions
+  filter(!is.na(region_label)) %>%
+  ungroup()
+
+# 3. Check the results
+# print(paste("Rows found:", nrow(plotting_ready)))
+# table(plotting_ready$region_label, plotting_ready$condition)
+```
+
+```{r}
+# 1. Prepare the data again, forcing RT to be numeric
+plotting_ready <- plotting_ready %>%
+  mutate(rt = as.numeric(rt)) # Force RT to be a number
+
+# 2. Re-summarize (this should now result in actual numbers)
+summary_data <- plotting_ready %>%
+  separate(condition, into = c("type", "pronoun"), sep = "_") %>%
+  group_by(type, pronoun, region_label) %>%
+  summarize(
+    mean_rt = mean(rt, na.rm = TRUE),
+    se = sd(rt, na.rm = TRUE) / sqrt(n()),
+    .groups = "drop"
+  )
+
+# 3. Quick Check: This should now return 0
+# print(sum(is.na(summary_data$mean_rt)))
+
+# Fix the labels for the x-axis
+summary_data$region_label <- factor(summary_data$region_label, 
+                                    levels = c("1_Critical", "2_Spillover_1", "3_Spillover_2"),
+                                    labels = c("Critical", "Spillover 1", "Spillover 2"))
+
+# The Plot
+ggplot(summary_data, aes(x = region_label, y = mean_rt, 
+                         color = type, shape = pronoun, 
+                         group = interaction(type, pronoun))) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = mean_rt - se, ymax = mean_rt + se), width = 0.1) +
+  labs(title = "Reading Times by Condition",
+       x = "Sentence Region",
+       y = "Reading Time (ms)") +
+  theme_minimal() +
+  facet_wrap(~type) # This splits the plot into 'he' and 'they' panels
+```
+
 
 ### Confirmatory analysis
 

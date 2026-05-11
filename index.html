@@ -29,6 +29,7 @@
   <script src="https://unpkg.com/@jspsych/plugin-survey-text@1.1.2"></script>
   <script src="https://unpkg.com/@jspsych/plugin-survey-multi-choice@1.1.2"></script>
   <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-fullscreen@1.2.1"></script>
 
   <!-- Stimuli (Stage 1) -->
   <script src="stims.js"></script>
@@ -37,6 +38,15 @@
     .spr_word {
       font-size: 32px;
       font-family: 'Courier New', monospace;
+      
+      /* Constrain the window to a smaller width */
+      max-width: 800px;       /* Limits the width to 800 pixels */
+      width: 90%;            /* Allows it to be smaller on tiny screens */
+      margin: 100px auto;    /* Centers the box and pushes it down from the top */
+      
+      text-align: left;      /* Keeps the sentence starting point consistent */
+      line-height: 1.8;      /* Adds vertical breathing room between lines */
+      min-height: 200px;     /* Prevents the screen from "jumping" vertically */
     }
     .spr_chunk {
       display: inline-block;
@@ -77,16 +87,29 @@
         `<div class="instruction-text">
           <h1>Welcome!</h1>
           <p><b>A CONSENT FORM WILL BE INCLUDED HERE</b></p>
+          <p>Please do not use Safari. (Probably I'll filter for this earlier somehow?)</p>
           <p>In this experiment, you will read sentences a few words at a time, revealing the next words by pressing the SPACEBAR key.</p>
-          <p>Please enter <b>full screen</b> now.</p>
           <p>Please read at a <b>natural</b> pace.</p>
-          <p>After each sentence, you'll be asked to answer a Yes/No question.</p>
+          <p>After each sentence, answer a question about what you read:</p>
+          <ul style="text-align: left; display: inline-block;">
+            <li>Press <strong>J</strong> for <b>YES</b></li>
+            <li>Press <strong>F</strong> for <b>NO</b></li>
+          </ul>
         </div>`
       ],
       show_clickable_nav: true,
       data: { trial_type_label: 'instructions' }
     };
     timeline.push(instructions);
+
+    // --- Fullscreen Trigger ---
+    const enter_fullscreen = {
+      type: jsPsychFullscreen,
+      fullscreen_mode: true,
+      message: '<p>Please click below to enter full screen.</p>',
+      button_label: 'Enter Full Screen'
+    };
+    timeline.push(enter_fullscreen);
 
     function maskSentence(words, revealIndex) {
       return words.map((word, idx) => {
@@ -116,13 +139,18 @@
 
       return chunks
         .map((chunk, idx) => {
-          // Determine if this chunk should be revealed or masked
-          const content = idx === revealIndex ? chunk : maskChunk(chunk);
+          const isCurrent = (idx === revealIndex);
           
-          // Wrap the content in a span that prevents line-breaks inside the chunk
-          return `<span class="spr_chunk">${content}</span>`;
+          // Split the chunk into individual words
+          // This allows the browser to wrap at spaces within a long chunk
+          return chunk.split(" ").map(word => {
+            const content = isCurrent ? word : maskChunk(word);
+            
+            // Wrap each WORD in the non-breaking span
+            return `<span class="spr_chunk">${content}</span>`;
+          }).join(" "); // Join words with a normal space (a valid wrap point)
         })
-        .join(" "); // Join with a standard space (the only place a line-break can now occur)
+        .join(" "); // Join chunks with a normal space (a valid wrap point)
     }
 
     function createReadingTrials(stimulus) {
@@ -176,33 +204,40 @@
         };
         trials.push(trial);
 
-        var feedback_trial = {
-          type: jsPsychHtmlKeyboardResponse,
-          choices: ["NO_KEYS"],
-          stimulus: `<div><p>Please try to read at a natural pace!</p></div>`,
-          trial_duration: 4000
-        };
+        // var feedback_trial = {
+        //   type: jsPsychHtmlKeyboardResponse,
+        //   choices: ["NO_KEYS"],
+        //   stimulus: `<div><p>Please try to read at a natural pace!</p></div>`,
+        //   trial_duration: 4000
+        // };
 
-        var feedback_node = {
-          timeline: [feedback_trial],
-          conditional_function: function() {
-            return jsPsych.data.get().last(1).values()[0].too_slow;
-          }
-        };
-        trials.push(feedback_node);
+        // var feedback_node = {
+        //   timeline: [feedback_trial],
+        //   conditional_function: function() {
+        //     return jsPsych.data.get().last(1).values()[0].too_slow;
+        //   }
+        // };
+        // trials.push(feedback_node);
       }
 
       // --- STAGE 5: Comprehension question ---
       trials.push({
-        type: jsPsychHtmlButtonResponse,
-        stimulus: `<div><p>${stimulus.question}</p></div>`, // TODO pick up here
-        choices: ['Yes', 'No'],
+        type: jsPsychHtmlKeyboardResponse, // Swapped from ButtonResponse
+        stimulus: `
+          <div class="comprehension">
+            <p>${stimulus.question}</p>
+            <p style="font-size: 18px; margin-top: 50px; color: #555;">
+              Press <strong>F</strong> for No &nbsp;&nbsp;&nbsp;&nbsp; Press <strong>J</strong> for Yes
+            </p>
+          </div>`,
+        choices: ['j', 'f'],
         data: {
           correct_answer: stimulus.correct_answer,
           trial_type_label: 'comprehension'
         },
         on_finish: function(data) {
-          const response = data.response === 0 ? 'Yes' : 'No';
+          // jsPsych stores the actual key pressed (e.g., "j") in data.response
+          const response = (data.response === 'j') ? 'Yes' : 'No';
           data.correct = (response === data.correct_answer);
         }
       });
