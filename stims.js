@@ -844,211 +844,211 @@ const experimentStimuli = [
   {
     "item": 21,
     "condition": "filler",
-    "sentence": "Ben was building a train set alone in the garage. - After finishing - the model - train set - from the - hobby shop's - Christmas sale, - he went - to the store - to buy - another one.",
-    "question": "Was Ben building a train set?",
+    "sentence": "Dakota was building a train set alone in the garage. - After finishing - the model - train set - from the - hobby shop's - Christmas sale, - he went - to the store - to buy - another one.",
+    "question": "Was Dakota building a train set?",
     "correct_answer": "Yes"
   },
   {
     "item": 22,
     "condition": "filler",
-    "sentence": "John was studying alone in the bookstore. - After reading - the math - and science - textbooks - from the - school library, - he dreamed - about proving - an important - theorem.",
-    "question": "Was John studying at school?",
+    "sentence": "Emerson was studying alone in the bookstore. - After reading - the math - and science - textbooks - from the - school library, - he dreamed - about proving - an important - theorem.",
+    "question": "Was Emerson studying at school?",
     "correct_answer": "No"
   },
   {
     "item": 23,
     "condition": "filler",
-    "sentence": "James was shopping alone in the clothing store. - While picking out - new clothes - to wear - on a - very important - job interview, - he tried - to get - help when - he got flustered.",
-    "question": "Was James shopping for clothes?",
+    "sentence": "Ace was shopping alone in the clothing store. - While picking out - new clothes - to wear - on a - very important - job interview, - he tried - to get - help when - he got flustered.",
+    "question": "Was Ace shopping for clothes?",
     "correct_answer": "Yes"
   },
   {
     "item": 24,
     "condition": "filler",
-    "sentence": "Ken was walking alone on the pier. - After seeing - the ocean - for the - first time - while on - vacation, - he wished - to come back - when he - had a date.",
-    "question": "Did Ken have a date?",
+    "sentence": "Rain was walking alone on the pier. - After seeing - the ocean - for the - first time - while on - vacation, - he wished - to come back - when he - had a date.",
+    "question": "Did Rain have a date?",
     "correct_answer": "No"
   },
   {
     "item": 25,
     "condition": "filler",
-    "sentence": "Bill was camping alone in the woods. - Before - encountering - a bear - in the forest - on last year's - camping trip, - he refused - to carry - a weapon - with him.",
-    "question": "Was Bill camping in the woods?",
+    "sentence": "Drew was camping alone in the woods. - Before - encountering - a bear - in the forest - on last year's - camping trip, - he refused - to carry - a weapon - with him.",
+    "question": "Was Drew camping in the woods?",
     "correct_answer": "Yes"
   },
   {
     "item": 26,
     "condition": "filler",
-    "sentence": "Bob was alone in the classroom, coloring. - While choosing - a crayon - color - to use - for the - next picture, - he refused - to pick - a bright color - for the flower.",
-    "question": "Was Bob writing an essay?",
+    "sentence": "Marley was alone in the classroom, coloring. - While choosing - a crayon - color - to use - for the - next picture, - he refused - to pick - a bright color - for the flower.",
+    "question": "Was Marley writing an essay?",
     "correct_answer": "No"
   },
   {
     "item": 27,
     "condition": "filler",
-    "sentence": "Mark was alone in bed, snoring. - As usual, - before falling - asleep - in the camp - dorms - that night, - he refused - to apply - a nasal strip - to avoid snoring.",
-    "question": "Was Mark at camp?",
+    "sentence": "Jamie was alone in bed, snoring. - As usual, - before falling - asleep - in the camp - dorms - that night, - he refused - to apply - a nasal strip - to avoid snoring.",
+    "question": "Was Jamie at camp?",
     "correct_answer": "Yes"
   },
   {
     "item": 28,
     "condition": "filler",
-    "sentence": "Frank was dieting alone at the camp. - After seeing - some chocolate - cake and - apple pie - in the kitchen - that night, - he chose - to finally - take a - cheat day.",
-    "question": "Was Frank with his friends?",
+    "sentence": "Cam was dieting alone at the camp. - After seeing - some chocolate - cake and - apple pie - in the kitchen - that night, - he chose - to finally - take a - cheat day.",
+    "question": "Was Cam with his friends?",
     "correct_answer": "No"
   },
   {
     "item": 29,
     "condition": "filler",
-    "sentence": "Joe was patrolling alone around the campus. - Before choosing - the route - around campus - to patrol - for the - evening, - he tried - to anticipate - potential dangers - that might occur.",
-    "question": "Was Joe patrolling campus?",
+    "sentence": "Adrian was patrolling alone around the campus. - Before choosing - the route - around campus - to patrol - for the - evening, - he tried - to anticipate - potential dangers - that might occur.",
+    "question": "Was Adrian patrolling campus?",
     "correct_answer": "Yes"
   },
   {
     "item": 30,
     "condition": "filler",
-    "sentence": "Connor was cooking alone in the restaurant. - While making - the restaurant's - famous - chili recipe - for the - food critic, - he decided - to experiment - with different - spices.",
-    "question": "Was Connor cooking at home?",
+    "sentence": "Ally was cooking alone in the restaurant. - While making - the restaurant's - famous - chili recipe - for the - food critic, - he decided - to experiment - with different - spices.",
+    "question": "Was Ally cooking at home?",
     "correct_answer": "No"
   },
   {
     "item": 31,
     "condition": "filler",
-    "sentence": "Mary was tanning alone at the beach. - Before - finally heading - back home - after getting - a bad - sunburn, - she wanted - to stop at - the gift shop - for some licorice.",
-    "question": "Did Mary get a sunburn?",
+    "sentence": "Ari was tanning alone at the beach. - Before - finally heading - back home - after getting - a bad - sunburn, - she wanted - to stop at - the gift shop - for some licorice.",
+    "question": "Did Ari get a sunburn?",
     "correct_answer": "Yes"
   },
   {
     "item": 32,
     "condition": "filler",
-    "sentence": "Sue was hunting alone in the forest. - After - an animal - walked past - quietly, - it was - startled away - when she - tripped - on a root - and fell down.",
-    "question": "Did Sue stay silent?",
+    "sentence": "Aubrey was hunting alone in the forest. - After - an animal - walked past - quietly, - it was - startled away - when she - tripped - on a root - and fell down.",
+    "question": "Did Aubrey stay silent?",
     "correct_answer": "No"
   },
   {
     "item": 33,
     "condition": "filler",
-    "sentence": "Kate was in the studio alone, drawing. - The final - sketch - of the - week-  was not - yet finished - when she - realized there - was no more - time left in the session.",
-    "question": "Was Kate drawing?",
+    "sentence": "Billie was in the studio alone, drawing. - The final - sketch - of the - week-  was not - yet finished - when she - realized there - was no more - time left in the session.",
+    "question": "Was Billie drawing?",
     "correct_answer": "Yes"
   },
   {
     "item": 34,
     "condition": "filler",
-    "sentence": "Emily was alone in the gallery, sculpting. - Hopeful that - a successful - career as - an artist - was still - attainable, - she hoped - to make good money - when the final - piece sold.",
-    "question": "Did Emily want to be a lawyer?",
+    "sentence": "Blair was alone in the gallery, sculpting. - Hopeful that - a successful - career as - an artist - was still - attainable, - she hoped - to make good money - when the final - piece sold.",
+    "question": "Did Blair want to be a lawyer?",
     "correct_answer": "No"
   },
   {
     "item": 35,
     "condition": "filler",
-    "sentence": "Emma was skateboarding alone in the skate park. - After completing - a difficult - jump trick - in front - of the - fountain, - she desired - to complete - even more - complicated tricks.",
-    "question": "Did Emma complete a difficult jump trick?",
+    "sentence": "Brook was skateboarding alone in the skate park. - After completing - a difficult - jump trick - in front - of the - fountain, - she desired - to complete - even more - complicated tricks.",
+    "question": "Did Brook complete a difficult jump trick?",
     "correct_answer": "Yes"
   },
   {
     "item": 36,
     "condition": "filler",
-    "sentence": "Olivia was shooting alone at the practice range. - There were - still many - targets - left to - try to - hit when - she had - finished taking - her last - shot.",
-    "question": "Did Olivia hit all the targets?",
+    "sentence": "Dallas was shooting alone at the practice range. - There were - still many - targets - left to - try to - hit when - she had - finished taking - her last - shot.",
+    "question": "Did Dallas hit all the targets?",
     "correct_answer": "No"
   },
   {
     "item": 37,
     "condition": "filler",
-    "sentence": "Hannah was in the house alone, sneezing a lot. - All the - allergy medication - and nasal - spray seemed - to be missing - when she - looked for - something to - relieve her allergies.",
-    "question": "Was Hannah sneezing?",
+    "sentence": "Darcy was in the house alone, sneezing a lot. - All the - allergy medication - and nasal - spray seemed - to be missing - when she - looked for - something to - relieve her allergies.",
+    "question": "Was Darcy sneezing?",
     "correct_answer": "Yes"
   },
   {
     "item": 38,
     "condition": "filler",
-    "sentence": "Sarah was on the train alone, starving. - When approaching - the first - stop where - there was - a convenience - store, - she decided to - get a snack - when the - train stopped.",
-    "question": "Was Sarah sleeping?",
+    "sentence": "Devin was on the train alone, starving. - When approaching - the first - stop where - there was - a convenience - store, - she decided to - get a snack - when the - train stopped.",
+    "question": "Was Devin sleeping?",
     "correct_answer": "No"
   },
   {
     "item": 39,
     "condition": "filler",
-    "sentence": "Natalie was birdwatching alone in the park. - Keeping a journal - to help document - and identify - the birds - seemed like a - smart idea - when she - saw how many - different types - there were.",
-    "question": "Did Natalie see birds?",
+    "sentence": "Eden was birdwatching alone in the park. - Keeping a journal - to help document - and identify - the birds - seemed like a - smart idea - when she - saw how many - different types - there were.",
+    "question": "Did Eden see birds?",
     "correct_answer": "Yes"
   },
   {
     "item": 40,
     "condition": "filler",
-    "sentence": "Linda was singing alone in the karaoke bar. - Before going up - to make - another attempt - at singing - another bad - country song, - she ordered - another drink - when the waitress - came by the table.",
-    "question": "Did Linda order food?",
+    "sentence": "Lee was singing alone in the karaoke bar. - Before going up - to make - another attempt - at singing - another bad - country song, - she ordered - another drink - when the waitress - came by the table.",
+    "question": "Did Lee order food?",
     "correct_answer": "No"
   },
   {
     "item": 41,
     "condition": "filler",
-    "sentence": "Michael was drinking alone in the pub. - The new - liquor store - just down - the road - was already - closed - when they - realized they - wanted to get more - wine on the way home.",
-    "question": "Did Michael drink at the pub?",
+    "sentence": "Hunter was drinking alone in the pub. - The new - liquor store - just down - the road - was already - closed - when they - realized they - wanted to get more - wine on the way home.",
+    "question": "Did Hunter drink at the pub?",
     "correct_answer": "Yes"
   },
   {
     "item": 42,
     "condition": "filler",
-    "sentence": "David was sailing alone on the ocean. - Once finally - reaching land - after ten - days straight - at sea - all alone, - they expected - to be warmly - welcomed when - the ship docked.",
-    "question": "Was David on a crowded cruise ship?",
+    "sentence": "Jean was sailing alone on the ocean. - Once finally - reaching land - after ten - days straight - at sea - all alone, - they expected - to be warmly - welcomed when - the ship docked.",
+    "question": "Was Jean on a crowded cruise ship?",
     "correct_answer": "No"
   },
   {
     "item": 43,
     "condition": "filler",
-    "sentence": "Richard was sleeping alone in the bedroom. - Dinner had - already been - served and - all the dishes - cleaned and - put away - when they - finally woke up - and realized they - were hungry.",
-    "question": "Was Richard in the bedroom?",
+    "sentence": "Joey was sleeping alone in the bedroom. - Dinner had - already been - served and - all the dishes - cleaned and - put away - when they - finally woke up - and realized they - were hungry.",
+    "question": "Was Joey in the bedroom?",
     "correct_answer": "Yes"
   },
   {
     "item": 44,
     "condition": "filler",
-    "sentence": "Robert was running alone on the track. - After finishing - the last - mile with - better time - than ever - before, - they chose to - take a break - when they noticed - how tired they were.",
-    "question": "Was Robert running on the sidewalk?",
+    "sentence": "Kirby was running alone on the track. - After finishing - the last - mile with - better time - than ever - before, - they chose to - take a break - when they noticed - how tired they were.",
+    "question": "Was Kirby running on the sidewalk?",
     "correct_answer": "No"
   },
   {
     "item": 45,
     "condition": "filler",
-    "sentence": "Matthew was swimming alone in the pool. - It was - apparent that - the brand new - pair of goggles - did not - work well - when they - dove into the - pool and got - chlorine in their eyes.",
-    "question": "Was Matthew wearing goggles?",
+    "sentence": "Kit was swimming alone in the pool. - It was - apparent that - the brand new - pair of goggles - did not - work well - when they - dove into the - pool and got - chlorine in their eyes.",
+    "question": "Was Kit wearing goggles?",
     "correct_answer": "Yes"
   },
   {
     "item": 46,
     "condition": "filler",
-    "sentence": "Kimberly was gardening alone in the yard. - After planting - some daisies - and some - rose bushes - in the front - of the yard, - they attempted - to plant some - vegetables to harvest - later that year.",
-    "question": "Did Kimberly plant pansies?",
+    "sentence": "Kim was gardening alone in the yard. - After planting - some daisies - and some - rose bushes - in the front - of the yard, - they attempted - to plant some - vegetables to harvest - later that year.",
+    "question": "Did Kim plant pansies?",
     "correct_answer": "No"
   },
   {
     "item": 47,
     "condition": "filler",
-    "sentence": "Nancy was lying alone in the hammock. - After loudly - falling out - of the - hammock - and onto - the ground, - they intended - to go inside - to finish - their nap.",
-    "question": "Did Nancy fall out of the hammock?",
+    "sentence": "Lin was lying alone in the hammock. - After loudly - falling out - of the - hammock - and onto - the ground, - they intended - to go inside - to finish - their nap.",
+    "question": "Did Lin fall out of the hammock?",
     "correct_answer": "Yes"
   },
   {
     "item": 48,
     "condition": "filler",
-    "sentence": "Rachel was weightlifting alone in the weight room. - It was time - to start - doing stretches - before going - home for - the day, - when they - realized they had - managed to beat - their personal record.",
-    "question": "Was Rachel running at the gym?",
+    "sentence": "Lou was weightlifting alone in the weight room. - It was time - to start - doing stretches - before going - home for - the day, - when they - realized they had - managed to beat - their personal record.",
+    "question": "Was Lou running at the gym?",
     "correct_answer": "No"
   },
   {
     "item": 49,
     "condition": "filler",
-    "sentence": "Jessica was figure skating alone at the ice rink. - After perfectly - completing - last year's - routine as - a warm up - that morning, - they failed to - do as well - with their - new routine.",
-    "question": "Did Jessica warm up?",
+    "sentence": "Peyton was figure skating alone at the ice rink. - After perfectly - completing - last year's - routine as - a warm up - that morning, - they failed to - do as well - with their - new routine.",
+    "question": "Did Peyton warm up?",
     "correct_answer": "Yes"
   },
   {
     "item": 50,
     "condition": "filler",
-    "sentence": "Julia was in the bedroom alone, panicking. - Even more - anxiety about - homework and - final exams - started to - set in - when they realized - how much more - they had left - to study.",
-    "question": "Was Julia at school?",
+    "sentence": "Shea was in the bedroom alone, panicking. - Even more - anxiety about - homework and - final exams - started to - set in - when they realized - how much more - they had left - to study.",
+    "question": "Was Shea at school?",
     "correct_answer": "No"
   },
   {
