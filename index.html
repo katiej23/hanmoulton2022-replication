@@ -30,6 +30,7 @@
   <script src="https://unpkg.com/@jspsych/plugin-survey-multi-choice@1.1.2"></script>
   <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
   <script src="https://unpkg.com/@jspsych/plugin-fullscreen@1.2.1"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-browser-check@1.0.3"></script>
 
   <!-- Stimuli (Stage 1) -->
   <script src="stims.js"></script>
@@ -93,6 +94,39 @@
       data: { trial_type_label: 'instructions' }
     };
     timeline.push(welcome_trial);
+
+    // --- Browser & Screen Validation Check ---
+    const browser_check = {
+      type: jsPsychBrowserCheck,
+      features: ['browser', 'width', 'height'],
+      on_finish: function(data) {
+        // Enforce the "No Safari" rule mentioned in your instructions
+        const isSafari = data.browser === 'safari';
+        
+        // Ensure their display is large enough for a 800px SPR window safely
+        const isTooSmall = data.width < 1024 || data.height < 600;
+
+        if (isSafari) {
+          jsPsych.endExperiment(`
+            <div class="instruction-text" style="max-width: 600px; margin: 50px auto; text-align: center;">
+              <h2>Unsupported Browser Detected</h2>
+              <p>As noted in the instructions, this study does not support the Safari browser.</p>
+              <p>Please close this window and restart the study using <strong>Google Chrome</strong> or <strong>Mozilla Firefox</strong>.</p>
+            </div>
+          `);
+        } 
+        // else if (isTooSmall) {
+        //   jsPsych.endExperiment(`
+        //     <div class="instruction-text" style="max-width: 600px; margin: 50px auto; text-align: center;">
+        //       <h2>Screen Resolution Too Low</h2>
+        //       <p>Your current screen resolution or browser window size is too small to display the sentences properly without clipping.</p>
+        //       <p>Please maximize your browser window or switch to a desktop computer with a larger screen to participate.</p>
+        //     </div>
+        //   `);
+        // }
+      }
+    };
+    timeline.push(browser_check);
 
     const consent_trial = {
       type: jsPsychHtmlButtonResponse,
