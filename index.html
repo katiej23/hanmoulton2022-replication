@@ -81,16 +81,77 @@
     // This list collects all trials in order
     const timeline = [];
 
+    const welcome_trial = {
+      type: jsPsychInstructions,
+      pages: [
+        `<div class="instruction-text">
+          <h1>Welcome, and thank you for your time!</h1>
+          <p>This is a reading-based study. Please continue to complete the consent agreement and read the instructions.</p>
+        </div>`
+      ],
+      show_clickable_nav: true,
+      data: { trial_type_label: 'instructions' }
+    };
+    timeline.push(welcome_trial);
+
+    const consent_trial = {
+      type: jsPsychHtmlButtonResponse,
+      stimulus: `<div class="consent-text"> <h2>Consent Agreement</h2> <p> Please read this consent agreement carefully before deciding whether to participate in this experiment. </p> <p> <strong>Description:</strong> You are invited to participate in a research study about language and language learning. The purpose of the research is to understand how people learn new words. This research will be conducted through the Prolific platform, including participants from the US, UK, and Canada. If you decide to participate in this research, you will learn and use new words. </p> <p> <strong>Time Involvement:</strong> The task will last the amount of time advertised on Prolific. You are free to withdraw from the study at any time. </p> <p> <strong>Risks and Benefits:</strong> Study data will be stored securely, in compliance with Stanford University standards, minimizing the risk of confidentiality breach. This study advances our scientific understanding of how people learn new languages. We cannot and do not guarantee or promise that you will receive any benefits from this study. </p> <p> <strong>Compensation:</strong> You will receive payment in the amount advertised on Prolific. If you do not complete this study, you will receive prorated payment based on the time that you have spent. Additionally, you may be eligible for bonus payments as described in the instructions. </p> <p> <strong>Participant's Rights:</strong> If you have read this form and have decided to participate in this project, please understand your participation is voluntary and you have the right to withdraw your consent or discontinue participation at any time without penalty or loss of benefits to which you are otherwise entitled. The alternative is not to participate. You have the right to refuse to answer particular questions. The results of this research study may be presented at scientific or professional meetings or published in scientific journals. Your individual privacy will be maintained in all published and written data resulting from the study. In accordance with scientific norms, the data from this study may be used or shared with other researchers for future research (after removing personally identifying information) without additional consent from you. </p> <p> <strong>Contact Information:</strong> If you have any questions, concerns or complaints about this research, its procedures, risks and benefits, contact the Protocol Director, Robert Hawkins (<a href="mailto:rdhawkins@stanford.edu">rdhawkins@stanford.edu</a>, 217-549-6923). </p> <p> <strong>Independant Contact:</strong> If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at 650-723-2480 or toll free at 1-866-680-2906, or email at irbnonmed@stanford.edu. You can also write to the Stanford IRB, Stanford University, 1705 El Camino Real, Palo Alto, CA 94306. Please save or print a copy of this page for your records. </p> <p> <strong>If you agree to participate in this research, please click "I agree"</strong> </p></br> </div>`,
+      choices: ['I agree', 'I do not agree'],
+      data: {
+          trial_type_label: 'consent'
+      },
+      on_finish: function(data) {
+        // Record consent response
+        // response is the index of the button clicked (0 = "I agree", 1 = "I do not agree")
+        data.consent_response = data.response === 0 ? 'agree' : 'disagree';
+        data.consent_timestamp = new Date().toISOString();
+        
+        // If participant does not agree, end experiment
+        if (data.response === 1) { // "I do not agree" is the second button (index 1)
+          jsPsych.endExperiment(`
+            <div class="instruction-text">
+              <h2>Thank you</h2>
+              <p>You have chosen not to participate. Thank you for your time.</p>
+            </div>
+          `);
+        }
+        }
+      // button_html: function(choice, choice_index) {
+      //     const buttonClass = choice_index === 0 ? 'consent-button agree' : 'consent-button disagree';
+      //     return `<button class="${buttonClass}">${choice}</button>`;
+      // },
+      // data: {
+      //     trial_type: 'consent'
+      // },
+      // on_finish: function(data) {
+      //   // Record consent response
+      //   // response is the index of the button clicked (0 = "I agree", 1 = "I do not agree")
+      //   data.consent_response = data.response === 0 ? 'agree' : 'disagree';
+      //   data.consent_timestamp = new Date().toISOString();
+        
+      //   // If participant does not agree, end experiment
+      //   if (data.response === 1) { // "I do not agree" is the second button (index 1)
+      //     jsPsych.endExperiment(`
+      //       <div class="instruction-text">
+      //         <h2>Thank you</h2>
+      //         <p>You have chosen not to participate. Thank you for your time.</p>
+      //       </div>
+      //     `);
+      //   }
+      //   }
+      };
+      timeline.push(consent_trial);
+
     const instructions = {
       type: jsPsychInstructions,
       pages: [
         `<div class="instruction-text">
-          <h1>Welcome!</h1>
-          <p><b>A CONSENT FORM WILL BE INCLUDED HERE</b></p>
-          <p>Please do not use Safari. (Probably I'll filter for this earlier somehow?)</p>
+          <h1>Instructions</h1>
+          <p>Please do not use Safari.</p>
           <p>In this experiment, you will read sentences a few words at a time, revealing the next words by pressing the SPACEBAR key.</p>
           <p>Please read at a <b>natural</b> pace.</p>
-          <p>After each sentence, answer a question about what you read:</p>
+          <p>After each sentence, you will answer a question about what you read:</p>
           <ul style="text-align: left; display: inline-block;">
             <li>Press <strong>J</strong> for <b>YES</b></li>
             <li>Press <strong>F</strong> for <b>NO</b></li>
@@ -323,7 +384,33 @@
     const shuffledStimuli = jsPsych.randomization.shuffle(allFinalStimuli);
 
     // 5. Loop over the final shuffled list and add to timeline
+    // for (let i = 0; i < shuffledStimuli.length; i++) {
+    //   const readingTrials = createReadingTrials(shuffledStimuli[i]);
+    //   timeline.push(...readingTrials);
+    // }
+    // 5. Loop over the final shuffled list and add to timeline
+    const midpoint = Math.floor(shuffledStimuli.length / 2);
+
     for (let i = 0; i < shuffledStimuli.length; i++) {
+      
+      // Check if we have reached the halfway point
+      if (i === midpoint) {
+        const rest_trial = {
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: `
+            <div class="instruction-text">
+              <h2>You are halfway through the experiment!</h2>
+              <p>Thank you for your time so far.</p>
+              <p>Feel free to stretch and rest your eyes for a moment.</p>
+              <br>
+              <p>Press the <strong>SPACEBAR</strong> when you are ready to continue.</p>
+            </div>`,
+          choices: [' '],
+          data: { trial_type_label: 'rest_break' }
+        };
+        timeline.push(rest_trial);
+      }
+
       const readingTrials = createReadingTrials(shuffledStimuli[i]);
       timeline.push(...readingTrials);
     }
@@ -348,13 +435,16 @@
         const nCorrect = comp.filter({ correct: true }).count();
         const nTotal = comp.count();
         return `<div style="max-width:600px; margin:0 auto;">
-                  <h2>Thank you!</h2>
-                  <p>You answered <strong>${nCorrect} / ${nTotal}</strong> comprehension
-                  questions correctly.</p>
-                  <p>Press <strong>spacebar</strong> to see the raw data.</p>
+                  <h2>Thank you for your time!</h2>
+                  <p>Please click the button below to complete the study and return to Prolific, or copy this completion code: <b>CAEA7YM3</b>.</p>
+                  <br><br>
+                  <!-- We use an <a> tag with the 'jspsych-btn' class so it looks like a button but acts like a direct link -->
+                  <a href="https://app.prolific.com/submissions/complete?cc=CAEA7YM3" class="jspsych-btn" style="text-decoration: none;">
+                    Return to Prolific
+                  </a>
                 </div>`;
       },
-      choices: [' '],
+      choices: ["NO_KEYS"], // Disables keyboard so they are forced to click the link
       data: { trial_type_label: 'completion' }
     };
     timeline.push(completion);
