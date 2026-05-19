@@ -22,12 +22,9 @@ This experiment replicated work from Han and Moulton (2022) on the processing of
 
 Han and Moulton (2022) built on this work, exploring the relationship between bound vs. referential singular *they* and gender specificity of the antecedent as it relates to ease of processing a sentence. They found that bound-variable singular *they* with a gendered antecedent has a processing advantage over both referential singular *they* and bound-variable singular *they* without a gendered antecedent.
 
-This experiment replicated the sentence processing experiment that Han and Moulton ran, aiming to (dis)confirm their observed interaction between bound-variable vs. referential singular *they* and gender specificity of the antecedent, as well as introducing two further types of antecedent that Han and Moulton did not consider, shown below:
+This experiment replicated the sentence processing experiment that Han and Moulton ran, aiming to (dis)confirm their observed interaction between bound-variable vs. referential singular *they* and gender specificity of the antecedent, as well as introducing an additional type of antecedent that Han and Moulton did not consider, shown below:
 
-(3) Generic unbound *they*: One loves their mother.
-<!-- Context: I'm saying that my mother is a terrible person, but I haven't been able to cut ties with her. In trying to explain why it's so complicated, I say that "well of course I can't help caring about her, right? One loves their mother, at least on some level, so it's complicated. (P.S. my mom is great I was just trying to maintain the same type of example lol.) -->
-
-(4) Referential and named *they*: Alex loves their mother.
+(3) Referential and named *they*: Alex loves their mother.
 
 
 ## Methods
@@ -58,7 +55,7 @@ These results suggest that at least 281 participants should be included in this 
 
 <!-- All materials - can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article. -->
 
-The original experiment materials cross 'two two-level factors, Antecedent (QUANT vs. REF) and Pronoun (THEY vs. HE), yielding four experimental conditions' (Han&Moulton 2022, 283). This replication introduces additional levels in the Antecedent factor (QUANT vs. REF vs. GENERIC vs. NAMED), yielding eight total experimental conditions. 'The test sentences in [this experiment] were made to be [long] so that the sentences do not end with the target region containing the critical pronoun. Also, the definite description in the embedded specificational clause began with the one who to ensure a singular interpretation of the post-copula pronoun.' (Han&Moulton 2022, 283).
+The original experiment materials cross 'two two-level factors, Antecedent (QUANT vs. REF) and Pronoun (THEY vs. HE), yielding four experimental conditions' (Han&Moulton 2022, 283). This replication introduces a third level in the Antecedent factor (QUANT vs. REF vs. NAMED), yielding six total experimental conditions. 'The test sentences in [this experiment] were made to be [long] so that the sentences do not end with the target region containing the critical pronoun. Also, the definite description in the embedded specificational clause began with the one who to ensure a singular interpretation of the post-copula pronoun.' (Han&Moulton 2022, 283).
 
 (5) Only one competitor could win the race.
 a. Every competitor thought that they one who would win the race would be them when the times were finally announced. QUANT.THEY
@@ -69,13 +66,9 @@ c. The youngest competitor that that the one who would win the race would be the
 
 d. The youngest competitor that that the one who would win the race would be him when the times were finally announced. REF.HE
 
-e. Some competitor thought that the one who would win the race would be them when the times were finally announced. GENERIC.THEY
+e. Avery thought that the one who would win the race would be them when the times were finally announced. NAMED.THEY
 
-f. Some competitor thought that the one who would win the race would be him when the times were finally announced. GENERIC.HE
-
-g. Avery thought that the one who would win the race would be them when the times were finally announced. NAMED.THEY
-
-h. Avery thought that the one who would win the race would be him when the times were finally announced. NAMED.HE
+f. Avery thought that the one who would win the race would be him when the times were finally announced. NAMED.HE
 
 (Adapted from Han&Moulton 2022, (13))
 
@@ -94,7 +87,7 @@ TBA number of native English users participated in this study online via Prolifi
 Participants with low comprehension question response score (<50%) and extremely fast reading speed per region (<50ms) were excluded. Additionally, reading times of a region that were 10 standard deviations above the mean were removed, in order to exclude extreme outliers from analysis. The regions of analysis are Region 7 (the target region), Region 8 (the spillover region), and Region 9. We calculated RRTs using character length from the entire dataset (including fillers) to estimate the reading time for each region for each participant (Ferreira and Clifton 1986, Trueswell and Tanenhaus 1994, Phillips 2006). We analyzed each region’s RRTs with a mixed model, with a random-effects
 structure: RRT ∼ Antecedent * Pronoun + (1+Antecedent * Pronoun|Participant) + (1+Antecedent*Pronoun|Item). (Adapted from Han&Moulton 2022, p. 284).
 
-My addition to this experiment -- exploring four different types of antecedent instead of two -- does not require any changes to the analysis conducted in the original experiment.
+My addition to this experiment -- exploring three different types of antecedent instead of two -- does not require any changes to the analysis conducted in the original experiment.
 
 <!-- **Clarify key analysis of interest here**  You can also pre-specify additional analyses you plan to do. -->
 
