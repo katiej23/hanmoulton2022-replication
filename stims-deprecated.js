@@ -1,20 +1,6 @@
 // stims.js for Self-Paced Reading Tutorial
-
-// Current setup:
-// 20 crit w/ 6 variants each
-// 10 filler w/ he
-// 10 filler w/ she
-// 10 filler w/ they
-// 5 filler w/ quantified
-// 5 filler w/ specific plural
-
-// Goal:
-// 30 crit w/ 6 variants each
-// 5 filler w/ he
-// 5 filler w/ she
-// 5 filler w/ they
-// 3 filler w/ quantified
-// 2 filler w/ specific plural
+// These stimuli match the han&moulton study (with the exception of introducing the named variant in the critical trials and changing names in the fillers)
+// The actual stimuli to be used are in a different file and they introduce additional critical trials with the same variants (for a total of 30 instead of 20 critical trials to accomodate my additional variant). They also have fewer fillers to save time and thus money in the experiment.
 
 const experimentStimuli = [
   {
@@ -859,565 +845,144 @@ const experimentStimuli = [
   },
   {
     "item": 21,
-    "condition": "quantificational_they",
-    "sentence": "The town fair only awarded one blue ribbon for the best pie. - Every baker - hoped that - the one who - would win - the baking contest - would be - them when - the results - were finally - announced.",
-    "question": "Was there only one blue ribbon awarded?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 21,
-    "condition": "specific_they",
-    "sentence": "The town fair only awarded one blue ribbon for the best pie. - The youngest baker - hoped that - the one who - would win - the baking contest - would be - them when - the results - were finally - announced.",
-    "question": "Was there only one blue ribbon awarded?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 21,
-    "condition": "named_they",
-    "sentence": "The town fair only awarded one blue ribbon for the best pie. - Marley - hoped that - the one who - would win - the baking contest - would be - them when - the results - were finally - announced.",
-    "question": "Was there only one blue ribbon awarded?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 21,
-    "condition": "quantificational_he",
-    "sentence": "The town fair only awarded one blue ribbon for the best pie. - Every baker - hoped that - the one who - would win - the baking contest - would be - him when - the results - were finally - announced.",
-    "question": "Was there only one blue ribbon awarded?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 21,
-    "condition": "specific_he",
-    "sentence": "The town fair only awarded one blue ribbon for the best pie. - The youngest baker - hoped that - the one who - would win - the baking contest - would be - him when - the results - were finally - announced.",
-    "question": "Was there only one blue ribbon awarded?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 21,
-    "condition": "named_he",
-    "sentence": "The town fair only awarded one blue ribbon for the best pie. - Marley - hoped that - the one who - would win - the baking contest - would be - him when - the results - were finally - announced.",
-    "question": "Was there only one blue ribbon awarded?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 22,
-    "condition": "quantificational_they",
-    "sentence": "Only one employee could receive the maximum compensation package. - Every employee - expected that - the one who - would have - the highest salary - would be - them when - the contracts - were officially - signed.",
-    "question": "Could multiple employees receive the maximum compensation package?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 22,
-    "condition": "specific_they",
-    "sentence": "Only one employee could receive the maximum compensation package. - The most senior employee - expected that - the one who - would have - the highest salary - would be - them when - the contracts - were officially - signed.",
-    "question": "Could multiple employees receive the maximum compensation package?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 22,
-    "condition": "named_they",
-    "sentence": "Only one employee could receive the maximum compensation package. - Jamie - expected that - the one who - would have - the highest salary - would be - them when - the contracts - were officially - signed.",
-    "question": "Could multiple employees receive the maximum compensation package?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 22,
-    "condition": "quantificational_he",
-    "sentence": "Only one employee could receive the maximum compensation package. - Every employee - expected that - the one who - would have - the highest salary - would be - him when - the contracts - were officially - signed.",
-    "question": "Could multiple employees receive the maximum compensation package?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 22,
-    "condition": "specific_he",
-    "sentence": "Only one employee could receive the maximum compensation package. - The most senior employee - expected that - the one who - would have - the highest salary - would be - him when - the contracts - were officially - signed.",
-    "question": "Could multiple employees receive the maximum compensation package?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 22,
-    "condition": "named_he",
-    "sentence": "Only one employee could receive the maximum compensation package. - Jamie - expected that - the one who - would have - the highest salary - would be - him when - the contracts - were officially - signed.",
-    "question": "Could multiple employees receive the maximum compensation package?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 23,
-    "condition": "quantificational_they",
-    "sentence": "The magazine was only going to publish one short story. - Every author - thought that - the one who - would win - the writing contest - would be - them when - the editor - made the final - decision.",
-    "question": "Was the magazine planning to publish a short story?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 23,
-    "condition": "specific_they",
-    "sentence": "The magazine was only going to publish one short story. - The unpublished author - thought that - the one who - would win - the writing contest - would be - them when - the editor - made the final - decision.",
-    "question": "Was the magazine planning to publish a short story?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 23,
-    "condition": "named_they",
-    "sentence": "The magazine was only going to publish one short story. - Cam - thought that - the one who - would win - the writing contest - would be - them when - the editor - made the final - decision.",
-    "question": "Was the magazine planning to publish a short story?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 23,
-    "condition": "quantificational_he",
-    "sentence": "The magazine was only going to publish one short story. - Every author - thought that - the one who - would win - the writing contest - would be - him when - the editor - made the final - decision.",
-    "question": "Was the magazine planning to publish a short story?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 23,
-    "condition": "specific_he",
-    "sentence": "The magazine was only going to publish one short story. - The unpublished author - thought that - the one who - would win - the writing contest - would be - him when - the editor - made the final - decision.",
-    "question": "Was the magazine planning to publish a short story?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 23,
-    "condition": "named_he",
-    "sentence": "The magazine was only going to publish one short story. - Cam - thought that - the one who - would win - the writing contest - would be - him when - the editor - made the final - decision.",
-    "question": "Was the magazine planning to publish a short story?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 24,
-    "condition": "quantificational_they",
-    "sentence": "The roommates agreed that only one person would clean up after the massive dinner. - Every roommate - thought that - the one who - would have to wash - the dirty dishes - would be - them when - the chore wheel - was finally - spun.",
-    "question": "Did the roommates agree to split the dishwashing duties equally?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 24,
-    "condition": "specific_they",
-    "sentence": "The roommates agreed that only one person would clean up after the massive dinner. - The messiest roommate - thought that - the one who - would have to wash - the dirty dishes - would be - them when - the chore wheel - was finally - spun.",
-    "question": "Did the roommates agree to split the dishwashing duties equally?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 24,
-    "condition": "named_they",
-    "sentence": "The roommates agreed that only one person would clean up after the massive dinner. - Adrian - thought that - the one who - would have to wash - the dirty dishes - would be - them when - the chore wheel - was finally - spun.",
-    "question": "Did the roommates agree to split the dishwashing duties equally?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 24,
-    "condition": "quantificational_he",
-    "sentence": "The roommates agreed that only one person would clean up after the massive dinner. - Every roommate - thought that - the one who - would have to wash - the dirty dishes - would be - him when - the chore wheel - was finally - spun.",
-    "question": "Did the roommates agree to split the dishwashing duties equally?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 24,
-    "condition": "specific_he",
-    "sentence": "The roommates agreed that only one person would clean up after the massive dinner. - The messiest roommate - thought that - the one who - would have to wash - the dirty dishes - would be - him when - the chore wheel - was finally - spun.",
-    "question": "Did the roommates agree to split the dishwashing duties equally?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 24,
-    "condition": "named_he",
-    "sentence": "The roommates agreed that only one person would clean up after the massive dinner. - Adrian - thought that - the one who - would have to wash - the dirty dishes - would be - him when - the chore wheel - was finally - spun.",
-    "question": "Did the roommates agree to split the dishwashing duties equally?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 25,
-    "condition": "quantificational_they",
-    "sentence": "The crying baby would only smile for one very funny performance. - Every relative - hoped that - the one who - would make - the baby laugh - would be - them when - their turn - eventually came - around.",
-    "question": "Was the baby crying?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 25,
-    "condition": "specific_they",
-    "sentence": "The crying baby would only smile for one very funny performance. - The loudest relative - hoped that - the one who - would make - the baby laugh - would be - them when - their turn - eventually came - around.",
-    "question": "Was the baby crying?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 25,
-    "condition": "named_they",
-    "sentence": "The crying baby would only smile for one very funny performance. - Ally - hoped that - the one who - would make - the baby laugh - would be - them when - their turn - eventually came - around.",
-    "question": "Was the baby crying?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 25,
-    "condition": "quantificational_he",
-    "sentence": "The crying baby would only smile for one very funny performance. - Every relative - hoped that - the one who - would make - the baby laugh - would be - him when - their turn - eventually came - around.",
-    "question": "Was the baby crying?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 25,
-    "condition": "specific_he",
-    "sentence": "The crying baby would only smile for one very funny performance. - The loudest relative - hoped that - the one who - would make - the baby laugh - would be - him when - their turn - eventually came - around.",
-    "question": "Was the baby crying?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 25,
-    "condition": "named_he",
-    "sentence": "The crying baby would only smile for one very funny performance. - Ally - hoped that - the one who - would make - the baby laugh - would be - him when - their turn - eventually came - around.",
-    "question": "Was the baby crying?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 26,
-    "condition": "quantificational_they",
-    "sentence": "Only one friend would be trusted to drive the rented car. - Every friend - assumed that - the one who - would drive - everyone home - would be - them when - the party - was finally - over.",
-    "question": "Were the friends at school?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 26,
-    "condition": "specific_they",
-    "sentence": "Only one friend would be trusted to drive the rented car. - The oldest friend - assumed that - the one who - would drive - everyone home - would be - them when - the party - was finally - over.",
-    "question": "Were the friends at school?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 26,
-    "condition": "named_they",
-    "sentence": "Only one friend would be trusted to drive the rented car. - Dallas - assumed that - the one who - would drive - everyone home - would be - them when - the party - was finally - over.",
-    "question": "Were the friends at school?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 26,
-    "condition": "quantificational_he",
-    "sentence": "Only one friend would be trusted to drive the rented car. - Every friend - assumed that - the one who - would drive - everyone home - would be - him when - the party - was finally - over.",
-    "question": "Were the friends at school?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 26,
-    "condition": "specific_he",
-    "sentence": "Only one friend would be trusted to drive the rented car. - The oldest friend - assumed that - the one who - would drive - everyone home - would be - him when - the party - was finally - over.",
-    "question": "Were the friends at school?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 26,
-    "condition": "named_he",
-    "sentence": "Only one friend would be trusted to drive the rented car. - Dallas - assumed that - the one who - would drive - everyone home - would be - him when - the party - was finally - over.",
-    "question": "Were the friends at school?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 27,
-    "condition": "quantificational_they",
-    "sentence": "Only one child could win the giant jar of candy at the store. - Every child - expected that - the one who - would win - the candy jar - would be - them when - the results - were finally - announced.",
-    "question": "Was the jar of candy at the store?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 27,
-    "condition": "specific_they",
-    "sentence": "Only one child could win the giant jar of candy at the store. - The sweetest child - expected that - the one who - would win - the candy jar - would be - them when - the results - were finally - announced.",
-    "question": "Was the jar of candy at the store?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 27,
-    "condition": "named_they",
-    "sentence": "Only one child could win the giant jar of candy at the store. - Darcy - expected that - the one who - would win - the candy jar - would be - them when - the results - were finally - announced.",
-    "question": "Was the jar of candy at the store?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 27,
-    "condition": "quantificational_he",
-    "sentence": "Only one child could win the giant jar of candy at the store. - Every child - expected that - the one who - would win - the candy jar - would be - him when - the results - were finally - announced.",
-    "question": "Was the jar of candy at the store?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 27,
-    "condition": "specific_he",
-    "sentence": "Only one child could win the giant jar of candy at the store. - The sweetest child - expected that - the one who - would win - the candy jar - would be - him when - the results - were finally - announced.",
-    "question": "Was the jar of candy at the store?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 27,
-    "condition": "named_he",
-    "sentence": "Only one child could win the giant jar of candy at the store. - Darcy - expected that - the one who - would win - the candy jar - would be - him when - the results - were finally - announced.",
-    "question": "Was the jar of candy at the store?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 28,
-    "condition": "quantificational_they",
-    "sentence": "The gallery had space to display just one winning portrait. - Every photographer - hoped that - the one who - would win - the photography contest - would be - them when - the ribbons - were officially - awarded.",
-    "question": "Would the gallery display five winning portraits?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 28,
-    "condition": "specific_they",
-    "sentence": "The gallery had space to display just one winning portrait. - The local photographer - hoped that - the one who - would win - the photography contest - would be - them when - the ribbons - were officially - awarded.",
-    "question": "Would the gallery display five winning portraits?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 28,
-    "condition": "named_they",
-    "sentence": "The gallery had space to display just one winning portrait. - Devon - hoped that - the one who - would win - the photography contest - would be - them when - the ribbons - were officially - awarded.",
-    "question": "Would the gallery display five winning portraits?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 28,
-    "condition": "quantificational_he",
-    "sentence": "The gallery had space to display just one winning portrait. - Every photographer - hoped that - the one who - would win - the photography contest - would be - him when - the ribbons - were officially - awarded.",
-    "question": "Would the gallery display five winning portraits?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 28,
-    "condition": "specific_he",
-    "sentence": "The gallery had space to display just one winning portrait. - The local photographer - hoped that - the one who - would win - the photography contest - would be - him when - the ribbons - were officially - awarded.",
-    "question": "Would the gallery display five winning portraits?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 28,
-    "condition": "named_he",
-    "sentence": "The gallery had space to display just one winning portrait. - Devon - hoped that - the one who - would win - the photography contest - would be - him when - the ribbons - were officially - awarded.",
-    "question": "Would the gallery display five winning portraits?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 29,
-    "condition": "quantificational_they",
-    "sentence": "The shelter received dozens of applications for the golden retriever puppy. - Every applicant - hoped that - the one who - would have - the adoption form approved - would be - them when - the shelter - made the final - call.",
-    "question": "Were the applications for a golden retriever puppy?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 29,
-    "condition": "specific_they",
-    "sentence": "The shelter received dozens of applications for the golden retriever puppy. - The most eager applicant - hoped that - the one who - would have - the adoption form approved - would be - them when - the shelter - made the final - call.",
-    "question": "Were the applications for a golden retriever puppy?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 29,
-    "condition": "named_they",
-    "sentence": "The shelter received dozens of applications for the golden retriever puppy. - Eden - hoped that - the one who - would have - the adoption form approved - would be - them when - the shelter - made the final - call.",
-    "question": "Were the applications for a golden retriever puppy?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 29,
-    "condition": "quantificational_he",
-    "sentence": "The shelter received dozens of applications for the golden retriever puppy. - Every applicant - hoped that - the one who - would have - the adoption form approved - would be - him when - the shelter - made the final - call.",
-    "question": "Were the applications for a golden retriever puppy?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 29,
-    "condition": "specific_he",
-    "sentence": "The shelter received dozens of applications for the golden retriever puppy. - The most eager applicant - hoped that - the one who - would have - the adoption form approved - would be - him when - the shelter - made the final - call.",
-    "question": "Were the applications for a golden retriever puppy?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 29,
-    "condition": "named_he",
-    "sentence": "The shelter received dozens of applications for the golden retriever puppy. - Eden - hoped that - the one who - would have - the adoption form approved - would be - him when - the shelter - made the final - call.",
-    "question": "Were the applications for a golden retriever puppy?",
-    "correct_answer": "Yes"
-  },
-  {
-    "item": 30,
-    "condition": "quantificational_they",
-    "sentence": "Only one player would win the competitive board game. - Every player - thought that - the one who - would win - the board game - would be - them when - the points - were finally - tallied.",
-    "question": "Was the board game cooperative?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 30,
-    "condition": "specific_they",
-    "sentence": "Only one player would win the competitive board game. - The quietest player - thought that - the one who - would win - the board game - would be - them when - the points - were finally - tallied.",
-    "question": "Was the board game cooperative?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 30,
-    "condition": "named_they",
-    "sentence": "Only one player would win the competitive board game. - Lee - thought that - the one who - would win - the board game - would be - them when - the points - were finally - tallied.",
-    "question": "Was the board game cooperative?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 30,
-    "condition": "quantificational_he",
-    "sentence": "Only one player would win the competitive board game. - Every player - thought that - the one who - would win - the board game - would be - him when - the points - were finally - tallied.",
-    "question": "Was the board game cooperative?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 30,
-    "condition": "specific_he",
-    "sentence": "Only one player would win the competitive board game. - The quietest player - thought that - the one who - would win - the board game - would be - him when - the points - were finally - tallied.",
-    "question": "Was the board game cooperative?",
-    "correct_answer": "No"
-  },
-  {
-    "item": 30,
-    "condition": "named_he",
-    "sentence": "Only one player would win the competitive board game. - Lee - thought that - the one who - would win - the board game - would be - him when - the points - were finally - tallied.",
-    "question": "Was the board game cooperative?",
-    "correct_answer": "No"
-  },
-  // NEW NUMBERS BELOW HERE
-  {
-    "item": 31,
     "condition": "filler",
     "sentence": "Dakota was building a train set alone in the garage. - After finishing - the model - train set - from the - hobby shop's - Christmas sale, - he went - to the store - to buy - another one.",
     "question": "Was Dakota building a train set?",
     "correct_answer": "Yes"
   },
   {
-    "item": 32,
+    "item": 22,
     "condition": "filler",
     "sentence": "Emerson was studying alone in the bookstore. - After reading - the math - and science - textbooks - from the - school library, - he dreamed - about proving - an important - theorem.",
     "question": "Was Emerson studying at school?",
     "correct_answer": "No"
   },
   {
-    "item": 33,
+    "item": 23,
     "condition": "filler",
     "sentence": "Ace was shopping alone in the clothing store. - While picking out - new clothes - to wear - on a - very important - job interview, - he tried - to get - help when - he got flustered.",
     "question": "Was Ace shopping for clothes?",
     "correct_answer": "Yes"
   },
   {
-    "item": 34,
+    "item": 24,
     "condition": "filler",
     "sentence": "Rain was walking alone on the pier. - After seeing - the ocean - for the - first time - while on - vacation, - he wished - to come back - when he - had a date.",
     "question": "Did Rain have a date?",
     "correct_answer": "No"
   },
   {
-    "item": 35,
+    "item": 25,
     "condition": "filler",
     "sentence": "Drew was camping alone in the woods. - Before - encountering - a bear - in the forest - on last year's - camping trip, - he refused - to carry - a weapon - with him.",
     "question": "Was Drew camping in the woods?",
     "correct_answer": "Yes"
   },
-  // {
-  //   "item": 26,
-  //   "condition": "filler",
-  //   "sentence": "Marley was alone in the classroom, coloring. - While choosing - a crayon - color - to use - for the - next picture, - he refused - to pick - a bright color - for the flower.",
-  //   "question": "Was Marley writing an essay?",
-  //   "correct_answer": "No"
-  // },
-  // {
-  //   "item": 27,
-  //   "condition": "filler",
-  //   "sentence": "Jamie was alone in bed, snoring. - As usual, - before falling - asleep - in the camp - dorms - that night, - he refused - to apply - a nasal strip - to avoid snoring.",
-  //   "question": "Was Jamie at camp?",
-  //   "correct_answer": "Yes"
-  // },
-  // {
-  //   "item": 28,
-  //   "condition": "filler",
-  //   "sentence": "Cam was dieting alone at the camp. - After seeing - some chocolate - cake and - apple pie - in the kitchen - that night, - he chose - to finally - take a - cheat day.",
-  //   "question": "Was Cam with his friends?",
-  //   "correct_answer": "No"
-  // },
-  // {
-  //   "item": 29,
-  //   "condition": "filler",
-  //   "sentence": "Adrian was patrolling alone around the campus. - Before choosing - the route - around campus - to patrol - for the - evening, - he tried - to anticipate - potential dangers - that might occur.",
-  //   "question": "Was Adrian patrolling campus?",
-  //   "correct_answer": "Yes"
-  // },
-  // {
-  //   "item": 30,
-  //   "condition": "filler",
-  //   "sentence": "Ally was cooking alone in the restaurant. - While making - the restaurant's - famous - chili recipe - for the - food critic, - he decided - to experiment - with different - spices.",
-  //   "question": "Was Ally cooking at home?",
-  //   "correct_answer": "No"
-  // },
   {
-    "item": 36,
+    "item": 26,
+    "condition": "filler",
+    "sentence": "Marley was alone in the classroom, coloring. - While choosing - a crayon - color - to use - for the - next picture, - he refused - to pick - a bright color - for the flower.",
+    "question": "Was Marley writing an essay?",
+    "correct_answer": "No"
+  },
+  {
+    "item": 27,
+    "condition": "filler",
+    "sentence": "Jamie was alone in bed, snoring. - As usual, - before falling - asleep - in the camp - dorms - that night, - he refused - to apply - a nasal strip - to avoid snoring.",
+    "question": "Was Jamie at camp?",
+    "correct_answer": "Yes"
+  },
+  {
+    "item": 28,
+    "condition": "filler",
+    "sentence": "Cam was dieting alone at the camp. - After seeing - some chocolate - cake and - apple pie - in the kitchen - that night, - he chose - to finally - take a - cheat day.",
+    "question": "Was Cam with his friends?",
+    "correct_answer": "No"
+  },
+  {
+    "item": 29,
+    "condition": "filler",
+    "sentence": "Adrian was patrolling alone around the campus. - Before choosing - the route - around campus - to patrol - for the - evening, - he tried - to anticipate - potential dangers - that might occur.",
+    "question": "Was Adrian patrolling campus?",
+    "correct_answer": "Yes"
+  },
+  {
+    "item": 30,
+    "condition": "filler",
+    "sentence": "Ally was cooking alone in the restaurant. - While making - the restaurant's - famous - chili recipe - for the - food critic, - he decided - to experiment - with different - spices.",
+    "question": "Was Ally cooking at home?",
+    "correct_answer": "No"
+  },
+  {
+    "item": 31,
     "condition": "filler",
     "sentence": "Ari was tanning alone at the beach. - Before - finally heading - back home - after getting - a bad - sunburn, - she wanted - to stop at - the gift shop - for some licorice.",
     "question": "Did Ari get a sunburn?",
     "correct_answer": "Yes"
   },
   {
-    "item": 37,
+    "item": 32,
     "condition": "filler",
     "sentence": "Aubrey was hunting alone in the forest. - After - an animal - walked past - quietly, - it was - startled away - when she - tripped - on a root - and fell down.",
     "question": "Did Aubrey stay silent?",
     "correct_answer": "No"
   },
   {
-    "item": 38,
+    "item": 33,
     "condition": "filler",
     "sentence": "Billie was in the studio alone, drawing. - The final - sketch - of the - week-  was not - yet finished - when she - realized there - was no more - time left in the session.",
     "question": "Was Billie drawing?",
     "correct_answer": "Yes"
   },
   {
-    "item": 39,
+    "item": 34,
     "condition": "filler",
     "sentence": "Blair was alone in the gallery, sculpting. - Hopeful that - a successful - career as - an artist - was still - attainable, - she hoped - to make good money - when the final - piece sold.",
     "question": "Did Blair want to be a lawyer?",
     "correct_answer": "No"
   },
   {
-    "item": 40,
+    "item": 35,
     "condition": "filler",
     "sentence": "Brook was skateboarding alone in the skate park. - After completing - a difficult - jump trick - in front - of the - fountain, - she desired - to complete - even more - complicated tricks.",
     "question": "Did Brook complete a difficult jump trick?",
     "correct_answer": "Yes"
   },
-  // {
-  //   "item": 36,
-  //   "condition": "filler",
-  //   "sentence": "Dallas was shooting alone at the practice range. - There were - still many - targets - left to - try to - hit when - she had - finished taking - her last - shot.",
-  //   "question": "Did Dallas hit all the targets?",
-  //   "correct_answer": "No"
-  // },
-  // {
-  //   "item": 37,
-  //   "condition": "filler",
-  //   "sentence": "Darcy was in the house alone, sneezing a lot. - All the - allergy medication - and nasal - spray seemed - to be missing - when she - looked for - something to - relieve her allergies.",
-  //   "question": "Was Darcy sneezing?",
-  //   "correct_answer": "Yes"
-  // },
-  // {
-  //   "item": 38,
-  //   "condition": "filler",
-  //   "sentence": "Devin was on the train alone, starving. - When approaching - the first - stop where - there was - a convenience - store, - she decided to - get a snack - when the - train stopped.",
-  //   "question": "Was Devin sleeping?",
-  //   "correct_answer": "No"
-  // },
-  // {
-  //   "item": 39,
-  //   "condition": "filler",
-  //   "sentence": "Eden was birdwatching alone in the park. - Keeping a journal - to help document - and identify - the birds - seemed like a - smart idea - when she - saw how many - different types - there were.",
-  //   "question": "Did Eden see birds?",
-  //   "correct_answer": "Yes"
-  // },
-  // {
-  //   "item": 40,
-  //   "condition": "filler",
-  //   "sentence": "Lee was singing alone in the karaoke bar. - Before going up - to make - another attempt - at singing - another bad - country song, - she ordered - another drink - when the waitress - came by the table.",
-  //   "question": "Did Lee order food?",
-  //   "correct_answer": "No"
-  // },
+  {
+    "item": 36,
+    "condition": "filler",
+    "sentence": "Dallas was shooting alone at the practice range. - There were - still many - targets - left to - try to - hit when - she had - finished taking - her last - shot.",
+    "question": "Did Dallas hit all the targets?",
+    "correct_answer": "No"
+  },
+  {
+    "item": 37,
+    "condition": "filler",
+    "sentence": "Darcy was in the house alone, sneezing a lot. - All the - allergy medication - and nasal - spray seemed - to be missing - when she - looked for - something to - relieve her allergies.",
+    "question": "Was Darcy sneezing?",
+    "correct_answer": "Yes"
+  },
+  {
+    "item": 38,
+    "condition": "filler",
+    "sentence": "Devin was on the train alone, starving. - When approaching - the first - stop where - there was - a convenience - store, - she decided to - get a snack - when the - train stopped.",
+    "question": "Was Devin sleeping?",
+    "correct_answer": "No"
+  },
+  {
+    "item": 39,
+    "condition": "filler",
+    "sentence": "Eden was birdwatching alone in the park. - Keeping a journal - to help document - and identify - the birds - seemed like a - smart idea - when she - saw how many - different types - there were.",
+    "question": "Did Eden see birds?",
+    "correct_answer": "Yes"
+  },
+  {
+    "item": 40,
+    "condition": "filler",
+    "sentence": "Lee was singing alone in the karaoke bar. - Before going up - to make - another attempt - at singing - another bad - country song, - she ordered - another drink - when the waitress - came by the table.",
+    "question": "Did Lee order food?",
+    "correct_answer": "No"
+  },
   {
     "item": 41,
     "condition": "filler",
@@ -1453,109 +1018,109 @@ const experimentStimuli = [
     "question": "Was Kit wearing goggles?",
     "correct_answer": "Yes"
   },
-  // {
-  //   "item": 46,
-  //   "condition": "filler",
-  //   "sentence": "Kim was gardening alone in the yard. - After planting - some daisies - and some - rose bushes - in the front - of the yard, - they attempted - to plant some - vegetables to harvest - later that year.",
-  //   "question": "Did Kim plant pansies?",
-  //   "correct_answer": "No"
-  // },
-  // {
-  //   "item": 47,
-  //   "condition": "filler",
-  //   "sentence": "Lin was lying alone in the hammock. - After loudly - falling out - of the - hammock - and onto - the ground, - they intended - to go inside - to finish - their nap.",
-  //   "question": "Did Lin fall out of the hammock?",
-  //   "correct_answer": "Yes"
-  // },
-  // {
-  //   "item": 48,
-  //   "condition": "filler",
-  //   "sentence": "Lou was weightlifting alone in the weight room. - It was time - to start - doing stretches - before going - home for - the day, - when they - realized they had - managed to beat - their personal record.",
-  //   "question": "Was Lou running at the gym?",
-  //   "correct_answer": "No"
-  // },
-  // {
-  //   "item": 49,
-  //   "condition": "filler",
-  //   "sentence": "Peyton was figure skating alone at the ice rink. - After perfectly - completing - last year's - routine as - a warm up - that morning, - they failed to - do as well - with their - new routine.",
-  //   "question": "Did Peyton warm up?",
-  //   "correct_answer": "Yes"
-  // },
-  // {
-  //   "item": 50,
-  //   "condition": "filler",
-  //   "sentence": "Shea was in the bedroom alone, panicking. - Even more - anxiety about - homework and - final exams - started to - set in - when they realized - how much more - they had left - to study.",
-  //   "question": "Was Shea at school?",
-  //   "correct_answer": "No"
-  // },
   {
     "item": 46,
+    "condition": "filler",
+    "sentence": "Kim was gardening alone in the yard. - After planting - some daisies - and some - rose bushes - in the front - of the yard, - they attempted - to plant some - vegetables to harvest - later that year.",
+    "question": "Did Kim plant pansies?",
+    "correct_answer": "No"
+  },
+  {
+    "item": 47,
+    "condition": "filler",
+    "sentence": "Lin was lying alone in the hammock. - After loudly - falling out - of the - hammock - and onto - the ground, - they intended - to go inside - to finish - their nap.",
+    "question": "Did Lin fall out of the hammock?",
+    "correct_answer": "Yes"
+  },
+  {
+    "item": 48,
+    "condition": "filler",
+    "sentence": "Lou was weightlifting alone in the weight room. - It was time - to start - doing stretches - before going - home for - the day, - when they - realized they had - managed to beat - their personal record.",
+    "question": "Was Lou running at the gym?",
+    "correct_answer": "No"
+  },
+  {
+    "item": 49,
+    "condition": "filler",
+    "sentence": "Peyton was figure skating alone at the ice rink. - After perfectly - completing - last year's - routine as - a warm up - that morning, - they failed to - do as well - with their - new routine.",
+    "question": "Did Peyton warm up?",
+    "correct_answer": "Yes"
+  },
+  {
+    "item": 50,
+    "condition": "filler",
+    "sentence": "Shea was in the bedroom alone, panicking. - Even more - anxiety about - homework and - final exams - started to - set in - when they realized - how much more - they had left - to study.",
+    "question": "Was Shea at school?",
+    "correct_answer": "No"
+  },
+  {
+    "item": 51,
     "condition": "filler",
     "sentence": "The current class was worried about the final exam. - Every person - who had - taken the - final exam - last year - and passed - said that - the next class - would definitely need - to study.",
     "question": "Did the class require a final exam?",
     "correct_answer": "Yes"
   },
   {
-    "item": 47,
+    "item": 52,
     "condition": "filler",
     "sentence": "A sales flyer was sent out before Black Friday. - Every customer - wanted to - get a price - adjustment - on last week's - purchases - when the - sales prices - were listed at - half off.",
     "question": "Was the store having a Memorial Day sale?",
     "correct_answer": "No"
   },
   {
-    "item": 48,
+    "item": 53,
     "condition": "filler",
     "sentence": "Some participants found the marathon more challenging than others. - Every inexperienced - runner in - the marathon - was extremely - exhausted - and dehydrated - when only - half of - the race - was completed.",
     "question": "Were the inexperienced runners tired?",
     "correct_answer": "Yes"
   },
-  // {
-  //   "item": 54,
-  //   "condition": "filler",
-  //   "sentence": "No parent wanted to pay for the field trip fees. - Every parent - expected that - the field trips - would be - less expensive - when the - teacher said that - the class - would get - a discount.",
-  //   "question": "Was the field trip cheap?",
-  //   "correct_answer": "No"
-  // },
-  // {
-  //   "item": 55,
-  //   "condition": "filler",
-  //   "sentence": "The airline was not known for providing tasty meals. - Every traveler - on the - plane was - very unhappy - with the - food selection - when it - was finally - time for - dinner.",
-  //   "question": "Was the airplane food bad?",
-  //   "correct_answer": "Yes"
-  // },
   {
-    "item": 49,
+    "item": 54,
+    "condition": "filler",
+    "sentence": "No parent wanted to pay for the field trip fees. - Every parent - expected that - the field trips - would be - less expensive - when the - teacher said that - the class - would get - a discount.",
+    "question": "Was the field trip cheap?",
+    "correct_answer": "No"
+  },
+  {
+    "item": 55,
+    "condition": "filler",
+    "sentence": "The airline was not known for providing tasty meals. - Every traveler - on the - plane was - very unhappy - with the - food selection - when it - was finally - time for - dinner.",
+    "question": "Was the airplane food bad?",
+    "correct_answer": "Yes"
+  },
+  {
+    "item": 56,
     "condition": "filler",
     "sentence": "It was the last debate of the election season. - The first - few candidates - to speak - during the - political debate - that evening - presented plans - to raise taxes - to spend more - on transit services.",
     "question": "Was it the first debate of the election season?",
     "correct_answer": "No"
   },
   {
-    "item": 50,
+    "item": 57,
     "condition": "filler",
     "sentence": "The country club had recently raised its membership fees. - The new - members at - the elite - country club - were extremely - surprised - when the - increased - membership fees - were charged.",
     "question": "Were the membership fees changed?",
     "correct_answer": "Yes"
-  }//,
-  // {
-  //   "item": 58,
-  //   "condition": "filler",
-  //   "sentence": "The class seemed to always get unruly in the late afternoon. - The smartest - pupils in - the classroom - had trouble - focusing on - school work - when the - other classes - were on - afternoon recess.",
-  //   "question": "Did the smartest students stay focused?",
-  //   "correct_answer": "No"
-  // },
-  // {
-  //   "item": 59,
-  //   "condition": "filler",
-  //   "sentence": "As the children got older, it became harder for the whole family to schedule time off together. - The younger - cousins did - not want - to go on - the family - camping trip - when the - parents said that - the older cousins - would not be there.",
-  //   "question": "Would the older cousins be at the family camping trip?",
-  //   "correct_answer": "No"
-  // },
-  // {
-  //   "item": 60,
-  //   "condition": "filler",
-  //   "sentence": "The hospital was usually short-staffed. - The elderly - patients in - the hospital - often - got quite - demanding - when it - seemed that - the nurses - were neglecting them.",
-  //   "question": "Were the elderly patients demanding?",
-  //   "correct_answer": "Yes"
-  // }
+  },
+  {
+    "item": 58,
+    "condition": "filler",
+    "sentence": "The class seemed to always get unruly in the late afternoon. - The smartest - pupils in - the classroom - had trouble - focusing on - school work - when the - other classes - were on - afternoon recess.",
+    "question": "Did the smartest students stay focused?",
+    "correct_answer": "No"
+  },
+  {
+    "item": 59,
+    "condition": "filler",
+    "sentence": "As the children got older, it became harder for the whole family to schedule time off together. - The younger - cousins did - not want - to go on - the family - camping trip - when the - parents said that - the older cousins - would not be there.",
+    "question": "Would the older cousins be at the family camping trip?",
+    "correct_answer": "No"
+  },
+  {
+    "item": 60,
+    "condition": "filler",
+    "sentence": "The hospital was usually short-staffed. - The elderly - patients in - the hospital - often - got quite - demanding - when it - seemed that - the nurses - were neglecting them.",
+    "question": "Were the elderly patients demanding?",
+    "correct_answer": "Yes"
+  }
 ];
