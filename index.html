@@ -398,16 +398,48 @@
     const criticalStims = experimentStimuli.filter(s => s.item <= 20);
     const fillerStims = experimentStimuli.filter(s => s.item > 20);
 
-    // 2. Pick exactly one random condition for each critical item
+    // // 2. Pick exactly one random condition for each critical item
+    // const selectedCriticals = [];
+    // for (let i = 1; i <= 20; i++) {
+    //   // Get all 6 variants (conditions) for this specific item number
+    //   const itemVariants = criticalStims.filter(s => s.item === i);
+      
+    //   if (itemVariants.length > 0) {
+    //     // Randomly pick one from the available variants
+    //     const randomPick = jsPsych.randomization.sampleWithoutReplacement(itemVariants, 1)[0];
+    //     selectedCriticals.push(randomPick); // TODO: make this not random, right???
+    //   }
+    // }
+    // 2. Create a balanced, randomized list of conditions
+    // (6 variants repeated 5 times = 30 total assignments)
+    // Adjust 'A', 'B', etc., to match how your conditions are labeled (e.g., 1, 2, 3... or strings)
+    const conditionLabels = ['A', 'B', 'C', 'D', 'E', 'F'];
+    const shuffledConditions = jsPsych.randomization.repeat(conditionLabels, 5);
+
+    // 2. Pick the matching variant for each item based on the shuffled list
     const selectedCriticals = [];
-    for (let i = 1; i <= 20; i++) {
-      // Get all 6 variants (conditions) for this specific item number
+    const totalItems = 20; 
+
+    for (let i = 1; i <= totalItems; i++) {
+      // Get all 6 variants for this specific item number
       const itemVariants = criticalStims.filter(s => s.item === i);
       
       if (itemVariants.length > 0) {
-        // Randomly pick one from the available variants
-        const randomPick = jsPsych.randomization.sampleWithoutReplacement(itemVariants, 1)[0];
-        selectedCriticals.push(randomPick);
+        // Get the pre-determined condition for this item index (0-indexed)
+        const targetCondition = shuffledConditions[i - 1];
+        
+        // Find the one variant that matches this specific condition
+        // Change '.condition' to whatever property name you use in your stimulus object
+        const matchedVariant = itemVariants.find(s => s.condition === targetCondition);
+        
+        if (matchedVariant) {
+          selectedCriticals.push(matchedVariant);
+        } else {
+          // Fallback: if an item is missing that specific condition, pick a random one 
+          // so your experiment doesn't crash
+          const randomPick = jsPsych.randomization.sampleWithoutReplacement(itemVariants, 1)[0];
+          selectedCriticals.push(randomPick);
+        }
       }
     }
 
