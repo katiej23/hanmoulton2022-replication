@@ -395,8 +395,9 @@
 
     // 1. Separate critical items (1-20) from filler items (21+)
     //TODO: make this more robust
-    const criticalStims = experimentStimuli.filter(s => s.item <= 20);
-    const fillerStims = experimentStimuli.filter(s => s.item > 20);
+    const totalItems = 30; 
+    const criticalStims = experimentStimuli.filter(s => s.item <= totalItems);
+    const fillerStims = experimentStimuli.filter(s => s.item > totalItems);
 
     // // 2. Pick exactly one random condition for each critical item
     // const selectedCriticals = [];
@@ -418,7 +419,6 @@
 
     // 2. Pick the matching variant for each item based on the shuffled list
     const selectedCriticals = [];
-    const totalItems = 30; 
 
     for (let i = 1; i <= totalItems; i++) {
       // Get all 6 variants for this specific item number
@@ -442,6 +442,45 @@
         }
       }
     }
+
+    // // 2. Build an HTML table to display the results
+    // let debugHTML = `
+    //   <div style="max-height: 80vh; overflow-y: auto; text-align: left; padding: 20px; background: white; color: black;">
+    //     <h3>Randomization Check (Total: ${selectedCriticals.length})</h3>
+    //     <table border="1" cellpadding="5" style="border-collapse: collapse; width: 100%;">
+    //       <tr>
+    //         <th>Item #</th>
+    //         <th>Assigned Condition</th>
+    //         <th>Full Object Data</th>
+    //       </tr>
+    // `;
+
+    // selectedCriticals.forEach(stim => {
+    //   debugHTML += `
+    //     <tr>
+    //       <td>${stim.item}</td>
+    //       <td><strong>${stim.condition}</strong></td>
+    //       <td style="font-size: 12px;"><code>${JSON.stringify(stim)}</code></td>
+    //     </tr>
+    //   `;
+    // });
+
+    // debugHTML += `
+    //     </table>
+    //     <br>
+    //     <p>Press the <strong>spacebar</strong> to continue to the experiment.</p>
+    //   </div>
+    // `;
+
+    // // 3. Create a jsPsych trial to display the table
+    // const debug_trial = {
+    //   type: jsPsychHtmlKeyboardResponse, // Note: Use 'html-keyboard-response' (in quotes) if you are still on jsPsych v6
+    //   stimulus: debugHTML,
+    //   choices: [' ']
+    // };
+
+    // // 4. Push this to your timeline FIRST
+    // timeline.push(debug_trial);
 
     // 3. Combine the selected criticals with all the fillers
     const allFinalStimuli = selectedCriticals.concat(fillerStims);
