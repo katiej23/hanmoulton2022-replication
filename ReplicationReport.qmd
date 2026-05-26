@@ -76,7 +76,7 @@ f. Avery thought that the one who would win the race would be him when the times
 
 <!-- Can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article. -->
 
-TBA number of native English users participated in this study online via Prolific. The age of the participants ranges from 18-TBA, with the mean age at TBA. Participants self-reported to be native users of English by answering a survey question at the end of the experiment. Each participant received TBA AMOUNT as compensation upon completion of the experiment. Twenty item sets like (5) were distributed over four lists in a Latin-square design. `In addition, each list contained a set of 40 fillers. The sentences were presented on [Prolific] in a uniquely generated random order for each participant, using the moving-window paradigm (Just et al. 1982). After reading the context sentence, participants advanced to the next region by pressing on the space bar. No region could be displayed more than once. After each experimental sentence was read, a comprehension question was presented, which could be answered by pressing one key for ‘yes’ or another key for ‘no’. The comprehension questions tested participants’ understanding of the sentence, but not their interpretation of the critical pronoun. The comprehension question for the item in [(5)] is in [(6)]'. (Adapted from Han and Moulton 2022, 283-284)
+300 native English users participated in this study online via Prolific. The age of the participants ranges from 18-TBA, with the mean age at TBA. Participants self-reported to be native users of English by answering a survey question at the end of the experiment. Each participant received $3.20 as compensation upon completion of the experiment. Twenty item sets like (5) were distributed over four lists in a Latin-square design. `In addition, each list contained a set of 40 fillers. The sentences were presented on [Prolific] in a uniquely generated random order for each participant, using the moving-window paradigm (Just et al. 1982). After reading the context sentence, participants advanced to the next region by pressing on the space bar. No region could be displayed more than once. After each experimental sentence was read, a comprehension question was presented, which could be answered by pressing one key for ‘yes’ or another key for ‘no’. The comprehension questions tested participants’ understanding of the sentence, but not their interpretation of the critical pronoun. The comprehension question for the item in [(5)] is in [(6)]'. (Adapted from Han and Moulton 2022, 283-284)
 
 (6) Was there going to be a winner of a race? (Han&Moulton 2022, (14))
 
@@ -141,7 +141,7 @@ library(ggplot2)
 
 ```{r}
 # Connect to the project
-my_project <- osf_retrieve_node("aywjm") # Replace with your Node ID
+my_project <- osf_retrieve_node("aywjm") # Node ID of the project on OSF
 
 # List the files in the project to see what is available
 # osf_ls_files(my_project)
