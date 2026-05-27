@@ -1,0 +1,25 @@
+"rt","stimulus","response","trial_type","trial_index","plugin_version","time_elapsed"
+"1407","
+    <div class=""instructions"">
+      <h2>Welcome</h2>
+      <p>Thank you for participating in this experiment.</p>
+      <p>In this task, you will read short texts presented segment by segment on the screen.</p>
+      <p>Press <strong>Space</strong> to continue.</p>
+    </div>
+  "," ","html-keyboard-response","0","2.1.0","1409"
+"714","
+    <div class=""instructions"">
+      <h2>Instructions</h2>
+      <p>You will read short texts presented <strong>one segment at a time</strong>.</p>
+      <p>After reading each segment carefully, press the <strong>Space bar</strong> to see the next one.</p>
+      <ul>
+        <li>Read each segment only once and do not try to memorise it.</li>
+        <li>Make sure you fully understand each segment before advancing.</li>
+        <li>Some texts will be followed by a <strong>Yes/No comprehension question</strong>.</li>
+        <li>For questions: press <strong>F</strong> for Yes, <strong>J</strong> for No.</li>
+        <li>Please answer as accurately as possible.</li>
+      </ul>
+      <p>We will begin with a few practice items.</p>
+      <p>Press <strong>Space</strong> to start the practice.</p>
+    </div>
+  "," ","html-keyboard-response","1","2.1.0","2124"

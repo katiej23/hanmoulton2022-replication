@@ -137,34 +137,83 @@ library(ordinal)
 library(emmeans)   
 library(osfr)
 library(ggplot2)
+library(dplyr)
+library(lubridate)
 ```
 
 ```{r}
-# Connect to the project
-my_project <- osf_retrieve_node("aywjm") # Node ID of the project on OSF
+# Create a list of the file paths for all the CSVs on your computer
+local_files <- list.files(path = "./data/", pattern = "\\.csv$", full.names = TRUE)
 
-# List the files in the project to see what is available
-# osf_ls_files(my_project)
+# Filter out files without enough columns. These are data from earlier pilots where less information was collected.
 
-# Locate your specific file (replace "my_reading_data.csv" with your actual file name)
-target_file <- osf_ls_files(my_project) %>%
-  filter(name == "ubpdgbvno7.csv" | name == "xl6ox8fp5m.csv")
+# 2. Define the exact number of columns a complete file should have
+EXPECTED_COLS <- 24
 
-# Download the file to your computer
-osf_download(target_file, path = "./data/")
+# 3. Create a quick helper function to count columns efficiently
+# Setting n_max = 0 means readr only reads the column headers, making this lightning fast.
+count_columns <- function(file_path) {
+  # suppressMessages keeps your console from flooding with column type outputs
+  headers <- suppressMessages(read_csv(file_path, n_max = 0, show_col_types = FALSE))
+  return(ncol(headers))
+}
 
-# 1. Create a list of the file paths for all the CSVs on your computer
-local_files <- list.files(path = "data/", pattern = "\\.csv$", full.names = TRUE)
+# 4. Map the function over your files to get a vector of column counts
+# map_int comes from the purrr package (loaded with tidyverse)
+file_col_counts <- map_int(local_files, count_columns)
 
-# 2. Read and combine them all at once!
-# The 'id' argument is a lifesaver: it creates a new column in your data frame 
-# that records exactly which file (participant) that row came from.
-rt_data <- read_csv(local_files, id = "file_name")
+# 5. Filter your list of files to only include the ones with the expected columns
+valid_files <- local_files[file_col_counts == EXPECTED_COLS]
+
+# ---- NEW: Calculate and print the summary statistics ----
+total_starting_files <- length(local_files)
+total_kept_files <- length(valid_files)
+total_excluded_files <- total_starting_files - total_kept_files
+
+# message("--- Data Loading Summary ---")
+# message("Total files found: ", total_starting_files)
+# message("Files excluded (incorrect column count): ", total_excluded_files)
+# message("Files kept for analysis: ", total_kept_files)
+# message("----------------------------")
+# # ---------------------------------------------------------
+
+# 6. Read and combine only the valid files!
+rt_data_unfiltered <- read_csv(valid_files, id = "file_name")
 
 # Check out the resulting master data frame
-head(rt_data)
-
+head(rt_data_unfiltered)
 ```
+
+```{r}
+# Filter out participants who consented before a certain date. These are participants from pilot versions of the experiment rather than from the full study.
+
+# 1. Define your cutoff timestamp.
+# ymd_hms parses the string into a POSIXct datetime object.
+# NOTE: Set the timezone (tz) to match your data! jsPsych and Prolific usually default to UTC.
+cutoff_time <- ymd_hms("2026-05-25 12:00:00", tz = "UTC")
+
+# 2. Find the valid participants
+# We look for the rows that actually have the timestamp, filter them, 
+# and extract a unique list of their file names.
+valid_participants <- rt_data_unfiltered %>%
+  filter(consent_timestamp >= cutoff_time) %>%
+  pull(file_name) %>%
+  unique()
+
+# 3. Filter the main dataset
+# Keep ALL rows (even the ones with NA in the timestamp column) 
+# as long as they belong to a file_name in our valid list.
+rt_data <- rt_data_unfiltered %>%
+  filter(file_name %in% valid_participants)
+
+# Optional: See how many participants you kept vs dropped
+# message(sprintf("Kept %d participants. Dropped %d participants.", 
+#                 length(valid_participants), 
+#                 length(unique(rt_data_unfiltered$file_name)) - length(valid_participants)))
+```
+
+
+
 ```{r}
 # Filter for the relevant conditions
 critical_data <- rt_data %>%
