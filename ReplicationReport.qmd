@@ -277,11 +277,15 @@ scale_x_continuous(labels = scales::percent, breaks = seq(0, 1, by = 0.1)) +  th
 
 # Filter out participants with < 75% accuracy
 rt_clean <- rt_sub_clean %>%
+  mutate(word_length = nchar(word)) %>%
   # 1. Group by participant
   group_by(participant_id) %>%
   
   # 2. Keep only the participants whose average accuracy is 75% or higher
   filter(mean(correct, na.rm = TRUE) >= 0.75) %>%
+  
+  # I want to add an additional column for reading response time "We calculated RRTs using character length from the entire dataset (including fillers) to estimate the reading time for each region for each participant (Ferreira and Clifton 1986, Trueswell and Tanenhaus 1994, Phillips 2006)." (H\&M, p. 284)
+  mutate(RRT = as.numeric(residuals(lm(rt ~ word_length, na.action = na.exclude)))) %>%
   
   # 3. Ungroup to prevent issues with future analyses
   ungroup()
@@ -329,28 +333,10 @@ cat("Individual trials removed (> 10 SD):", trials_dropped, "\n")
 ```
 
 
-```{r}
-# I want to add an additional column for reading response time "We calculated RRTs using character length from the entire dataset (including fillers) to estimate the reading time for each region for each participant (Ferreira and Clifton 1986, Trueswell and Tanenhaus 1994, Phillips 2006)." (H\&M, p. 284)
-rt_clean <- rt_clean %>%
-  # 1. Add the word length column
-  mutate(word_length = nchar(word)) %>%
-  
-  # 2. Group by participant
-  group_by(participant_id) %>%
-  
-  # 3. Add the residual RT column
-  mutate(
-    RRT = residuals(lm(rt ~ word_length, na.action = na.exclude))
-  ) %>%
-  
-  # 4. Ungroup
-  ungroup()
-```
-
 
 ```{r}
 # Identify regions using string detection in 'stimulus'
-plotting_ready <- rt_clean %>%
+rt_model <- rt_clean %>%
   filter(condition %in% c("quantificational_they", "specific_they", "named_they", 
                           "quantificational_he", "specific_he", "named_he")) %>%
   group_by(participant_id, item) %>%
@@ -375,7 +361,7 @@ plotting_ready <- rt_clean %>%
   ungroup()
 
 # Add columns specifying Antecedent and Pronoun (i.e., separating these two from one another)
-plotting_ready <- plotting_ready %>%
+rt_model <- rt_model %>%
   separate(
     col = condition, 
     into = c("Antecedent", "Pronoun"), 
@@ -383,18 +369,81 @@ plotting_ready <- plotting_ready %>%
     remove = FALSE # Optional, but highly recommended!
   )
 
-# forcing RT to be numeric
-plotting_ready <- plotting_ready %>%
-  mutate(RRT = as.numeric(RRT))
-
 # 3. Check the results
-# print(paste("Rows found:", nrow(plotting_ready)))
-# table(plotting_ready$region_label, plotting_ready$condition)
+# print(paste("Rows found:", nrow(rt_model)))
+# table(rt_model$region_label, rt_model$condition)
+```
+
+
+
+```{r}
+# Gemini suggested that I should use "sum coding" instead of standard dummy coding because that's more likely to be what H&M used? I'm skeptical, but I'm trying it out
+# 1. First, ensure R knows these columns are categorical factors
+rt_model$Pronoun <- as.factor(rt_model$Pronoun)
+rt_model$Antecedent <- as.factor(rt_model$Antecedent)
+
+# 2. Apply the Sum Coding
+# The number inside the parentheses is exactly how many levels that factor has
+contrasts(rt_model$Pronoun) <- contr.sum(2)
+contrasts(rt_model$Antecedent) <- contr.sum(3)
+
+# 3. Optional: Verify that it worked!
+# This should print a little matrix with 1s and -1s instead of 0s and 1s.
+# contrasts(rt_model$Pronoun)
+```
+
+Copy the model from the paper:
+
+```{r}
+# The below complete random models get singular fits, so I remove interactions until I get a proper result
+# # 1. Critical Region Model
+# model_critical <- lmer(RRT ~ Antecedent * Pronoun + 
+#                          (1 + Antecedent*Pronoun | participant_id) + 
+#                          (1 + Antecedent*Pronoun | item), 
+#                        data = filter(rt_model, region_label == "1_Critical"))
+# 
+# # 2. Spillover 1 Model
+# model_spillover1 <- lmer(RRT ~ Antecedent * Pronoun + 
+#                            (1 + Antecedent*Pronoun | participant_id) + 
+#                            (1 + Antecedent*Pronoun | item), 
+#                          data = filter(rt_model, region_label == "2_Spillover_1"))
+# 
+# # 3. Spillover 2 Model
+# model_spillover2 <- lmer(RRT ~ Antecedent * Pronoun + 
+#                            (1 + Antecedent*Pronoun | participant_id) + 
+#                            (1 + Antecedent*Pronoun | item), 
+#                          data = filter(rt_model, region_label == "3_Spillover_2"))
+
+# 1. Critical Region Model
+model_critical <- lmer(RRT ~ Antecedent * Pronoun + 
+                         (1 | participant_id) + 
+                         (1 | item), 
+                       data = filter(rt_model, region_label == "1_Critical"))
+
+# 2. Spillover 1 Model
+model_spillover1 <- lmer(RRT ~ Antecedent * Pronoun + 
+                           (1 | participant_id) + 
+                           (1 | item), 
+                         data = filter(rt_model, region_label == "2_Spillover_1"))
+
+# 3. Spillover 2 Model
+model_spillover2 <- lmer(RRT ~ Antecedent * Pronoun + 
+                           (1 | participant_id) + 
+                           (1 | item), 
+                         data = filter(rt_model, region_label == "3_Spillover_2"))
 ```
 
 ```{r}
-# Re-summarize (this should now result in actual numbers)
-summary_data <- plotting_ready %>%
+anova(model_critical)
+anova(model_spillover1)
+anova(model_spillover2)
+```
+
+
+
+```{r}
+# This is for the plotting
+rt_summary <- rt_model %>%
   separate(condition, into = c("type", "pronoun"), sep = "_") %>%
   group_by(type, pronoun, region_label) %>%
   summarize(
@@ -407,18 +456,16 @@ summary_data <- plotting_ready %>%
   )
 
 # Fix the labels for the x-axis
-summary_data$region_label <- factor(summary_data$region_label, 
+rt_summary$region_label <- factor(rt_summary$region_label, 
                                     levels = c("1_Critical", "2_Spillover_1", "3_Spillover_2"),
                                     labels = c("Critical", "Spillover 1", "Spillover 2"))
 ```
 
-
-
-Here I want to replicate their table 3: RRT by condition for all regions. I want 6 rows: quant by pronoun, spec by pronoun, and named (my new data) by pronoun
+Here I want to replicate H\&M's table 3: RRT by condition for all regions. I want 6 rows: quant by pronoun, spec by pronoun, and named (my new data) by pronoun
 
 ```{r}
 # Transform the tibble into the desired table format
-final_table <- summary_data %>%
+final_table <- rt_summary %>%
   # 1. Create two combined string columns: one for raw RT, one for RRT
   mutate(
     RT = sprintf("%.0f (%.0f)", mean_rt, se),
@@ -448,9 +495,8 @@ print(final_table)
 ```
 
 ```{r}
-
 # The Plot
-ggplot(summary_data, aes(x = region_label, y = mean_RRT, 
+ggplot(rt_summary, aes(x = region_label, y = mean_RRT, 
                          color = type, shape = pronoun, 
                          group = interaction(type, pronoun))) +
   geom_line(linewidth = 1) +
@@ -461,81 +507,6 @@ ggplot(summary_data, aes(x = region_label, y = mean_RRT,
        y = "Reading Time (ms)") +
   theme_minimal() +
   facet_wrap(~type) # This splits the plot into 'he' and 'they' panels
-```
-
-```{r}
-# Gemini suggested that I should use "sum coding" instead of standard dummy coding because that's more likely to be what H&M used? I'm skeptical, but I'm trying it out
-# 1. First, ensure R knows these columns are categorical factors
-plotting_ready$Pronoun <- as.factor(plotting_ready$Pronoun)
-plotting_ready$Antecedent <- as.factor(plotting_ready$Antecedent)
-
-# 2. Apply the Sum Coding
-# The number inside the parentheses is exactly how many levels that factor has
-contrasts(plotting_ready$Pronoun) <- contr.sum(2)
-contrasts(plotting_ready$Antecedent) <- contr.sum(3)
-
-# 3. Optional: Verify that it worked!
-# This should print a little matrix with 1s and -1s instead of 0s and 1s.
-# contrasts(plotting_ready$Pronoun)
-```
-
-Copy the model from the paper:
-
-```{r}
-# The next couple lines make my sample size a lot smaller to make the models run faster, but they're never used in the real full analysis
-
-# 1. Randomly select 10 participants
-# test_participants <- plotting_ready %>%
-#   distinct(participant_id) %>%     # Get a list of all unique IDs
-#   slice_sample(n = 9) %>%         # Randomly pick 10 of them
-#   pull(participant_id)             # Extract them as a simple vector
-# 
-# # 2. Filter your main dataset down to JUST those 10 people
-# test_data <- plotting_ready %>%
-#   filter(participant_id %in% test_participants)
-
-# The below complete random models get singular fits, so I remove interactions until I get a proper result
-# # 1. Critical Region Model
-# model_critical <- lmer(RRT ~ Antecedent * Pronoun + 
-#                          (1 + Antecedent*Pronoun | participant_id) + 
-#                          (1 + Antecedent*Pronoun | item), 
-#                        data = filter(plotting_ready, region_label == "1_Critical"))
-# 
-# # 2. Spillover 1 Model
-# model_spillover1 <- lmer(RRT ~ Antecedent * Pronoun + 
-#                            (1 + Antecedent*Pronoun | participant_id) + 
-#                            (1 + Antecedent*Pronoun | item), 
-#                          data = filter(plotting_ready, region_label == "2_Spillover_1"))
-# 
-# # 3. Spillover 2 Model
-# model_spillover2 <- lmer(RRT ~ Antecedent * Pronoun + 
-#                            (1 + Antecedent*Pronoun | participant_id) + 
-#                            (1 + Antecedent*Pronoun | item), 
-#                          data = filter(plotting_ready, region_label == "3_Spillover_2"))
-
-# 1. Critical Region Model
-model_critical <- lmer(RRT ~ Antecedent * Pronoun + 
-                         (1 | participant_id) + 
-                         (1 | item), 
-                       data = filter(plotting_ready, region_label == "1_Critical"))
-
-# 2. Spillover 1 Model
-model_spillover1 <- lmer(RRT ~ Antecedent * Pronoun + 
-                           (1 | participant_id) + 
-                           (1 | item), 
-                         data = filter(plotting_ready, region_label == "2_Spillover_1"))
-
-# 3. Spillover 2 Model
-model_spillover2 <- lmer(RRT ~ Antecedent * Pronoun + 
-                           (1 | participant_id) + 
-                           (1 | item), 
-                         data = filter(plotting_ready, region_label == "3_Spillover_2"))
-```
-
-```{r}
-anova(model_critical)
-anova(model_spillover1)
-anova(model_spillover2)
 ```
 
 
