@@ -8,6 +8,23 @@ format:
     toc_depth: 3
 ---
 
+```{r include=F}
+## Libraries 
+library(tidyverse)
+library(pwr)
+library(readxl)    
+library(ordinal)   
+library(emmeans)   
+library(osfr)
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+library(tidyr)
+library(lme4)
+library(purrr)
+library(scales) # For pretty percentage labels on the graph
+```
+
 <!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
 
 ## Introduction
@@ -31,13 +48,9 @@ This experiment replicated the sentence processing experiment that Han and Moult
 
 ### Power Analysis
 
-Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size.
+<!-- Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size. -->
 
-### Planned Sample
-
-<!-- Planned sample size and/or termination rule, sampling frame, known demographics if any, preselection rules if any. -->
-
-All participants will be native English speakers. Han&Moulton report a t-value of 2.34 (p. 285) with 193 participants considered in their calculations. The Cohen's d is estimated as $d = \frac{t}{\sqrt{n}} = \frac{2.34}{\sqrt{193}} = 0.168$. From this, we can estimate power:
+All participants were native English speakers. Han&Moulton report a t-value of 2.34 (p. 285) with 193 participants considered in their calculations. The Cohen's d is estimated as $d = \frac{t}{\sqrt{n}} = \frac{2.34}{\sqrt{193}} = 0.168$. From this, we can estimate power:
 
 ```{r}
 power_result <- pwr.t.test(
@@ -49,7 +62,13 @@ power_result <- pwr.t.test(
 )
 plot(power_result)
 ```
-These results suggest that at least 281 participants should be included in this replication. I propose collecting data from 300 people to be conservative and to allow exclusions of participants with low scores on comprehension questions. (Note: I have *no* idea how expensive it is to run experiments like this, so I don't know if this is an absurdly expensive proposal or not!)
+
+### Planned Sample
+
+<!-- Planned sample size and/or termination rule, sampling frame, known demographics if any, preselection rules if any. -->
+
+
+The results of the power analysis suggest that at least 281 participants should be included in this replication. I propose collecting data from 300 people to be conservative and to allow exclusions of participants with low scores on comprehension questions. (Note: I have *no* idea how expensive it is to run experiments like this, so I don't know if this is an absurdly expensive proposal or not!)
 
 ### Materials
 
@@ -130,42 +149,27 @@ Data preparation following the analysis plan.
 ```
 
 ```{r}
-## Libraries 
-library(tidyverse)
-library(readxl)    
-library(ordinal)   
-library(emmeans)   
-library(osfr)
-library(ggplot2)
-library(dplyr)
-library(lubridate)
-```
+# Collect all the data from the experiment
 
-```{r}
-# Create a list of the file paths for all the CSVs on your computer
+# Create a list of the file paths for all the CSVs
 local_files <- list.files(path = "./data/", pattern = "\\.csv$", full.names = TRUE)
 
 # Filter out files without enough columns. These are data from earlier pilots where less information was collected.
 
-# 2. Define the exact number of columns a complete file should have
+# Define the exact number of columns a complete file should have
 EXPECTED_COLS <- 24
 
-# 3. Create a quick helper function to count columns efficiently
-# Setting n_max = 0 means readr only reads the column headers, making this lightning fast.
 count_columns <- function(file_path) {
-  # suppressMessages keeps your console from flooding with column type outputs
   headers <- suppressMessages(read_csv(file_path, n_max = 0, show_col_types = FALSE))
   return(ncol(headers))
 }
 
-# 4. Map the function over your files to get a vector of column counts
-# map_int comes from the purrr package (loaded with tidyverse)
 file_col_counts <- map_int(local_files, count_columns)
 
-# 5. Filter your list of files to only include the ones with the expected columns
+# Filter files to only include the ones with the expected columns
 valid_files <- local_files[file_col_counts == EXPECTED_COLS]
 
-# ---- NEW: Calculate and print the summary statistics ----
+# Calculate and print the summary statistics
 total_starting_files <- length(local_files)
 total_kept_files <- length(valid_files)
 total_excluded_files <- total_starting_files - total_kept_files
@@ -177,55 +181,181 @@ total_excluded_files <- total_starting_files - total_kept_files
 # message("----------------------------")
 # # ---------------------------------------------------------
 
-# 6. Read and combine only the valid files!
-rt_data_unfiltered <- read_csv(valid_files, id = "file_name")
-
-# Check out the resulting master data frame
-head(rt_data_unfiltered)
+# Read and combine only the valid files
+rt_raw <- read_csv(valid_files, id = "file_name")
 ```
 
 ```{r}
 # Filter out participants who consented before a certain date. These are participants from pilot versions of the experiment rather than from the full study.
 
-# 1. Define your cutoff timestamp.
-# ymd_hms parses the string into a POSIXct datetime object.
-# NOTE: Set the timezone (tz) to match your data! jsPsych and Prolific usually default to UTC.
 cutoff_time <- ymd_hms("2026-05-25 12:00:00", tz = "UTC")
 
-# 2. Find the valid participants
-# We look for the rows that actually have the timestamp, filter them, 
+# Look for the rows that actually have the timestamp, filter them, 
 # and extract a unique list of their file names.
-valid_participants <- rt_data_unfiltered %>%
+valid_participants <- rt_raw %>%
   filter(consent_timestamp >= cutoff_time) %>%
   pull(file_name) %>%
   unique()
 
-# 3. Filter the main dataset
 # Keep ALL rows (even the ones with NA in the timestamp column) 
-# as long as they belong to a file_name in our valid list.
-rt_data <- rt_data_unfiltered %>%
-  filter(file_name %in% valid_participants)
+# as long as they belong to a file_name in the valid list
+rt_sub_clean <- rt_raw %>%
+  filter(file_name %in% valid_participants) %>%
+  group_by(participant_id) %>%
+  mutate(rt = as.numeric(rt)) %>% # Force RT to be a number
+  # We subset rt to only include rows where condition is NOT NA,
+  # calculate the mean, and keep the participant if it's >= 50
+  filter(mean(rt[!is.na(condition)], na.rm = TRUE) >= 50) %>%
+  ungroup()
 
-# Optional: See how many participants you kept vs dropped
-# message(sprintf("Kept %d participants. Dropped %d participants.", 
-#                 length(valid_participants), 
-#                 length(unique(rt_data_unfiltered$file_name)) - length(valid_participants)))
+
+# # Optional: See how many participants were kept vs dropped
+# message(sprintf("Kept %d participants. Dropped %d participants.",
+#                 length(valid_participants),
+#                 length(unique(rt_raw$file_name)) - length(valid_participants)))
+# 
+# # Inspect the 15 earliest participants that SURVIVED the filter
+# earliest_kept <- rt_sub_clean %>%
+#   filter(!is.na(consent_timestamp)) %>%      # 1. Ignore all the trial rows with NA
+#   select(file_name, consent_timestamp) %>%   # 2. Keep only the ID and timestamp columns
+#   arrange(consent_timestamp) %>%             # 3. Sort chronologically (oldest first)
+#   head(15)                                   # 4. Grab the top 15
+# 
+# # Print the result to the console
+# print(earliest_kept)
+```
+
+```{r}
+# At this point, my data should look like H&M's raw data.
+# Now I want to figure out who to exclude for low question comprehension
+
+# 1. Calculate each participant's total accuracy just once
+participant_accuracies <- rt_sub_clean %>%
+  group_by(participant_id) %>%
+  summarize(accuracy = mean(correct, na.rm = TRUE))
+
+# 2. Define the range of thresholds to test
+# This creates a list from 0 to 1 (0% to 100%) stepping by 1%
+thresholds_to_test <- seq(0, 1, by = 0.01)
+
+# 3. Calculate how many people get excluded at EACH threshold
+exclusion_curve <- tibble(threshold = thresholds_to_test) %>%
+  mutate(
+    # map_dbl runs the calculation for every single threshold in the list
+    excluded_count = map_dbl(threshold, ~ sum(participant_accuracies$accuracy < .x))
+  )
+
+# 4. Plot the curve!
+ggplot(exclusion_curve, aes(x = threshold, y = excluded_count)) +
+  geom_line(color = "#2C3E50", size = 1.2) +
+  
+  # Add reference lines
+  geom_vline(xintercept = 0.50, linetype = "dashed", color = "gray50") +
+  annotate("text", x = 0.50, y = max(exclusion_curve$excluded_count) * 0.8, 
+           label = "50% (Original)", angle = 90, vjust = -1, color = "gray50") +
+  
+  geom_vline(xintercept = 0.60, linetype = "dashed", color = "blue") +
+  annotate("text", x = 0.60, y = max(exclusion_curve$excluded_count) * 0.8, 
+           label = "60%", angle = 90, vjust = -1, color = "blue") +
+  
+  geom_vline(xintercept = 0.75, linetype = "dashed", color = "red") +
+  annotate("text", x = 0.75, y = max(exclusion_curve$excluded_count) * 0.8, 
+           label = "75%", angle = 90, vjust = -1, color = "red") +
+  
+  # Formatting
+scale_x_continuous(labels = scales::percent, breaks = seq(0, 1, by = 0.1)) +  theme_minimal() +
+  labs(
+    title = "Robustness Check: Participant Exclusions by Accuracy Threshold",
+    x = "Accuracy Threshold (Excluding < X%)",
+    y = "Number of Participants Excluded"
+  )
 ```
 
 
+```{r}
+# Now, I want to filter out participants with low comprehension question score and too-fast reading speed
+
+# Filter out participants with < 75% accuracy
+rt_clean <- rt_sub_clean %>%
+  # 1. Group by participant
+  group_by(participant_id) %>%
+  
+  # 2. Keep only the participants whose average accuracy is 75% or higher
+  filter(mean(correct, na.rm = TRUE) >= 0.75) %>%
+  
+  # 3. Ungroup to prevent issues with future analyses
+  ungroup()
+
+# Count total unique participants in the original data
+total_n <- n_distinct(rt_sub_clean$participant_id)
+
+# Count total unique participants in the cleaned data
+kept_n <- n_distinct(rt_clean$participant_id)
+
+# Calculate the difference
+excluded_n_for_accuracy <- total_n - kept_n
+
+# Print a clean summary to your console
+# cat("Original Total:", total_n, "\n")
+# cat("Participants Kept:", kept_n, "\n")
+# cat("Participants Excluded for accuracy:", excluded_n_for_accuracy, "\n")
+
+trials_before <- nrow(rt_clean)
+
+# Apply the 10 SD outlier filter
+rt_clean <- rt_clean %>%
+  # 1. Define what "the mean" belongs to. 
+  # Grouping by participant_id calculates the mean and SD for EACH person individually.
+  # (If you want it calculated per region, you would use: group_by(participant_id, region_label))
+  group_by(participant_id) %>%
+  
+  # 2. Keep rows where the RT is LESS THAN OR EQUAL TO the mean + 10*SD
+  filter(
+    is.na(rt) | rt <= (mean(rt, na.rm = TRUE) + 10 * sd(rt, na.rm = TRUE))
+  ) %>%
+  
+  # 3. Ungroup
+  ungroup()
+
+# ---------------------------------------------------------
+# The Quick Count: How many individual trials were dropped?
+# ---------------------------------------------------------
+trials_after <- nrow(rt_clean)
+trials_dropped <- trials_before - trials_after
+
+cat("Total rows before outlier removal:", trials_before, "\n")
+cat("Total rows after outlier removal:", trials_after, "\n")
+cat("Individual trials removed (> 10 SD):", trials_dropped, "\n")
+```
+
 
 ```{r}
-# Filter for the relevant conditions
-critical_data <- rt_data %>%
-  filter(condition %in% c("quantificational_they", "specific_they", "named_they", 
-                          "quantificational_he", "specific_he", "named_he"))
+# I want to add an additional column for reading response time "We calculated RRTs using character length from the entire dataset (including fillers) to estimate the reading time for each region for each participant (Ferreira and Clifton 1986, Trueswell and Tanenhaus 1994, Phillips 2006)." (H\&M, p. 284)
+rt_clean <- rt_clean %>%
+  # 1. Add the word length column
+  mutate(word_length = nchar(word)) %>%
+  
+  # 2. Group by participant
+  group_by(participant_id) %>%
+  
+  # 3. Add the residual RT column
+  mutate(
+    RRT = residuals(lm(rt ~ word_length, na.action = na.exclude))
+  ) %>%
+  
+  # 4. Ungroup
+  ungroup()
+```
 
-# 2. Identify regions using string detection in 'stimulus'
-plotting_ready <- critical_data %>%
+
+```{r}
+# Identify regions using string detection in 'stimulus'
+plotting_ready <- rt_clean %>%
+  filter(condition %in% c("quantificational_they", "specific_they", "named_they", 
+                          "quantificational_he", "specific_he", "named_he")) %>%
   group_by(participant_id, item) %>%
   mutate(
     # Find the word_index where the stimulus CONTAINS our target words
-    # ignore_case = TRUE handles "Them", "them", "HIM", etc.
     is_pronoun_region = str_detect(stimulus, regex("them|him", ignore_case = TRUE)),
     
     # Grab the index number for that specific row
@@ -244,46 +374,168 @@ plotting_ready <- critical_data %>%
   filter(!is.na(region_label)) %>%
   ungroup()
 
+# Add columns specifying Antecedent and Pronoun (i.e., separating these two from one another)
+plotting_ready <- plotting_ready %>%
+  separate(
+    col = condition, 
+    into = c("Antecedent", "Pronoun"), 
+    sep = "_", 
+    remove = FALSE # Optional, but highly recommended!
+  )
+
+# forcing RT to be numeric
+plotting_ready <- plotting_ready %>%
+  mutate(RRT = as.numeric(RRT))
+
 # 3. Check the results
 # print(paste("Rows found:", nrow(plotting_ready)))
 # table(plotting_ready$region_label, plotting_ready$condition)
 ```
 
 ```{r}
-# 1. Prepare the data again, forcing RT to be numeric
-plotting_ready <- plotting_ready %>%
-  mutate(rt = as.numeric(rt)) # Force RT to be a number
-
-# 2. Re-summarize (this should now result in actual numbers)
+# Re-summarize (this should now result in actual numbers)
 summary_data <- plotting_ready %>%
   separate(condition, into = c("type", "pronoun"), sep = "_") %>%
   group_by(type, pronoun, region_label) %>%
   summarize(
     mean_rt = mean(rt, na.rm = TRUE),
     se = sd(rt, na.rm = TRUE) / sqrt(n()),
+    
+    mean_RRT = mean(RRT, na.rm = TRUE),
+    se_RRT = sd(RRT, na.rm = TRUE) / sqrt(n()),
     .groups = "drop"
   )
-
-# 3. Quick Check: This should now return 0
-# print(sum(is.na(summary_data$mean_rt)))
 
 # Fix the labels for the x-axis
 summary_data$region_label <- factor(summary_data$region_label, 
                                     levels = c("1_Critical", "2_Spillover_1", "3_Spillover_2"),
                                     labels = c("Critical", "Spillover 1", "Spillover 2"))
+```
+
+
+
+Here I want to replicate their table 3: RRT by condition for all regions. I want 6 rows: quant by pronoun, spec by pronoun, and named (my new data) by pronoun
+
+```{r}
+# Transform the tibble into the desired table format
+final_table <- summary_data %>%
+  # 1. Create two combined string columns: one for raw RT, one for RRT
+  mutate(
+    RT = sprintf("%.0f (%.0f)", mean_rt, se),
+    RRT = sprintf("%.0f (%.0f)", mean_RRT, se_RRT) # Kept at 2 decimals for residuals
+  ) %>%
+  
+  # 2. Select our grouping variables, the region label, and our TWO new combined columns
+  select(type, pronoun, region_label, RT, RRT) %>%
+  
+  # 3. Pivot the data to wide format
+  # By providing a vector of column names to values_from, R will automatically
+  # create 6 columns (e.g., RT_critical, RRT_critical, RT_spillover 1...)
+  pivot_wider(
+    names_from = region_label,
+    values_from = c(RT, RRT)
+  ) %>%
+  
+  # 4. Re-order the rows based on your custom theoretical hierarchy
+  mutate(
+    type = factor(type, levels = c("quantificational", "specific", "named")),
+    pronoun = factor(pronoun, levels = c("they", "he"))
+  ) %>%
+  arrange(type, pronoun)
+
+# View the final result
+print(final_table)
+```
+
+```{r}
 
 # The Plot
-ggplot(summary_data, aes(x = region_label, y = mean_rt, 
+ggplot(summary_data, aes(x = region_label, y = mean_RRT, 
                          color = type, shape = pronoun, 
                          group = interaction(type, pronoun))) +
   geom_line(linewidth = 1) +
   geom_point(size = 3) +
-  geom_errorbar(aes(ymin = mean_rt - se, ymax = mean_rt + se), width = 0.1) +
+  geom_errorbar(aes(ymin = mean_RRT - se_RRT, ymax = mean_RRT + se_RRT), width = 0.1) +
   labs(title = "Reading Times by Condition",
        x = "Sentence Region",
        y = "Reading Time (ms)") +
   theme_minimal() +
   facet_wrap(~type) # This splits the plot into 'he' and 'they' panels
+```
+
+```{r}
+# Gemini suggested that I should use "sum coding" instead of standard dummy coding because that's more likely to be what H&M used? I'm skeptical, but I'm trying it out
+# 1. First, ensure R knows these columns are categorical factors
+plotting_ready$Pronoun <- as.factor(plotting_ready$Pronoun)
+plotting_ready$Antecedent <- as.factor(plotting_ready$Antecedent)
+
+# 2. Apply the Sum Coding
+# The number inside the parentheses is exactly how many levels that factor has
+contrasts(plotting_ready$Pronoun) <- contr.sum(2)
+contrasts(plotting_ready$Antecedent) <- contr.sum(3)
+
+# 3. Optional: Verify that it worked!
+# This should print a little matrix with 1s and -1s instead of 0s and 1s.
+# contrasts(plotting_ready$Pronoun)
+```
+
+Copy the model from the paper:
+
+```{r}
+# The next couple lines make my sample size a lot smaller to make the models run faster, but they're never used in the real full analysis
+
+# 1. Randomly select 10 participants
+# test_participants <- plotting_ready %>%
+#   distinct(participant_id) %>%     # Get a list of all unique IDs
+#   slice_sample(n = 9) %>%         # Randomly pick 10 of them
+#   pull(participant_id)             # Extract them as a simple vector
+# 
+# # 2. Filter your main dataset down to JUST those 10 people
+# test_data <- plotting_ready %>%
+#   filter(participant_id %in% test_participants)
+
+# The below complete random models get singular fits, so I remove interactions until I get a proper result
+# # 1. Critical Region Model
+# model_critical <- lmer(RRT ~ Antecedent * Pronoun + 
+#                          (1 + Antecedent*Pronoun | participant_id) + 
+#                          (1 + Antecedent*Pronoun | item), 
+#                        data = filter(plotting_ready, region_label == "1_Critical"))
+# 
+# # 2. Spillover 1 Model
+# model_spillover1 <- lmer(RRT ~ Antecedent * Pronoun + 
+#                            (1 + Antecedent*Pronoun | participant_id) + 
+#                            (1 + Antecedent*Pronoun | item), 
+#                          data = filter(plotting_ready, region_label == "2_Spillover_1"))
+# 
+# # 3. Spillover 2 Model
+# model_spillover2 <- lmer(RRT ~ Antecedent * Pronoun + 
+#                            (1 + Antecedent*Pronoun | participant_id) + 
+#                            (1 + Antecedent*Pronoun | item), 
+#                          data = filter(plotting_ready, region_label == "3_Spillover_2"))
+
+# 1. Critical Region Model
+model_critical <- lmer(RRT ~ Antecedent * Pronoun + 
+                         (1 | participant_id) + 
+                         (1 | item), 
+                       data = filter(plotting_ready, region_label == "1_Critical"))
+
+# 2. Spillover 1 Model
+model_spillover1 <- lmer(RRT ~ Antecedent * Pronoun + 
+                           (1 | participant_id) + 
+                           (1 | item), 
+                         data = filter(plotting_ready, region_label == "2_Spillover_1"))
+
+# 3. Spillover 2 Model
+model_spillover2 <- lmer(RRT ~ Antecedent * Pronoun + 
+                           (1 | participant_id) + 
+                           (1 | item), 
+                         data = filter(plotting_ready, region_label == "3_Spillover_2"))
+```
+
+```{r}
+anova(model_critical)
+anova(model_spillover1)
+anova(model_spillover2)
 ```
 
 
