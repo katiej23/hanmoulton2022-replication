@@ -23,6 +23,7 @@ library(tidyr)
 library(lme4)
 library(purrr)
 library(scales) # For pretty percentage labels on the graph
+library(lmerTest)
 ```
 
 <!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
@@ -277,9 +278,11 @@ scale_x_continuous(labels = scales::percent, breaks = seq(0, 1, by = 0.1)) +  th
 
 # Filter out participants with < 75% accuracy
 rt_clean <- rt_sub_clean %>%
-  mutate(word_length = nchar(word)) %>%
   # 1. Group by participant
   group_by(participant_id) %>%
+   # 2. Keep rows where the RT is LESS THAN OR EQUAL TO the mean + 10*SD
+  filter(is.na(rt) | rt <= (mean(rt, na.rm = TRUE) + 10 * sd(rt, na.rm = TRUE))) %>%
+  mutate(word_length = nchar(word)) %>%
   
   # 2. Keep only the participants whose average accuracy is 75% or higher
   filter(mean(correct, na.rm = TRUE) >= 0.75) %>%
@@ -434,9 +437,9 @@ model_spillover2 <- lmer(RRT ~ Antecedent * Pronoun +
 ```
 
 ```{r}
-anova(model_critical)
-anova(model_spillover1)
-anova(model_spillover2)
+anova(model_critical, type="III")
+anova(model_spillover1, type="III")
+anova(model_spillover2, type="III")
 ```
 
 
@@ -444,8 +447,7 @@ anova(model_spillover2)
 ```{r}
 # This is for the plotting
 rt_summary <- rt_model %>%
-  separate(condition, into = c("type", "pronoun"), sep = "_") %>%
-  group_by(type, pronoun, region_label) %>%
+  group_by(Antecedent, Pronoun, region_label) %>%
   summarize(
     mean_rt = mean(rt, na.rm = TRUE),
     se = sd(rt, na.rm = TRUE) / sqrt(n()),
