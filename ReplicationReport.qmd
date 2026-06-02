@@ -475,7 +475,7 @@ final_table <- rt_summary %>%
   ) %>%
   
   # 2. Select our grouping variables, the region label, and our TWO new combined columns
-  select(type, pronoun, region_label, RT, RRT) %>%
+  select(Antecedent, Pronoun, region_label, RT, RRT) %>%
   
   # 3. Pivot the data to wide format
   # By providing a vector of column names to values_from, R will automatically
@@ -487,10 +487,10 @@ final_table <- rt_summary %>%
   
   # 4. Re-order the rows based on your custom theoretical hierarchy
   mutate(
-    type = factor(type, levels = c("quantificational", "specific", "named")),
-    pronoun = factor(pronoun, levels = c("they", "he"))
+    Antecedent = factor(Antecedent, levels = c("quantificational", "specific", "named")),
+    Pronoun = factor(Pronoun, levels = c("they", "he"))
   ) %>%
-  arrange(type, pronoun)
+  arrange(Antecedent, Pronoun)
 
 # View the final result
 print(final_table)
@@ -499,16 +499,16 @@ print(final_table)
 ```{r}
 # The Plot
 ggplot(rt_summary, aes(x = region_label, y = mean_RRT, 
-                         color = type, shape = pronoun, 
-                         group = interaction(type, pronoun))) +
+                         color = Antecedent, shape = Pronoun, 
+                         group = interaction(Antecedent, Pronoun))) +
   geom_line(linewidth = 1) +
   geom_point(size = 3) +
   geom_errorbar(aes(ymin = mean_RRT - se_RRT, ymax = mean_RRT + se_RRT), width = 0.1) +
   labs(title = "Reading Times by Condition",
        x = "Sentence Region",
-       y = "Reading Time (ms)") +
+       y = "RRT") +
   theme_minimal() +
-  facet_wrap(~type) # This splits the plot into 'he' and 'they' panels
+  facet_wrap(~Antecedent)
 ```
 
 
