@@ -1,6 +1,6 @@
 ---
-title: "Replication of Study X by Sample & Sample (20xx, Psychological Science)"
-author: "Replication Author[s] (contact information)"
+title: "Replication of Processing bound-variable singular they by Chung-Hye Han & Keir Moulton (2022, Canadian Journal of Linguistics)"
+author: "Katherine Johnson (katiej23@stanford.edu)"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 format:
   html:
@@ -24,6 +24,7 @@ library(lme4)
 library(purrr)
 library(scales) # For pretty percentage labels on the graph
 library(lmerTest)
+library(readr)
 ```
 
 <!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
@@ -40,7 +41,7 @@ This experiment replicated work from Han and Moulton (2022) on the processing of
 
 Han and Moulton (2022) built on this work, exploring the relationship between bound vs. referential singular *they* and gender specificity of the antecedent as it relates to ease of processing a sentence. They found that bound-variable singular *they* with a gendered antecedent has a processing advantage over both referential singular *they* and bound-variable singular *they* without a gendered antecedent.
 
-This experiment replicated the sentence processing experiment that Han and Moulton ran, aiming to (dis)confirm their observed interaction between bound-variable vs. referential singular *they* and gender specificity of the antecedent, as well as introducing an additional type of antecedent that Han and Moulton did not consider, shown below:
+This experiment replicated the sentence processing experiment that Han and Moulton ran (their experiment 1b), aiming to (dis)confirm their observed interaction between bound-variable vs. referential singular *they* and gender specificity of the antecedent, as well as introducing an additional type of antecedent that Han and Moulton did not consider, shown below:
 
 (3) Referential and named *they*: Alex loves their mother.
 
@@ -51,15 +52,15 @@ This experiment replicated the sentence processing experiment that Han and Moult
 
 <!-- Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size. -->
 
-All participants were native English speakers. Han&Moulton report a t-value of 2.34 (p. 285) with 193 participants considered in their calculations. The Cohen's d is estimated as $d = \frac{t}{\sqrt{n}} = \frac{2.34}{\sqrt{193}} = 0.168$. From this, we can estimate power:
+Han&Moulton report a t-value of 2.34 (p. 285) with 193 participants considered in their calculations. The Cohen's d is estimated as $d = \frac{t}{\sqrt{n}} = \frac{2.34}{\sqrt{193}} = 0.168$. From this, we can estimate power:
 
 ```{r}
 power_result <- pwr.t.test(
   d = 0.168,                 # Effect size (Cohen's d)
-  sig.level = 0.05,          # Alpha level (0.05 is conventional)
-  power = 0.80,              # Desired power (0.80 is conventional)
+  sig.level = 0.05,
+  power = 0.80,
   type = "paired",           # Every participant saw all the conditions (across different items)
-  alternative = "two.sided"  # Two-tailed test
+  alternative = "two.sided"
 )
 plot(power_result)
 ```
@@ -68,8 +69,7 @@ plot(power_result)
 
 <!-- Planned sample size and/or termination rule, sampling frame, known demographics if any, preselection rules if any. -->
 
-
-The results of the power analysis suggest that at least 281 participants should be included in this replication. I propose collecting data from 300 people to be conservative and to allow exclusions of participants with low scores on comprehension questions. (Note: I have *no* idea how expensive it is to run experiments like this, so I don't know if this is an absurdly expensive proposal or not!)
+The results of the power analysis suggest that at least 281 participants should be included in this replication. I propose collecting data from 300 people to be conservative and to allow exclusions of participants with low scores on comprehension questions.
 
 ### Materials
 
@@ -96,7 +96,7 @@ f. Avery thought that the one who would win the race would be him when the times
 
 <!-- Can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article. -->
 
-300 native English users participated in this study online via Prolific. The age of the participants ranges from 18-TBA, with the mean age at TBA. Participants self-reported to be native users of English by answering a survey question at the end of the experiment. Each participant received $3.20 as compensation upon completion of the experiment. Twenty item sets like (5) were distributed over four lists in a Latin-square design. `In addition, each list contained a set of 40 fillers. The sentences were presented on [Prolific] in a uniquely generated random order for each participant, using the moving-window paradigm (Just et al. 1982). After reading the context sentence, participants advanced to the next region by pressing on the space bar. No region could be displayed more than once. After each experimental sentence was read, a comprehension question was presented, which could be answered by pressing one key for ‘yes’ or another key for ‘no’. The comprehension questions tested participants’ understanding of the sentence, but not their interpretation of the critical pronoun. The comprehension question for the item in [(5)] is in [(6)]'. (Adapted from Han and Moulton 2022, 283-284)
+300 native English users participated in this study online via Prolific. Participants self-reported to be native users of English in their demographics on Prolific. Each participant received $3.20 as compensation upon completion of the experiment. Thirty item sets like (5) were distributed over six lists in a Latin-square design. `In addition, each list contained a set of [30] fillers. The sentences were presented on [Prolific] in a uniquely generated random order for each participant, using the moving-window paradigm (Just et al. 1982). After reading the context sentence, participants advanced to the next region by pressing on the space bar. No region could be displayed more than once. After each experimental sentence was read, a comprehension question was presented, which could be answered by pressing one key for ‘yes’ or another key for ‘no’. The comprehension questions tested participants’ understanding of the sentence, but not their interpretation of the critical pronoun. The comprehension question for the item in [(5)] is in [(6)]'. (Adapted from Han and Moulton 2022, 283-284)
 
 (6) Was there going to be a winner of a race? (Han&Moulton 2022, (14))
 
@@ -104,8 +104,8 @@ f. Avery thought that the one who would win the race would be him when the times
 
 <!-- Can also quote directly, though it is less often spelled out effectively for an analysis strategy section.  The key is to report an analysis strategy that is as close to the original - data cleaning rules, data exclusion rules, covariates, etc. - as possible.   -->
 
-Participants with low comprehension question response score (<50%) and extremely fast reading speed per region (<50ms) were excluded. Additionally, reading times of a region that were 10 standard deviations above the mean were removed, in order to exclude extreme outliers from analysis. The regions of analysis are Region 7 (the target region), Region 8 (the spillover region), and Region 9. We calculated RRTs using character length from the entire dataset (including fillers) to estimate the reading time for each region for each participant (Ferreira and Clifton 1986, Trueswell and Tanenhaus 1994, Phillips 2006). We analyzed each region’s RRTs with a mixed model, with a random-effects
-structure: RRT ∼ Antecedent * Pronoun + (1+Antecedent * Pronoun|Participant) + (1+Antecedent*Pronoun|Item). (Adapted from Han&Moulton 2022, p. 284).
+Participants with low comprehension question response score (<50%\footnote{This value was eventually changed to 75% in subsequent analysis; see justification below.}) and extremely fast reading speed per region (<50ms) were excluded. Additionally, reading times of a region that were 10 standard deviations above the mean were removed, in order to exclude extreme outliers from analysis. The regions of analysis are Region 7 (the target region), Region 8 (the spillover region), and Region 9. We calculated RRTs using character length from the entire dataset (including fillers) to estimate the reading time for each region for each participant (Ferreira and Clifton 1986, Trueswell and Tanenhaus 1994, Phillips 2006). We analyzed each region’s RRTs with a mixed model, with a random-effects
+structure: RRT ∼ Antecedent \* Pronoun + (1+Antecedent \* Pronoun|Participant) + (1+Antecedent\*Pronoun|Item). (Adapted from Han&Moulton 2022, p. 284).
 
 My addition to this experiment -- exploring three different types of antecedent instead of two -- does not require any changes to the analysis conducted in the original experiment.
 
@@ -113,43 +113,37 @@ My addition to this experiment -- exploring three different types of antecedent 
 
 ### Differences from Original Study
 
-Explicitly describe known differences in sample, setting, procedure, and analysis plan from original study.  The goal, of course, is to minimize those differences, but differences will inevitably occur.  Also, note whether such differences are anticipated to make a difference based on claims in the original article or subsequent published research on the conditions for obtaining the effect.
+<!-- Explicitly describe known differences in sample, setting, procedure, and analysis plan from original study.  The goal, of course, is to minimize those differences, but differences will inevitably occur.  Also, note whether such differences are anticipated to make a difference based on claims in the original article or subsequent published research on the conditions for obtaining the effect. -->
+
+The sample size of the replication is larger than the original study (300 participants vs. 193 participants), following the justification outlined above. The setting is similar: the replication is conducted online via Prolific, while the original study recruited participants via Amazon Mechnical Turk and directed them to the experiment on Ibex Farm. The procedure is comparable, although different numbers of critical and filler trials were included because of the additional variation that my replication explores. The original experiment included 20 critical trials (5 per condition) and 40 filler trials; my replication includes 30 critical trials (5 per condition) and 30 filler trials (number of filler trials was decreased to save money by making the experiment slightly shorter). None of these changes are expected to affect results, although the additional critical conditions of course introduce additional data to be analyzed (with the analysis plan exactly matching the plan for the rest of the data).
 
 ### Methods Addendum (Post Data Collection)
 
-You can comment this section out prior to final report with data collection.
-
-#### Actual Sample
-  Sample size, demographics, data exclusions based on rules spelled out in analysis plan
-
-#### Differences from pre-data collection methods plan
-  Any differences from what was described as the original plan, or “none”.
+<!-- You can comment this section out prior to final report with data collection. -->
 
 
-## Results
-
-
-### Data preparation
-
-Data preparation following the analysis plan.
-	
 ```{r include=F}
-### Data Preparation
+# Get participant demographics
 
-#### Load Relevant Libraries and Functions
+demo_raw <- read_csv("./participant-demographics/prolific_demographic_export_6a14e1cf1b78e1520c7ffd5b.csv")
 
-#### Import data
+avg_age <- demo_raw %>%
+  pull(Age) %>%             # Use pull() to extract the column as a vector
+  parse_number() %>%        # Converts "25" to 25 and handles non-numeric chars
+  mean(na.rm = TRUE)        # Ignores missing values
 
-#### Data exclusion / filtering
+max_age <- demo_raw %>%
+  pull(Age) %>%             # Use pull() to extract the column as a vector
+  parse_number() %>%        # Converts "25" to 25 and handles non-numeric chars
+  max(na.rm = TRUE)        # Ignores missing values
 
-#### Prepare data for analysis - create columns etc.
-
-## ^ Instructions from original template
-
-
+min_age <- demo_raw %>%
+  pull(Age) %>%             # Use pull() to extract the column as a vector
+  parse_number() %>%        # Converts "25" to 25 and handles non-numeric chars
+  min(na.rm = TRUE)        # Ignores missing values
 ```
 
-```{r}
+```{r include=F}
 # Collect all the data from the experiment
 
 # Create a list of the file paths for all the CSVs
@@ -186,7 +180,7 @@ total_excluded_files <- total_starting_files - total_kept_files
 rt_raw <- read_csv(valid_files, id = "file_name")
 ```
 
-```{r}
+```{r include=F}
 # Filter out participants who consented before a certain date. These are participants from pilot versions of the experiment rather than from the full study.
 
 cutoff_time <- ymd_hms("2026-05-25 12:00:00", tz = "UTC")
@@ -202,12 +196,7 @@ valid_participants <- rt_raw %>%
 # as long as they belong to a file_name in the valid list
 rt_sub_clean <- rt_raw %>%
   filter(file_name %in% valid_participants) %>%
-  group_by(participant_id) %>%
-  mutate(rt = as.numeric(rt)) %>% # Force RT to be a number
-  # We subset rt to only include rows where condition is NOT NA,
-  # calculate the mean, and keep the participant if it's >= 50
-  filter(mean(rt[!is.na(condition)], na.rm = TRUE) >= 50) %>%
-  ungroup()
+  mutate(rt = as.numeric(rt)) # Force RT to be a number
 
 
 # # Optional: See how many participants were kept vs dropped
@@ -226,6 +215,79 @@ rt_sub_clean <- rt_raw %>%
 # print(earliest_kept)
 ```
 
+```{r include=F}
+# Now, I want to filter out participants with low comprehension question score and too-fast reading speed
+
+# ==============================================================================
+# 1. Participant-Level Exclusions (Separated for reporting)
+# ==============================================================================
+total_n <- n_distinct(rt_sub_clean$participant_id)
+
+# A. Accuracy Exclusions (< 75%)
+acc_summary <- rt_sub_clean %>%
+  group_by(participant_id) %>%
+  summarize(accuracy = mean(correct, na.rm = TRUE), .groups = "drop")
+
+failed_acc_ids <- acc_summary %>%
+  filter(accuracy < 0.75 | is.na(accuracy)) %>%
+  pull(participant_id)
+
+n_excluded_acc <- length(failed_acc_ids)
+
+# B. Speed Exclusions (< 50ms)
+# We filter out the accuracy failures first so we don't double-count participants
+speed_summary <- rt_sub_clean %>%
+  filter(!participant_id %in% failed_acc_ids) %>%
+  filter(!is.na(condition)) %>% # Only check experimental trials for baseline speed
+  group_by(participant_id) %>%
+  summarize(mean_rt = mean(rt, na.rm = TRUE), .groups = "drop")
+
+failed_speed_ids <- speed_summary %>%
+  filter(mean_rt < 50 | is.na(mean_rt)) %>%
+  pull(participant_id)
+
+n_excluded_speed <- length(failed_speed_ids)
+
+# C. Apply Participant Exclusions
+rt_participant_filtered <- rt_sub_clean %>%
+  filter(!participant_id %in% c(failed_acc_ids, failed_speed_ids))
+
+kept_n <- n_distinct(rt_participant_filtered$participant_id)
+
+# ==============================================================================
+# 2. Trial-Level Exclusions (10 SD) and RRT Calculation
+# ==============================================================================
+trials_before <- nrow(rt_participant_filtered)
+
+rt_clean <- rt_participant_filtered %>%
+  group_by(participant_id) %>%
+  # Remove 10 SD outliers
+  filter(is.na(rt) | rt <= (mean(rt, na.rm = TRUE) + 10 * sd(rt, na.rm = TRUE))) %>%
+  # Calculate word length and RRT
+  mutate(word_length = nchar(word)) %>%
+  mutate(RRT = as.numeric(residuals(lm(rt ~ word_length, na.action = na.exclude)))) %>%
+  ungroup()
+
+trials_after <- nrow(rt_clean)
+trials_dropped <- trials_before - trials_after
+pct_trials_dropped <- (trials_dropped / trials_before ) *100
+
+# Print a clean summary to your console
+cat("--- PARTICIPANT EXCLUSIONS ---\n")
+cat("Starting Participants:", total_n, "\n")
+cat("Excluded for Accuracy (< 75%):", n_excluded_acc, "\n")
+cat("Excluded for Speed (< 50ms):", n_excluded_speed, "\n")
+cat("Final Participants Kept:", kept_n, "\n\n")
+
+cat("--- TRIAL EXCLUSIONS ---\n")
+cat("Total trials before 10 SD trim:", trials_before, "\n")
+cat("Total trials after 10 SD trim:", trials_after, "\n")
+cat("Individual trials dropped:", trials_dropped, "\n")
+```
+
+
+#### Actual Sample
+  <!-- Sample size, demographics, data exclusions based on rules spelled out in analysis plan. -->
 ```{r}
 # At this point, my data should look like H&M's raw data.
 # Now I want to figure out who to exclude for low question comprehension
@@ -271,68 +333,35 @@ scale_x_continuous(labels = scales::percent, breaks = seq(0, 1, by = 0.1)) +  th
     y = "Number of Participants Excluded"
   )
 ```
-
-
-```{r}
-# Now, I want to filter out participants with low comprehension question score and too-fast reading speed
-
-# Filter out participants with < 75% accuracy
-rt_clean <- rt_sub_clean %>%
-  # 1. Group by participant
-  group_by(participant_id) %>%
-   # 2. Keep rows where the RT is LESS THAN OR EQUAL TO the mean + 10*SD
-  filter(is.na(rt) | rt <= (mean(rt, na.rm = TRUE) + 10 * sd(rt, na.rm = TRUE))) %>%
-  mutate(word_length = nchar(word)) %>%
   
-  # 2. Keep only the participants whose average accuracy is 75% or higher
-  filter(mean(correct, na.rm = TRUE) >= 0.75) %>%
-  
-  # I want to add an additional column for reading response time "We calculated RRTs using character length from the entire dataset (including fillers) to estimate the reading time for each region for each participant (Ferreira and Clifton 1986, Trueswell and Tanenhaus 1994, Phillips 2006)." (H\&M, p. 284)
-  mutate(RRT = as.numeric(residuals(lm(rt ~ word_length, na.action = na.exclude)))) %>%
-  
-  # 3. Ungroup to prevent issues with future analyses
-  ungroup()
+  303 participants were recruited on Prolific.\footnote{An apparent Prolific glitch led to collection of data from 303 rather than the intended 300 participants, and these additional data were included in analysis.} All participants were native English speakers, as reported in their Prolific demographics. The age of the participants ranges from `r min_age`-`r max_age`, with the mean age at `r round(avg_age, digits = 2)`. Participants who did not meet threshold accuracy on comprehension questions were excluded. The accuracy threshold was read off of the above plot, with 75% accuracy chosen as a reasonable threshold. This exclusion resulted in the exclusion of `r round(n_excluded_acc, digits = 2)` participants. Participants were also checked for an unreasonably fast reading speed per region (<50ms), although no participants met this exclusion criterion. Finally, reading times of a region that were 10 standard deviations above the mean were removed, in order to exclude extreme outliers from analysis. This resulted in excluding `r round(pct_trials_dropped, digits = 2)`% of the observations from the data.
 
-# Count total unique participants in the original data
-total_n <- n_distinct(rt_sub_clean$participant_id)
+#### Differences from pre-data collection methods plan
+  <!-- Any differences from what was described as the original plan, or “none”. -->
+The original analysis plan suggested modeling the data with the following model: RRT ∼ Antecedent \* Pronoun + (1+Antecedent \* Pronoun|Participant) + (1+Antecedent\*Pronoun|Item). However, such a model was found to have a singular fit on all regions that it was applied to, and the following simpler model was used instead: RRT ~ Antecedent \* Pronoun + (1 | Participant) + (1 | Item). This was the maximal model that converged.
 
-# Count total unique participants in the cleaned data
-kept_n <- n_distinct(rt_clean$participant_id)
 
-# Calculate the difference
-excluded_n_for_accuracy <- total_n - kept_n
+## Results
 
-# Print a clean summary to your console
-# cat("Original Total:", total_n, "\n")
-# cat("Participants Kept:", kept_n, "\n")
-# cat("Participants Excluded for accuracy:", excluded_n_for_accuracy, "\n")
 
-trials_before <- nrow(rt_clean)
+### Data preparation
 
-# Apply the 10 SD outlier filter
-rt_clean <- rt_clean %>%
-  # 1. Define what "the mean" belongs to. 
-  # Grouping by participant_id calculates the mean and SD for EACH person individually.
-  # (If you want it calculated per region, you would use: group_by(participant_id, region_label))
-  group_by(participant_id) %>%
-  
-  # 2. Keep rows where the RT is LESS THAN OR EQUAL TO the mean + 10*SD
-  filter(
-    is.na(rt) | rt <= (mean(rt, na.rm = TRUE) + 10 * sd(rt, na.rm = TRUE))
-  ) %>%
-  
-  # 3. Ungroup
-  ungroup()
+Data preparation following the analysis plan.
+	
+```{r include=F}
+### Data Preparation
 
-# ---------------------------------------------------------
-# The Quick Count: How many individual trials were dropped?
-# ---------------------------------------------------------
-trials_after <- nrow(rt_clean)
-trials_dropped <- trials_before - trials_after
+#### Load Relevant Libraries and Functions
 
-cat("Total rows before outlier removal:", trials_before, "\n")
-cat("Total rows after outlier removal:", trials_after, "\n")
-cat("Individual trials removed (> 10 SD):", trials_dropped, "\n")
+#### Import data
+
+#### Data exclusion / filtering
+
+#### Prepare data for analysis - create columns etc.
+
+## ^ Instructions from original template
+
+
 ```
 
 
@@ -376,7 +405,6 @@ rt_model <- rt_model %>%
 # print(paste("Rows found:", nrow(rt_model)))
 # table(rt_model$region_label, rt_model$condition)
 ```
-
 
 
 ```{r}
@@ -497,6 +525,10 @@ print(final_table)
 ```
 
 ```{r}
+# Can remove named data to create a plot more similar to H&M's original
+rt_summary_wo_named <- rt_summary %>%
+  filter(Antecedent %in% c("quantificational", "specific"))
+
 # The Plot
 ggplot(rt_summary, aes(x = region_label, y = mean_RRT, 
                          color = Antecedent, shape = Pronoun, 
@@ -504,10 +536,14 @@ ggplot(rt_summary, aes(x = region_label, y = mean_RRT,
   geom_line(linewidth = 1) +
   geom_point(size = 3) +
   geom_errorbar(aes(ymin = mean_RRT - se_RRT, ymax = mean_RRT + se_RRT), width = 0.1) +
-  labs(title = "Reading Times by Condition",
-       x = "Sentence Region",
+  scale_x_discrete(labels = c("Critical" = "Region 7\n(them/him when)", 
+                              "Spillover 1" = "Region 8\n(the times)", 
+                              "Spillover 2" = "Region 9\n(were finally)")) +
+  labs(title = "Mean RRTs by condition",
+       x = "",
        y = "RRT") +
   theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   facet_wrap(~Antecedent)
 ```
 
