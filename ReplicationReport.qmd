@@ -25,6 +25,27 @@ library(purrr)
 library(scales) # For pretty percentage labels on the graph
 library(lmerTest)
 library(readr)
+library(knitr)
+library(kableExtra)
+```
+
+```{r include=F}
+format_p <- function(p) {
+  if (p < 0.001) {
+    return("p < 0.001")
+  } else {
+    # 1. Round to 2 significant figures first
+    p_rounded <- signif(p, 2)
+    
+    # 2. Dynamically find the required decimal places for this magnitude
+    dec_places <- 1 - floor(log10(p_rounded))
+    
+    # 3. Force sprintf to print exactly that many decimal places
+    formatted <- sprintf(paste0("%.", dec_places, "f"), p_rounded)
+    
+    return(paste0("p = ", formatted))
+  }
+}
 ```
 
 <!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
@@ -39,12 +60,11 @@ This experiment replicated work from Han and Moulton (2022) on the processing of
 
 (2) Referential *they*: My friend's child loves their mother.
 
-Han and Moulton (2022) built on this work, exploring the relationship between bound vs. referential singular *they* and gender specificity of the antecedent as it relates to ease of processing a sentence. They found that bound-variable singular *they* with a gendered antecedent has a processing advantage over both referential singular *they* and bound-variable singular *they* without a gendered antecedent.
-
-This experiment replicated the sentence processing experiment that Han and Moulton ran (their experiment 1b), aiming to (dis)confirm their observed interaction between bound-variable vs. referential singular *they* and gender specificity of the antecedent, as well as introducing an additional type of antecedent that Han and Moulton did not consider, shown below:
+Han and Moulton (2022) built on this work, conducting a range of experiments that explored the relationship between bound vs. referential singular *they* and gender specificity of the antecedent as it relates to ease of processing a sentence. Overall, they found that bound-variable singular *they* with a gendered antecedent has a processing advantage over both referential singular *they* and bound-variable singular *they* without a gendered antecedent. The experiment that I conducted attempted to replicate one of a broader range of experiments that Han and Moulton ran (their experiment 1b), aiming to (dis)confirm their finding that bound-variable and referential singular *they* do not differ in reading time and that both incur a processing cost in comparison to *he*. This experiment also introduced an additional type of antecedent that Han and Moulton did not consider, shown in (3), and asked how *he* and *they* pronouns were processed with such named antecedents.
 
 (3) Referential and named *they*: Alex loves their mother.
 
+Throughout the remainder of this paper, "referential" is used to refer to antecedents such as in (2) (crucially excluding named antecedents like (3), even though these too are referential), and "named" is used to refer to antecedents such as in (3).
 
 ## Methods
 
@@ -52,9 +72,9 @@ This experiment replicated the sentence processing experiment that Han and Moult
 
 <!-- Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size. -->
 
-Han&Moulton report a t-value of 2.34 (p. 285) with 193 participants considered in their calculations. The Cohen's d is estimated as $d = \frac{t}{\sqrt{n}} = \frac{2.34}{\sqrt{193}} = 0.168$. From this, we can estimate power:
+Han and Moulton report a t-value of 2.34 (p. 285) with 193 participants considered in their calculations. The Cohen's d is estimated as $d = \frac{t}{\sqrt{n}} = \frac{2.34}{\sqrt{193}} = 0.168$. From this, power can be estimated as follows:
 
-```{r}
+```{r echo=F, fig.cap="**Figure 1.** Power calculation (paired t test)"}
 power_result <- pwr.t.test(
   d = 0.168,                 # Effect size (Cohen's d)
   sig.level = 0.05,
@@ -69,43 +89,42 @@ plot(power_result)
 
 <!-- Planned sample size and/or termination rule, sampling frame, known demographics if any, preselection rules if any. -->
 
-The results of the power analysis suggest that at least 281 participants should be included in this replication. I propose collecting data from 300 people to be conservative and to allow exclusions of participants with low scores on comprehension questions.
+The results of the power analysis suggest that at least 281 participants should be included in this replication study. I propose collecting data from 300 people to be conservative and to allow exclusions of participants with low scores on comprehension questions or unrealistically fast reading times (following Han and Moulton's exclusion criteria).
 
 ### Materials
 
 <!-- All materials - can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article. -->
 
-The original experiment materials cross 'two two-level factors, Antecedent (QUANT vs. REF) and Pronoun (THEY vs. HE), yielding four experimental conditions' (Han&Moulton 2022, 283). This replication introduces a third level in the Antecedent factor (QUANT vs. REF vs. NAMED), yielding six total experimental conditions. 'The test sentences in [this experiment] were made to be [long] so that the sentences do not end with the target region containing the critical pronoun. Also, the definite description in the embedded specificational clause began with the one who to ensure a singular interpretation of the post-copula pronoun.' (Han&Moulton 2022, 283).
+The original experiment materials cross 'two two-level factors, Antecedent (QUANT vs. REF) and Pronoun (THEY vs. HE), yielding four experimental conditions' (Han and Moulton 2022, p. 283). This replication study introduces a third level in the Antecedent factor (QUANT vs. REF vs. NAMED), yielding six total experimental conditions. 'The test sentences in [this experiment] were made to be [long] so that the sentences do not end with the target region containing the critical pronoun. Also, the definite description in the embedded specificational clause began with *the one who* to ensure a singular interpretation of the post-copula pronoun. Excluding the context sentences, the target sentences were divided into ten regions, with region 1 containing the antecedent and region 7, the target region, containing the critical pronoun, as illustrated [(5)].' (Han and Moulton 2022, p. 283).
 
 (5) Only one competitor could win the race.
-a. Every competitor thought that they one who would win the race would be them when the times were finally announced. QUANT.THEY
+a. /~1~ *Every competitor* /~2~ thought that /~3~ the one who /~4~ would win /~5~ the race /~6~ would be /~7~ *them* when /~8~ the times /~9~ were finally /~10~ announced. QUANT.THEY
 
-b. Every competitor that that the one who would win the race would be him when the times were finally announced. QUANT.HE
+b. /~1~ *Every competitor* /~2~ thought that /~3~ the one who /~4~ would win /~5~ the race /~6~ would be /~7~ *him* when /~8~ the times /~9~ were finally /~10~ announced. QUANT.HE
 
-c. The youngest competitor that that the one who would win the race would be them when the times were finally announced. REF.THEY
+c. /~1~ *The youngest competitor* /~2~ thought that /~3~ the one who /~4~ would win /~5~ the race /~6~ would be /~7~ *them* when /~8~ the times /~9~ were finally /~10~ announced. REF.THEY
 
-d. The youngest competitor that that the one who would win the race would be him when the times were finally announced. REF.HE
+d. /~1~ *The youngest competitor* /~2~ thought that /~3~ the one who /~4~ would win /~5~ the race /~6~ would be /~7~ *him* when /~8~ the times /~9~ were finally /~10~ announced. REF.HE
 
-e. Avery thought that the one who would win the race would be them when the times were finally announced. NAMED.THEY
+e. /~1~ *Avery* /~2~ thought that /~3~ the one who /~4~ would win /~5~ the race /~6~ would be /~7~ *them* when /~8~ the times /~9~ were finally /~10~ announced. NAMED.THEY
 
-f. Avery thought that the one who would win the race would be him when the times were finally announced. NAMED.HE
+f. /~1~ *Avery* /~2~ thought that /~3~ the one who /~4~ would win /~5~ the race /~6~ would be /~7~ *him* when /~8~ the times /~9~ were finally /~10~ announced. NAMED.HE
 
-(Adapted from Han&Moulton 2022, (13))
+(Adapted from Han and Moulton 2022, (13))
 
 ### Procedure	
 
 <!-- Can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article. -->
 
-300 native English users participated in this study online via Prolific. Participants self-reported to be native users of English in their demographics on Prolific. Each participant received $3.20 as compensation upon completion of the experiment. Thirty item sets like (5) were distributed over six lists in a Latin-square design. `In addition, each list contained a set of [30] fillers. The sentences were presented on [Prolific] in a uniquely generated random order for each participant, using the moving-window paradigm (Just et al. 1982). After reading the context sentence, participants advanced to the next region by pressing on the space bar. No region could be displayed more than once. After each experimental sentence was read, a comprehension question was presented, which could be answered by pressing one key for ‘yes’ or another key for ‘no’. The comprehension questions tested participants’ understanding of the sentence, but not their interpretation of the critical pronoun. The comprehension question for the item in [(5)] is in [(6)]'. (Adapted from Han and Moulton 2022, 283-284)
+303^[See explanation below for the difference from the originally planned 300 participants.] native English users participated in this study online via Prolific. Participants self-reported to be native users of English in their demographics on Prolific. Each participant received $3.20 as compensation upon completion of the experiment. Thirty item sets like (5) were distributed over six lists in a Latin-square design. 'In addition, each list contained a set of [30] fillers. The sentences were presented on [Prolific] in a uniquely generated random order for each participant, using the moving-window paradigm (Just et al. 1982). After reading the context sentence, participants advanced to the next region by pressing on the space bar. No region could be displayed more than once. After each experimental sentence was read, a comprehension question was presented, which could be answered by pressing one key for ‘yes’ or another key for ‘no’. The comprehension questions tested participants’ understanding of the sentence, but not their interpretation of the critical pronoun. The comprehension question for the item in [(5)] is in [(6)]'. (Adapted from Han and Moulton 2022, pp. 283-284)
 
-(6) Was there going to be a winner of a race? (Han&Moulton 2022, (14))
+(6) Was there going to be a winner of a race? (Han and Moulton 2022, (14))
 
 ### Analysis Plan
 
 <!-- Can also quote directly, though it is less often spelled out effectively for an analysis strategy section.  The key is to report an analysis strategy that is as close to the original - data cleaning rules, data exclusion rules, covariates, etc. - as possible.   -->
 
-Participants with low comprehension question response score (<50%\footnote{This value was eventually changed to 75% in subsequent analysis; see justification below.}) and extremely fast reading speed per region (<50ms) were excluded. Additionally, reading times of a region that were 10 standard deviations above the mean were removed, in order to exclude extreme outliers from analysis. The regions of analysis are Region 7 (the target region), Region 8 (the spillover region), and Region 9. We calculated RRTs using character length from the entire dataset (including fillers) to estimate the reading time for each region for each participant (Ferreira and Clifton 1986, Trueswell and Tanenhaus 1994, Phillips 2006). We analyzed each region’s RRTs with a mixed model, with a random-effects
-structure: RRT ∼ Antecedent \* Pronoun + (1+Antecedent \* Pronoun|Participant) + (1+Antecedent\*Pronoun|Item). (Adapted from Han&Moulton 2022, p. 284).
+Participants with low comprehension question response score (<50%^[This value was eventually changed to 75% in subsequent analysis; see justification below.]) and extremely fast reading speed per region (<50ms) were excluded. Additionally, reading times of a region that were 10 standard deviations above the mean were removed, in order to exclude extreme outliers from analysis. The regions of analysis are Region 7 (the target region), Region 8 (the spillover region), and Region 9. Residual reading times (RRTs) were calculated using character length from the entire dataset (including fillers) to estimate the reading time for each region for each participant (Ferreira and Clifton 1986, Trueswell and Tanenhaus 1994, Phillips 2006). Each region’s RRTs were analyzed with a mixed model, with a random-effects structure: RRT ∼ Antecedent \* Pronoun + (1+Antecedent \* Pronoun|Participant) + (1+Antecedent\*Pronoun|Item)^[This model was ultimately simplified to avoid over-fitting the data (see below).]. (Adapted from Han and Moulton 2022, p. 284).
 
 My addition to this experiment -- exploring three different types of antecedent instead of two -- does not require any changes to the analysis conducted in the original experiment.
 
@@ -115,7 +134,7 @@ My addition to this experiment -- exploring three different types of antecedent 
 
 <!-- Explicitly describe known differences in sample, setting, procedure, and analysis plan from original study.  The goal, of course, is to minimize those differences, but differences will inevitably occur.  Also, note whether such differences are anticipated to make a difference based on claims in the original article or subsequent published research on the conditions for obtaining the effect. -->
 
-The sample size of the replication is larger than the original study (300 participants vs. 193 participants), following the justification outlined above. The setting is similar: the replication is conducted online via Prolific, while the original study recruited participants via Amazon Mechnical Turk and directed them to the experiment on Ibex Farm. The procedure is comparable, although different numbers of critical and filler trials were included because of the additional variation that my replication explores. The original experiment included 20 critical trials (5 per condition) and 40 filler trials; my replication includes 30 critical trials (5 per condition) and 30 filler trials (number of filler trials was decreased to save money by making the experiment slightly shorter). None of these changes are expected to affect results, although the additional critical conditions of course introduce additional data to be analyzed (with the analysis plan exactly matching the plan for the rest of the data).
+The sample size of the replication study is larger than the original study (303 participants vs. 193 participants), following the justification outlined above. The setting is similar: the replication was conducted online via Prolific, while the original study recruited participants via Amazon Mechanical Turk and directed them to the experiment on Ibex Farm. The procedure is comparable, although different numbers of critical and filler trials were included because of the additional variation that my replication explores. The original experiment included 20 critical trials (5 per condition) and 40 filler trials; my replication includes 30 critical trials (5 per condition) and 30 filler trials (the number of filler trials was decreased to save money by making the experiment slightly shorter). Finally, filler trials that used gendered names in the original experiment were modified to instead use gender-neutral names in the replication experiment. This was because gender-neutral names were also used in critical trials of the replication experiment (necessarily gender-neutral to be compatible with both *he* and *they* pronouns), so using gender-neutral names in the fillers as well made these stimuli minimally different from the critical stimuli. None of these changes are expected to affect results^[This expectation was not necessarily borne out: see results and discussion below.], although the additional critical conditions of course introduce additional data to be analyzed (with the analysis plan exactly matching the plan for the rest of the data).
 
 ### Methods Addendum (Post Data Collection)
 
@@ -126,6 +145,8 @@ The sample size of the replication is larger than the original study (300 partic
 # Get participant demographics
 
 demo_raw <- read_csv("./participant-demographics/prolific_demographic_export_6a14e1cf1b78e1520c7ffd5b.csv")
+
+std_dev_age <- sd(demo_raw$Age, na.rm = TRUE)
 
 avg_age <- demo_raw %>%
   pull(Age) %>%             # Use pull() to extract the column as a vector
@@ -288,7 +309,7 @@ cat("Individual trials dropped:", trials_dropped, "\n")
 
 #### Actual Sample
   <!-- Sample size, demographics, data exclusions based on rules spelled out in analysis plan. -->
-```{r}
+```{r echo=F, fig.cap="**Figure 2.** Participant exclusions by accuracy threshold"}
 # At this point, my data should look like H&M's raw data.
 # Now I want to figure out who to exclude for low question comprehension
 
@@ -310,16 +331,16 @@ exclusion_curve <- tibble(threshold = thresholds_to_test) %>%
 
 # 4. Plot the curve!
 ggplot(exclusion_curve, aes(x = threshold, y = excluded_count)) +
-  geom_line(color = "#2C3E50", size = 1.2) +
+  geom_line(color = "#2C3E50", linewidth = 1.2) +
   
   # Add reference lines
   geom_vline(xintercept = 0.50, linetype = "dashed", color = "gray50") +
   annotate("text", x = 0.50, y = max(exclusion_curve$excluded_count) * 0.8, 
-           label = "50% (Original)", angle = 90, vjust = -1, color = "gray50") +
+           label = "50% (Han&Moulton)", angle = 90, vjust = -1, color = "gray50") +
   
-  geom_vline(xintercept = 0.60, linetype = "dashed", color = "blue") +
-  annotate("text", x = 0.60, y = max(exclusion_curve$excluded_count) * 0.8, 
-           label = "60%", angle = 90, vjust = -1, color = "blue") +
+  # geom_vline(xintercept = 0.60, linetype = "dashed", color = "blue") +
+  # annotate("text", x = 0.60, y = max(exclusion_curve$excluded_count) * 0.8, 
+  #          label = "60%", angle = 90, vjust = -1, color = "blue") +
   
   geom_vline(xintercept = 0.75, linetype = "dashed", color = "red") +
   annotate("text", x = 0.75, y = max(exclusion_curve$excluded_count) * 0.8, 
@@ -329,12 +350,12 @@ ggplot(exclusion_curve, aes(x = threshold, y = excluded_count)) +
 scale_x_continuous(labels = scales::percent, breaks = seq(0, 1, by = 0.1)) +  theme_minimal() +
   labs(
     title = "Robustness Check: Participant Exclusions by Accuracy Threshold",
-    x = "Accuracy Threshold (Excluding < X%)",
+    x = "Accuracy Threshold",
     y = "Number of Participants Excluded"
   )
 ```
   
-  303 participants were recruited on Prolific.\footnote{An apparent Prolific glitch led to collection of data from 303 rather than the intended 300 participants, and these additional data were included in analysis.} All participants were native English speakers, as reported in their Prolific demographics. The age of the participants ranges from `r min_age`-`r max_age`, with the mean age at `r round(avg_age, digits = 2)`. Participants who did not meet threshold accuracy on comprehension questions were excluded. The accuracy threshold was read off of the above plot, with 75% accuracy chosen as a reasonable threshold. This exclusion resulted in the exclusion of `r round(n_excluded_acc, digits = 2)` participants. Participants were also checked for an unreasonably fast reading speed per region (<50ms), although no participants met this exclusion criterion. Finally, reading times of a region that were 10 standard deviations above the mean were removed, in order to exclude extreme outliers from analysis. This resulted in excluding `r round(pct_trials_dropped, digits = 2)`% of the observations from the data.
+303 participants were recruited on Prolific. (An apparent Prolific glitch led to collection of data from 303 rather than the intended 300 participants, and these additional data were included in analysis.) All participants were native English speakers, as reported in their Prolific demographics. The age of the participants ranges from `r min_age`-`r max_age` years (mean: `r round(avg_age, digits = 2)`, standard deviation: `r round(std_dev_age, digits = 2)`). Participants who did not meet threshold accuracy on comprehension questions were excluded. The accuracy threshold was read off of the above plot, with 75% accuracy chosen as a reasonable threshold. This exclusion resulted in the exclusion of `r round(n_excluded_acc, digits = 2)` participants. Participants were also checked for an unreasonably fast reading speed per region (<50ms), although no participants met this exclusion criterion. Finally, reading times of a region that were 10 standard deviations above the mean were removed, in order to exclude extreme outliers from analysis. This resulted in excluding `r round(pct_trials_dropped, digits = 2)`% of the observations from the data.
 
 #### Differences from pre-data collection methods plan
   <!-- Any differences from what was described as the original plan, or “none”. -->
@@ -344,9 +365,9 @@ The original analysis plan suggested modeling the data with the following model:
 ## Results
 
 
-### Data preparation
+<!-- ### Data preparation -->
 
-Data preparation following the analysis plan.
+<!-- Data preparation following the analysis plan. -->
 	
 ```{r include=F}
 ### Data Preparation
@@ -364,9 +385,7 @@ Data preparation following the analysis plan.
 
 ```
 
-
-
-```{r}
+```{r include=F}
 # Identify regions using string detection in 'stimulus'
 rt_model <- rt_clean %>%
   filter(condition %in% c("quantificational_they", "specific_they", "named_they", 
@@ -407,7 +426,7 @@ rt_model <- rt_model %>%
 ```
 
 
-```{r}
+```{r include=F}
 # Gemini suggested that I should use "sum coding" instead of standard dummy coding because that's more likely to be what H&M used? I'm skeptical, but I'm trying it out
 # 1. First, ensure R knows these columns are categorical factors
 rt_model$Pronoun <- as.factor(rt_model$Pronoun)
@@ -423,9 +442,7 @@ contrasts(rt_model$Antecedent) <- contr.sum(3)
 # contrasts(rt_model$Pronoun)
 ```
 
-Copy the model from the paper:
-
-```{r}
+```{r include = F}
 # The below complete random models get singular fits, so I remove interactions until I get a proper result
 # # 1. Critical Region Model
 # model_critical <- lmer(RRT ~ Antecedent * Pronoun + 
@@ -464,15 +481,14 @@ model_spillover2 <- lmer(RRT ~ Antecedent * Pronoun +
                          data = filter(rt_model, region_label == "3_Spillover_2"))
 ```
 
-```{r}
-anova(model_critical, type="III")
-anova(model_spillover1, type="III")
-anova(model_spillover2, type="III")
+```{r include = F}
+anova_critical <- anova(model_critical, type="III")
+anova_spillover1 <- anova(model_spillover1, type="III")
+anova_spillover2 <-anova(model_spillover2, type="III")
 ```
 
 
-
-```{r}
+```{r include=F}
 # This is for the plotting
 rt_summary <- rt_model %>%
   group_by(Antecedent, Pronoun, region_label) %>%
@@ -491,40 +507,135 @@ rt_summary$region_label <- factor(rt_summary$region_label,
                                     labels = c("Critical", "Spillover 1", "Spillover 2"))
 ```
 
-Here I want to replicate H\&M's table 3: RRT by condition for all regions. I want 6 rows: quant by pronoun, spec by pronoun, and named (my new data) by pronoun
+```{r include=F}
+p_crit_ant <- anova_critical["Pronoun", "Pr(>F)"]
+p_crit_ant_by_pro <- anova_critical["Antecedent:Pronoun", "Pr(>F)"]
 
-```{r}
-# Transform the tibble into the desired table format
+# 1. Calculate the estimated means for the Pronoun within each Antecedent
+critical_emm_pro_by_ant <- emmeans(model_critical, ~ Pronoun | Antecedent)
+
+# 2. Run the pairwise contrasts to get your p-values
+crit_p_vals <- as.data.frame(pairs(critical_emm_pro_by_ant, adjust = "holm"))
+
+# Extract the p-values by filtering for the specific Antecedent row
+p_pro_named <- crit_p_vals$p.value[crit_p_vals$Antecedent == "named"]
+p_pro_quant <- crit_p_vals$p.value[crit_p_vals$Antecedent == "quantificational"]
+p_pro_spec  <- crit_p_vals$p.value[crit_p_vals$Antecedent == "specific"]
+
+# 1. Calculate the estimated means for the Pronoun within each Antecedent
+crit_emm_ant_by_pro <- emmeans(model_critical, ~ Antecedent | Pronoun)
+
+# 2. Run the pairwise contrasts to get your p-values
+p_ant_by_pro <- as.data.frame(pairs(crit_emm_ant_by_pro, adjust = "holm"))
+
+# Extract the p-value by matching both the Pronoun and the specific contrast string
+# Named vs. Quantificational for "they"
+p_they_named_quant <- p_ant_by_pro$p.value[p_ant_by_pro$Pronoun == "they" & 
+                                               p_ant_by_pro$contrast == "named - quantificational"]
+p_they_named_spec <- p_ant_by_pro$p.value[p_ant_by_pro$Pronoun == "they" & 
+                                               p_ant_by_pro$contrast == "named - specific"]
+p_he_named_spec <- p_ant_by_pro$p.value[p_ant_by_pro$Pronoun == "he" & 
+                                               p_ant_by_pro$contrast == "named - specific"]
+
+p_spill1_ant <- anova_spillover1["Antecedent:Pronoun", "Pr(>F)"]
+
+# Similar for the other model that had significant results
+
+# 1. Calculate the estimated marginal means for Antecedent 
+# By not including Pronoun in the formula, emmeans automatically averages across it
+spillover2_emm_ant <- emmeans(model_spillover2, ~ Antecedent)
+
+# 2. Run the pairwise contrasts to get your p-values
+spill2_p_vals <- as.data.frame(pairs(spillover2_emm_ant, adjust = "holm"))
+p_spill2_ant <- spill2_p_vals$p.value[spill2_p_vals$contrast == "named - quantificational"]
+```
+
+### Confirmatory analysis
+
+<!-- The analyses as specified in the analysis plan.   -->
+
+Mean raw reading times and residual reading times (RRTs) are reported in the below table. These represent reading times for all data, regardless of whether the comprehension question was answered correctly. The regions of analysis are Region 7 (the target region), Region 8 (the spillover region), and Region 9. As noted above, RRTs were calculated using character length from the entire dataset (including fillers) to estimate the reading time for each region for each participant. The graph below summarizes mean RRTs by condition for the regions of analysis. (Adapted from Han and Moulton 2022, p. 284)
+
+In region 7 (the target region where the critical pronoun appears), the analysis showed a main effect of Pronoun such that *they* pronouns were read more rapidly than *he* pronouns (`r format_p(p_crit_ant)`) and a significant interaction between Pronoun and Antecedent (`r format_p(p_crit_ant_by_pro)`). The following findings emerged within the Pronoun condition. There was no significant effect of quantificational vs. referential antecedent on the processing of *they* or of *he*. Interestingly, however, *they* pronouns with a named antecedent differed significantly from *they* pronouns with other antecedent types. *they* with a named antecedent was read more slowly than with a quantificational antecedent (`r format_p(p_they_named_quant)`) and more slowly than with a referential antecedent (`r format_p(p_they_named_spec)`). *he* pronouns only significantly differed with a named vs referential antecedent, where *he* with a named antecedent was read more rapidly than with a referential antecedent (`r format_p(p_he_named_spec)`). Within the Antecedent condition, *he* was read more slowly than *they* with quantificational (`r format_p(p_pro_quant)`) and referential (`r format_p(p_pro_spec)`) antecedents, although no statistically significant difference between pronouns emerged in the Named antecedent condition.
+
+In region 8 (the region immediately following the critical pronoun region), no significant main effect or interaction emerged (although the interaction between Pronoun and Antecedent was nearly significant, `r format_p(p_spill1_ant)`).
+
+In region 9 (the second region following the critical pronoun region), there was a main effect of Antecedent, such that pronouns referring to a named antecedent were read more slowly than pronouns referring to a quantificational antecedent (`r format_p(p_spill2_ant)`).
+
+```{r echo=F, message=F, warning=F, fig.cap="Table 1: New experiment's mean raw reading times (SE) and mean RRTs (SE) in ms"}
+# # Transform the tibble into the desired table format
+# final_table <- rt_summary %>%
+#   # 1. Create two combined string columns: one for raw RT, one for RRT
+#   mutate(
+#     RT = sprintf("%.0f (%.0f)", mean_rt, se),
+#     RRT = sprintf("%.0f (%.0f)", mean_RRT, se_RRT) # Kept at 2 decimals for residuals
+#   ) %>%
+#   
+#   # 2. Select our grouping variables, the region label, and our TWO new combined columns
+#   select(Antecedent, Pronoun, region_label, RT, RRT) %>%
+#   
+#   # 3. Pivot the data to wide format
+#   # By providing a vector of column names to values_from, R will automatically
+#   # create 6 columns (e.g., RT_critical, RRT_critical, RT_spillover 1...)
+#   pivot_wider(
+#     names_from = region_label,
+#     values_from = c(RT, RRT)
+#   ) %>%
+#   
+#   # 4. Re-order the rows based on your custom theoretical hierarchy
+#   mutate(
+#     Antecedent = factor(Antecedent, levels = c("quantificational", "specific", "named")),
+#     Pronoun = factor(Pronoun, levels = c("they", "he"))
+#   ) %>%
+#   arrange(Antecedent, Pronoun)
+# 
+# # View the final result
+# print(final_table)
+
+# 1. Transform the tibble into the desired table format
 final_table <- rt_summary %>%
-  # 1. Create two combined string columns: one for raw RT, one for RRT
   mutate(
     RT = sprintf("%.0f (%.0f)", mean_rt, se),
-    RRT = sprintf("%.0f (%.0f)", mean_RRT, se_RRT) # Kept at 2 decimals for residuals
+    RRT = sprintf("%.0f (%.0f)", mean_RRT, se_RRT)
   ) %>%
-  
-  # 2. Select our grouping variables, the region label, and our TWO new combined columns
   select(Antecedent, Pronoun, region_label, RT, RRT) %>%
-  
-  # 3. Pivot the data to wide format
-  # By providing a vector of column names to values_from, R will automatically
-  # create 6 columns (e.g., RT_critical, RRT_critical, RT_spillover 1...)
   pivot_wider(
     names_from = region_label,
     values_from = c(RT, RRT)
   ) %>%
-  
-  # 4. Re-order the rows based on your custom theoretical hierarchy
   mutate(
     Antecedent = factor(Antecedent, levels = c("quantificational", "specific", "named")),
     Pronoun = factor(Pronoun, levels = c("they", "he"))
   ) %>%
   arrange(Antecedent, Pronoun)
 
-# View the final result
-print(final_table)
+# 2. Fix column names to be clean and descriptive
+# pivot_wider names them like RT_Critical, RRT_Critical, etc.
+colnames(final_table) <- c(
+  "Antecedent", "Pronoun", 
+  "7", "8", "9", 
+  "7", "8", "9"
+)
+
+# 3. Render the table strictly forcing full width and beautiful alignment
+
+kable(final_table, 
+      format = "html", 
+      booktabs = TRUE, 
+      align = c("l", "l", "c", "c", "c", "c", "c", "c")) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = TRUE,          # Forces the table to expand across the full page width
+    position = "center",
+    font_size = 13              # Slightly scales down font to guarantee 8 columns fit cleanly
+  ) %>%
+  # Optional: Adds a nice header row over your metrics to group them logically
+  add_header_above(c(" " = 2, "Raw Reading Times (ms)" = 3, "Residual Reading Times (ms)" = 3))
 ```
 
-```{r}
+\ 
+
+```{r echo=F, fig.cap="**Figure 3.** New experiment's mean RRTs and standard errors for the regions of analysis"}
 # Can remove named data to create a plot more similar to H&M's original
 rt_summary_wo_named <- rt_summary %>%
   filter(Antecedent %in% c("quantificational", "specific"))
@@ -539,31 +650,59 @@ ggplot(rt_summary, aes(x = region_label, y = mean_RRT,
   scale_x_discrete(labels = c("Critical" = "Region 7\n(them/him when)", 
                               "Spillover 1" = "Region 8\n(the times)", 
                               "Spillover 2" = "Region 9\n(were finally)")) +
-  labs(title = "Mean RRTs by condition",
-       x = "",
-       y = "RRT") +
+  labs(x = "",
+       y = "RRT (ms)") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   facet_wrap(~Antecedent)
 ```
 
+\ 
 
-### Confirmatory analysis
+![**Figure 4.** Original study's mean RRTs and standard errors for the regions of analysis (Han and Moulton 2022, Figure 2)](./photos-for-report/HM2022Fig2)
 
-The analyses as specified in the analysis plan.  
-
-*Side-by-side graph with original graph is ideal here*
+<!-- *Side-by-side graph with original graph is ideal here* -->
 
 ### Exploratory analyses
 
-Any follow-up analyses desired (not required).  
+Any follow-up analyses desired (not required). Maybe include age stuff.
 
 ## Discussion
 
 ### Summary of Replication Attempt
 
-Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
+<!-- Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.   -->
+
+This study found that regardless of whether an antecedent is quantified or referential, readers slow down less when encountering the pronoun *they* than when encountering the pronoun *he*. This result was not a replication of the result from Han and Moulton's original study. In fact, their study found the exact opposite: readers slowed down more when encountering *they* than when encountering *he* (and for Han and Moulton, this slowdown appeared not in the region where the critical pronoun was shown as it did for my participants, but in the following region that is referred to as Region 8 in the above discussion). One of Han and Moulton's results, however, did replicate. In both their original study and this follow-up study, reading time of singular *they* was not significantly different for quantificational vs. referential antecedents.
+
+In comparing the results of each study, it is also worth noting that in Han and Moulton's original study, their participants read faster than average in all of regions 7-9 (as shown by the negative RRTs for these regions, ranging from about 25 to 50 ms faster than average across regions and conditions). In contrast, participants in this follow-up study slowed down drastically when encountering the critical pronoun in region 7 (reading about 40 to 100 ms slower, depending on condition) and then sped up drastically in regions 8 and 9 (reading about 75 to 175 ms faster, depending on condition and region). This suggests that participants in my study incurred an overall processing cost associated with any pronoun, while Han and Moulton's participants did not show evidence of incurring a similar processing cost.
+
+By introducing named antecedents, an additional condition that the original study did not include, this study also showed interesting results regarding how pronouns are processed with these antecedents. Most notably, readers slowed down similar amounts when encountering *they* vs *he* in the named condition, showing that whatever advantage *they* had over *he* in the referential and quantificational antecedent conditions disappeared in this condition.
 
 ### Commentary
 
-Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
+<!-- Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long. -->
+
+The failure to replicate Han and Moulton's original primary result is itself an interesting result. Various possible explanations for the difference between the studies exist. Perhaps participants differed from those in the other study in some systematic way, giving rise to the difference in reading times. However, such a hypothesis is extremely difficult to test: participants in both studies were native English speakers with similar age ranges and average ages, and Han and Moulton did not report additional demographic information about their participants, so no further potential differences can be checked. Another possible explanation for the discrepancy between studies would be that processing of pronouns truly has changed significantly in the time between these studies. Han and Moulton's study was published in 2022 (with data collected an unknown length of time before publication), and data for this follow-up study was collected in May 2026. This is not a significant gap (perhaps less than four years), so significant change in pronoun processing in this timeframe seems somewhat unlikely. However, singular *they* is currently undergoing rapid change (see for example Konnelly and Cowper 2020, Konnelly et al. 2022, and Johnson in prep), so this is not entirely implausible. It is also possible that the experimental differences between studies introduced sufficient differences to affect reading time: this follow-up study introduced the Named Antecedent condition, replaced 10 filler items with critical items in this condition, and replaced all names in the original study's filler items with different gender-neutral names. That is, when the original study included a name like 'Ben' or 'Mary', this study replaced it with an ostensibly gender-neutral name like 'Kit' or 'Billie'. It is possible that processing these gender-neutral names followed by *they* and *he* pronouns across various critical and filler conditions introduced a confound in the data, although it is not clear how such a change could have prompted the results that this follow-up study did observe (specifically, how changes to names could have so drastically affected the quantificational and referential antecedent conditions where no names were present in the stimuli). Overall, this attempted replication introduces interesting new findings and suggests that further research should be conducted on the processing of singular *they* vs. *he* with different antecedent types.
+
+## References
+
+**Conrod, K.** (2019). *Pronouns raising and emerging* (Doctoral dissertation). University of Washington, Seattle, WA.
+
+**Conrod, K., Konnelly, L., & Bradley, E. D.** (2022). Non-binary singular *they*. In L. L. Paterson (Ed.), *The Routledge Handbook of Pronouns*. Routledge.
+
+**Ferreira, F., & Clifton, C.** (1986). The independence of syntactic processing. *Journal of Memory and Language*, 25(3), 348–368.
+
+**Han, C. H., & Moulton, K.** (2022). Processing bound-variable singular *they*. *Canadian Journal of Linguistics/Revue canadienne de linguistique*, 67(3), 273–294.
+
+**Johnson, K.** (in prep). [Conditioning morphosyntactic variation: an exploration of social and linguistic factors constraining use of *themself*]. Stanford University.
+
+**Just, M. A., Carpenter, P. A., & Woolley, J. D.** (1982). Paradigms and processes in reading comprehension. *Journal of Experimental Psychology: General*, 111(2), 228–238.
+
+**Konnelly, L., & Cowper, E.** (2020). Gender diversity and morphosyntax: An account of singular *they*. *Glossa: a journal of general linguistics*, 5(1), 40.
+
+**Phillips, C.** (2006). The real-time status of island phenomena. *Language*, 82(4), 795–823.
+
+**Trueswell, J. C., & Tanenhaus, M. K.** (1994). Semantic influence on parsing: Use of thematic role information in syntactic ambiguity resolution. *Journal of Memory and Language*, 33(3): 285–318.
+
+

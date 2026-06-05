@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Katherine Johnson (katiej23@stanford.edu)">
-<meta name="dcterms.date" content="2026-06-03">
+<meta name="dcterms.date" content="2026-06-04">
 
 <title>Replication of Processing bound-variable singular they by Chung-Hye Han &amp; Keir Moulton (2022, Canadian Journal of Linguistics)</title>
 <style>
@@ -25,41 +25,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -74,6 +39,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="ReplicationReport_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="ReplicationReport_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="ReplicationReport_files/libs/bootstrap/bootstrap-138a6193a3bd40baf1e627da441a4734.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="ReplicationReport_files/libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="ReplicationReport_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -128,7 +95,6 @@ window.Quarto = {
   </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
   <ul class="collapse">
-  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data preparation</a></li>
   <li><a href="#confirmatory-analysis" id="toc-confirmatory-analysis" class="nav-link" data-scroll-target="#confirmatory-analysis">Confirmatory analysis</a></li>
   <li><a href="#exploratory-analyses" id="toc-exploratory-analyses" class="nav-link" data-scroll-target="#exploratory-analyses">Exploratory analyses</a></li>
   </ul></li>
@@ -137,6 +103,7 @@ window.Quarto = {
   <li><a href="#summary-of-replication-attempt" id="toc-summary-of-replication-attempt" class="nav-link" data-scroll-target="#summary-of-replication-attempt">Summary of Replication Attempt</a></li>
   <li><a href="#commentary" id="toc-commentary" class="nav-link" data-scroll-target="#commentary">Commentary</a></li>
   </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
 </div>
@@ -161,7 +128,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 3, 2026</p>
+      <p class="date">June 4, 2026</p>
     </div>
   </div>
   
@@ -182,31 +149,24 @@ window.Quarto = {
 <li><p>Bound <em>they</em>: Every child loves their mother.</p></li>
 <li><p>Referential <em>they</em>: My friend’s child loves their mother.</p></li>
 </ol>
-<p>Han and Moulton (2022) built on this work, exploring the relationship between bound vs.&nbsp;referential singular <em>they</em> and gender specificity of the antecedent as it relates to ease of processing a sentence. They found that bound-variable singular <em>they</em> with a gendered antecedent has a processing advantage over both referential singular <em>they</em> and bound-variable singular <em>they</em> without a gendered antecedent.</p>
-<p>This experiment replicated the sentence processing experiment that Han and Moulton ran (their experiment 1b), aiming to (dis)confirm their observed interaction between bound-variable vs.&nbsp;referential singular <em>they</em> and gender specificity of the antecedent, as well as introducing an additional type of antecedent that Han and Moulton did not consider, shown below:</p>
+<p>Han and Moulton (2022) built on this work, conducting a range of experiments that explored the relationship between bound vs.&nbsp;referential singular <em>they</em> and gender specificity of the antecedent as it relates to ease of processing a sentence. Overall, they found that bound-variable singular <em>they</em> with a gendered antecedent has a processing advantage over both referential singular <em>they</em> and bound-variable singular <em>they</em> without a gendered antecedent. The experiment that I conducted attempted to replicate one of a broader range of experiments that Han and Moulton ran (their experiment 1b), aiming to (dis)confirm their finding that bound-variable and referential singular <em>they</em> do not differ in reading time and that both incur a processing cost in comparison to <em>he</em>. This experiment also introduced an additional type of antecedent that Han and Moulton did not consider, shown in (3), and asked how <em>he</em> and <em>they</em> pronouns were processed with such named antecedents.</p>
 <ol start="3" type="1">
 <li>Referential and named <em>they</em>: Alex loves their mother.</li>
 </ol>
+<p>Throughout the remainder of this paper, “referential” is used to refer to antecedents such as in (2) (crucially excluding named antecedents like (3), even though these too are referential), and “named” is used to refer to antecedents such as in (3).</p>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
 <section id="power-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="power-analysis">Power Analysis</h3>
 <!-- Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size. -->
-<p>Han&amp;Moulton report a t-value of 2.34 (p.&nbsp;285) with 193 participants considered in their calculations. The Cohen’s d is estimated as <span class="math inline">\(d = \frac{t}{\sqrt{n}} = \frac{2.34}{\sqrt{193}} = 0.168\)</span>. From this, we can estimate power:</p>
+<p>Han and Moulton report a t-value of 2.34 (p.&nbsp;285) with 193 participants considered in their calculations. The Cohen’s d is estimated as <span class="math inline">\(d = \frac{t}{\sqrt{n}} = \frac{2.34}{\sqrt{193}} = 0.168\)</span>. From this, power can be estimated as follows:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>power_result <span class="ot">&lt;-</span> <span class="fu">pwr.t.test</span>(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">d =</span> <span class="fl">0.168</span>,                 <span class="co"># Effect size (Cohen's d)</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">power =</span> <span class="fl">0.80</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"paired"</span>,           <span class="co"># Every participant saw all the conditions (across different items)</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(power_result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="ReplicationReport_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="ReplicationReport_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption><strong>Figure 1.</strong> Power calculation (paired t test)</figcaption>
 </figure>
 </div>
 </div>
@@ -215,44 +175,44 @@ window.Quarto = {
 <section id="planned-sample" class="level3">
 <h3 class="anchored" data-anchor-id="planned-sample">Planned Sample</h3>
 <!-- Planned sample size and/or termination rule, sampling frame, known demographics if any, preselection rules if any. -->
-<p>The results of the power analysis suggest that at least 281 participants should be included in this replication. I propose collecting data from 300 people to be conservative and to allow exclusions of participants with low scores on comprehension questions.</p>
+<p>The results of the power analysis suggest that at least 281 participants should be included in this replication study. I propose collecting data from 300 people to be conservative and to allow exclusions of participants with low scores on comprehension questions or unrealistically fast reading times (following Han and Moulton’s exclusion criteria).</p>
 </section>
 <section id="materials" class="level3">
 <h3 class="anchored" data-anchor-id="materials">Materials</h3>
 <!-- All materials - can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article. -->
-<p>The original experiment materials cross ‘two two-level factors, Antecedent (QUANT vs.&nbsp;REF) and Pronoun (THEY vs.&nbsp;HE), yielding four experimental conditions’ (Han&amp;Moulton 2022, 283). This replication introduces a third level in the Antecedent factor (QUANT vs.&nbsp;REF vs.&nbsp;NAMED), yielding six total experimental conditions. ‘The test sentences in [this experiment] were made to be [long] so that the sentences do not end with the target region containing the critical pronoun. Also, the definite description in the embedded specificational clause began with the one who to ensure a singular interpretation of the post-copula pronoun.’ (Han&amp;Moulton 2022, 283).</p>
+<p>The original experiment materials cross ‘two two-level factors, Antecedent (QUANT vs.&nbsp;REF) and Pronoun (THEY vs.&nbsp;HE), yielding four experimental conditions’ (Han and Moulton 2022, p.&nbsp;283). This replication study introduces a third level in the Antecedent factor (QUANT vs.&nbsp;REF vs.&nbsp;NAMED), yielding six total experimental conditions. ‘The test sentences in [this experiment] were made to be [long] so that the sentences do not end with the target region containing the critical pronoun. Also, the definite description in the embedded specificational clause began with <em>the one who</em> to ensure a singular interpretation of the post-copula pronoun. Excluding the context sentences, the target sentences were divided into ten regions, with region 1 containing the antecedent and region 7, the target region, containing the critical pronoun, as illustrated [(5)].’ (Han and Moulton 2022, p.&nbsp;283).</p>
 <ol start="5" type="1">
 <li>Only one competitor could win the race.</li>
 </ol>
 <ol type="a">
-<li><p>Every competitor thought that they one who would win the race would be them when the times were finally announced. QUANT.THEY</p></li>
-<li><p>Every competitor that that the one who would win the race would be him when the times were finally announced. QUANT.HE</p></li>
-<li><p>The youngest competitor that that the one who would win the race would be them when the times were finally announced. REF.THEY</p></li>
-<li><p>The youngest competitor that that the one who would win the race would be him when the times were finally announced. REF.HE</p></li>
-<li><p>Avery thought that the one who would win the race would be them when the times were finally announced. NAMED.THEY</p></li>
-<li><p>Avery thought that the one who would win the race would be him when the times were finally announced. NAMED.HE</p></li>
+<li><p>/<sub>1</sub> <em>Every competitor</em> /<sub>2</sub> thought that /<sub>3</sub> the one who /<sub>4</sub> would win /<sub>5</sub> the race /<sub>6</sub> would be /<sub>7</sub> <em>them</em> when /<sub>8</sub> the times /<sub>9</sub> were finally /<sub>10</sub> announced. QUANT.THEY</p></li>
+<li><p>/<sub>1</sub> <em>Every competitor</em> /<sub>2</sub> thought that /<sub>3</sub> the one who /<sub>4</sub> would win /<sub>5</sub> the race /<sub>6</sub> would be /<sub>7</sub> <em>him</em> when /<sub>8</sub> the times /<sub>9</sub> were finally /<sub>10</sub> announced. QUANT.HE</p></li>
+<li><p>/<sub>1</sub> <em>The youngest competitor</em> /<sub>2</sub> thought that /<sub>3</sub> the one who /<sub>4</sub> would win /<sub>5</sub> the race /<sub>6</sub> would be /<sub>7</sub> <em>them</em> when /<sub>8</sub> the times /<sub>9</sub> were finally /<sub>10</sub> announced. REF.THEY</p></li>
+<li><p>/<sub>1</sub> <em>The youngest competitor</em> /<sub>2</sub> thought that /<sub>3</sub> the one who /<sub>4</sub> would win /<sub>5</sub> the race /<sub>6</sub> would be /<sub>7</sub> <em>him</em> when /<sub>8</sub> the times /<sub>9</sub> were finally /<sub>10</sub> announced. REF.HE</p></li>
+<li><p>/<sub>1</sub> <em>Avery</em> /<sub>2</sub> thought that /<sub>3</sub> the one who /<sub>4</sub> would win /<sub>5</sub> the race /<sub>6</sub> would be /<sub>7</sub> <em>them</em> when /<sub>8</sub> the times /<sub>9</sub> were finally /<sub>10</sub> announced. NAMED.THEY</p></li>
+<li><p>/<sub>1</sub> <em>Avery</em> /<sub>2</sub> thought that /<sub>3</sub> the one who /<sub>4</sub> would win /<sub>5</sub> the race /<sub>6</sub> would be /<sub>7</sub> <em>him</em> when /<sub>8</sub> the times /<sub>9</sub> were finally /<sub>10</sub> announced. NAMED.HE</p></li>
 </ol>
-<p>(Adapted from Han&amp;Moulton 2022, (13))</p>
+<p>(Adapted from Han and Moulton 2022, (13))</p>
 </section>
 <section id="procedure" class="level3">
 <h3 class="anchored" data-anchor-id="procedure">Procedure</h3>
 <!-- Can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article. -->
-<p>300 native English users participated in this study online via Prolific. Participants self-reported to be native users of English in their demographics on Prolific. Each participant received $3.20 as compensation upon completion of the experiment. Thirty item sets like (5) were distributed over six lists in a Latin-square design. `In addition, each list contained a set of [30] fillers. The sentences were presented on [Prolific] in a uniquely generated random order for each participant, using the moving-window paradigm (Just et al.&nbsp;1982). After reading the context sentence, participants advanced to the next region by pressing on the space bar. No region could be displayed more than once. After each experimental sentence was read, a comprehension question was presented, which could be answered by pressing one key for ‘yes’ or another key for ‘no’. The comprehension questions tested participants’ understanding of the sentence, but not their interpretation of the critical pronoun. The comprehension question for the item in [(5)] is in [(6)]’. (Adapted from Han and Moulton 2022, 283-284)</p>
+<p>303<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> native English users participated in this study online via Prolific. Participants self-reported to be native users of English in their demographics on Prolific. Each participant received $3.20 as compensation upon completion of the experiment. Thirty item sets like (5) were distributed over six lists in a Latin-square design. ‘In addition, each list contained a set of [30] fillers. The sentences were presented on [Prolific] in a uniquely generated random order for each participant, using the moving-window paradigm (Just et al.&nbsp;1982). After reading the context sentence, participants advanced to the next region by pressing on the space bar. No region could be displayed more than once. After each experimental sentence was read, a comprehension question was presented, which could be answered by pressing one key for ‘yes’ or another key for ‘no’. The comprehension questions tested participants’ understanding of the sentence, but not their interpretation of the critical pronoun. The comprehension question for the item in [(5)] is in [(6)]’. (Adapted from Han and Moulton 2022, pp.&nbsp;283-284)</p>
 <ol start="6" type="1">
-<li>Was there going to be a winner of a race? (Han&amp;Moulton 2022, (14))</li>
+<li>Was there going to be a winner of a race? (Han and Moulton 2022, (14))</li>
 </ol>
 </section>
 <section id="analysis-plan" class="level3">
 <h3 class="anchored" data-anchor-id="analysis-plan">Analysis Plan</h3>
 <!-- Can also quote directly, though it is less often spelled out effectively for an analysis strategy section.  The key is to report an analysis strategy that is as close to the original - data cleaning rules, data exclusion rules, covariates, etc. - as possible.   -->
-<p>Participants with low comprehension question response score (&lt;50%\footnote{This value was eventually changed to 75% in subsequent analysis; see justification below.}) and extremely fast reading speed per region (&lt;50ms) were excluded. Additionally, reading times of a region that were 10 standard deviations above the mean were removed, in order to exclude extreme outliers from analysis. The regions of analysis are Region 7 (the target region), Region 8 (the spillover region), and Region 9. We calculated RRTs using character length from the entire dataset (including fillers) to estimate the reading time for each region for each participant (Ferreira and Clifton 1986, Trueswell and Tanenhaus 1994, Phillips 2006). We analyzed each region’s RRTs with a mixed model, with a random-effects structure: RRT ∼ Antecedent * Pronoun + (1+Antecedent * Pronoun|Participant) + (1+Antecedent*Pronoun|Item). (Adapted from Han&amp;Moulton 2022, p.&nbsp;284).</p>
+<p>Participants with low comprehension question response score (&lt;50%<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>) and extremely fast reading speed per region (&lt;50ms) were excluded. Additionally, reading times of a region that were 10 standard deviations above the mean were removed, in order to exclude extreme outliers from analysis. The regions of analysis are Region 7 (the target region), Region 8 (the spillover region), and Region 9. Residual reading times (RRTs) were calculated using character length from the entire dataset (including fillers) to estimate the reading time for each region for each participant (Ferreira and Clifton 1986, Trueswell and Tanenhaus 1994, Phillips 2006). Each region’s RRTs were analyzed with a mixed model, with a random-effects structure: RRT ∼ Antecedent * Pronoun + (1+Antecedent * Pronoun|Participant) + (1+Antecedent*Pronoun|Item)<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. (Adapted from Han and Moulton 2022, p.&nbsp;284).</p>
 <p>My addition to this experiment – exploring three different types of antecedent instead of two – does not require any changes to the analysis conducted in the original experiment.</p>
 <!-- **Clarify key analysis of interest here**  You can also pre-specify additional analyses you plan to do. -->
 </section>
 <section id="differences-from-original-study" class="level3">
 <h3 class="anchored" data-anchor-id="differences-from-original-study">Differences from Original Study</h3>
 <!-- Explicitly describe known differences in sample, setting, procedure, and analysis plan from original study.  The goal, of course, is to minimize those differences, but differences will inevitably occur.  Also, note whether such differences are anticipated to make a difference based on claims in the original article or subsequent published research on the conditions for obtaining the effect. -->
-<p>The sample size of the replication is larger than the original study (300 participants vs.&nbsp;193 participants), following the justification outlined above. The setting is similar: the replication is conducted online via Prolific, while the original study recruited participants via Amazon Mechnical Turk and directed them to the experiment on Ibex Farm. The procedure is comparable, although different numbers of critical and filler trials were included because of the additional variation that my replication explores. The original experiment included 20 critical trials (5 per condition) and 40 filler trials; my replication includes 30 critical trials (5 per condition) and 30 filler trials (number of filler trials was decreased to save money by making the experiment slightly shorter). None of these changes are expected to affect results, although the additional critical conditions of course introduce additional data to be analyzed (with the analysis plan exactly matching the plan for the rest of the data).</p>
+<p>The sample size of the replication study is larger than the original study (303 participants vs.&nbsp;193 participants), following the justification outlined above. The setting is similar: the replication was conducted online via Prolific, while the original study recruited participants via Amazon Mechanical Turk and directed them to the experiment on Ibex Farm. The procedure is comparable, although different numbers of critical and filler trials were included because of the additional variation that my replication explores. The original experiment included 20 critical trials (5 per condition) and 40 filler trials; my replication includes 30 critical trials (5 per condition) and 30 filler trials (the number of filler trials was decreased to save money by making the experiment slightly shorter). Finally, filler trials that used gendered names in the original experiment were modified to instead use gender-neutral names in the replication experiment. This was because gender-neutral names were also used in critical trials of the replication experiment (necessarily gender-neutral to be compatible with both <em>he</em> and <em>they</em> pronouns), so using gender-neutral names in the fillers as well made these stimuli minimally different from the critical stimuli. None of these changes are expected to affect results<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>, although the additional critical conditions of course introduce additional data to be analyzed (with the analysis plan exactly matching the plan for the rest of the data).</p>
 </section>
 <section id="methods-addendum-post-data-collection" class="level3">
 <h3 class="anchored" data-anchor-id="methods-addendum-post-data-collection">Methods Addendum (Post Data Collection)</h3>
@@ -261,313 +221,304 @@ window.Quarto = {
 <h4 class="anchored" data-anchor-id="actual-sample">Actual Sample</h4>
 <p><!-- Sample size, demographics, data exclusions based on rules spelled out in analysis plan. --></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># At this point, my data should look like H&amp;M's raw data.</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Now I want to figure out who to exclude for low question comprehension</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Calculate each participant's total accuracy just once</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>participant_accuracies <span class="ot">&lt;-</span> rt_sub_clean <span class="sc">%&gt;%</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(participant_id) <span class="sc">%&gt;%</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">accuracy =</span> <span class="fu">mean</span>(correct, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Define the range of thresholds to test</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># This creates a list from 0 to 1 (0% to 100%) stepping by 1%</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>thresholds_to_test <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Calculate how many people get excluded at EACH threshold</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>exclusion_curve <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">threshold =</span> thresholds_to_test) <span class="sc">%&gt;%</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># map_dbl runs the calculation for every single threshold in the list</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">excluded_count =</span> <span class="fu">map_dbl</span>(threshold, <span class="sc">~</span> <span class="fu">sum</span>(participant_accuracies<span class="sc">$</span>accuracy <span class="sc">&lt;</span> .x))</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Plot the curve!</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(exclusion_curve, <span class="fu">aes</span>(<span class="at">x =</span> threshold, <span class="at">y =</span> excluded_count)) <span class="sc">+</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#2C3E50"</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add reference lines</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">0.50</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray50"</span>) <span class="sc">+</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">0.50</span>, <span class="at">y =</span> <span class="fu">max</span>(exclusion_curve<span class="sc">$</span>excluded_count) <span class="sc">*</span> <span class="fl">0.8</span>, </span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"50% (Original)"</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">color =</span> <span class="st">"gray50"</span>) <span class="sc">+</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">0.60</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">0.60</span>, <span class="at">y =</span> <span class="fu">max</span>(exclusion_curve<span class="sc">$</span>excluded_count) <span class="sc">*</span> <span class="fl">0.8</span>, </span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"60%"</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">0.75</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">0.75</span>, <span class="at">y =</span> <span class="fu">max</span>(exclusion_curve<span class="sc">$</span>excluded_count) <span class="sc">*</span> <span class="fl">0.8</span>, </span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"75%"</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Formatting</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>)) <span class="sc">+</span>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Robustness Check: Participant Exclusions by Accuracy Threshold"</span>,</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Accuracy Threshold (Excluding &lt; X%)"</span>,</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Participants Excluded"</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-ℹ Please use `linewidth` instead.</code></pre>
-</div>
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="ReplicationReport_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="ReplicationReport_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption><strong>Figure 2.</strong> Participant exclusions by accuracy threshold</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>303 participants were recruited on Prolific. All participants were native English speakers, as reported in their Prolific demographics. The age of the participants ranges from 18-70, with the mean age at 37.51. Participants who did not meet threshold accuracy on comprehension questions were excluded. The accuracy threshold was read off of the above plot, with 75% accuracy chosen as a reasonable threshold. This exclusion resulted in the exclusion of 11 participants. Participants were also checked for an unreasonably fast reading speed per region (&lt;50ms), although no participants met this exclusion criterion. Finally, reading times of a region that were 10 standard deviations above the mean were removed, in order to exclude extreme outliers from analysis. This resulted in excluding 0.1853002% of the observations from the data.</p>
+<p>303 participants were recruited on Prolific. (An apparent Prolific glitch led to collection of data from 303 rather than the intended 300 participants, and these additional data were included in analysis.) All participants were native English speakers, as reported in their Prolific demographics. The age of the participants ranges from 18-70 years (mean: 37.51, standard deviation: 12.7). Participants who did not meet threshold accuracy on comprehension questions were excluded. The accuracy threshold was read off of the above plot, with 75% accuracy chosen as a reasonable threshold. This exclusion resulted in the exclusion of 11 participants. Participants were also checked for an unreasonably fast reading speed per region (&lt;50ms), although no participants met this exclusion criterion. Finally, reading times of a region that were 10 standard deviations above the mean were removed, in order to exclude extreme outliers from analysis. This resulted in excluding 0.19% of the observations from the data.</p>
 </section>
 <section id="differences-from-pre-data-collection-methods-plan" class="level4">
 <h4 class="anchored" data-anchor-id="differences-from-pre-data-collection-methods-plan">Differences from pre-data collection methods plan</h4>
-<p>Any differences from what was described as the original plan, or “none”. FLAG THE DIFFERENT MODELS.</p>
+<p><!-- Any differences from what was described as the original plan, or “none”. --> The original analysis plan suggested modeling the data with the following model: RRT ∼ Antecedent * Pronoun + (1+Antecedent * Pronoun|Participant) + (1+Antecedent*Pronoun|Item). However, such a model was found to have a singular fit on all regions that it was applied to, and the following simpler model was used instead: RRT ~ Antecedent * Pronoun + (1 | Participant) + (1 | Item). This was the maximal model that converged.</p>
 </section>
 </section>
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
-<section id="data-preparation" class="level3">
-<h3 class="anchored" data-anchor-id="data-preparation">Data preparation</h3>
-<p>Data preparation following the analysis plan.</p>
+<!-- ### Data preparation -->
+<!-- Data preparation following the analysis plan. -->
+<section id="confirmatory-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="confirmatory-analysis">Confirmatory analysis</h3>
+<!-- The analyses as specified in the analysis plan.   -->
+<p>Mean raw reading times and residual reading times (RRTs) are reported in the below table. These represent reading times for all data, regardless of whether the comprehension question was answered correctly. The regions of analysis are Region 7 (the target region), Region 8 (the spillover region), and Region 9. As noted above, RRTs were calculated using character length from the entire dataset (including fillers) to estimate the reading time for each region for each participant. The graph below summarizes mean RRTs by condition for the regions of analysis. (Adapted from Han and Moulton 2022, p.&nbsp;284)</p>
+<p>In region 7 (the target region where the critical pronoun appears), the analysis showed a main effect of Pronoun such that <em>they</em> pronouns were read more rapidly than <em>he</em> pronouns (p &lt; 0.001) and a significant interaction between Pronoun and Antecedent (p = 0.0017). The following findings emerged within the Pronoun condition. There was no significant effect of quantificational vs.&nbsp;referential antecedent on the processing of <em>they</em> or of <em>he</em>. Interestingly, however, <em>they</em> pronouns with a named antecedent differed significantly from <em>they</em> pronouns with other antecedent types. <em>they</em> with a named antecedent was read more slowly than with a quantificational antecedent (p = 0.0058) and more slowly than with a referential antecedent (p = 0.037). <em>he</em> pronouns only significantly differed with a named vs referential antecedent, where <em>he</em> with a named antecedent was read more rapidly than with a referential antecedent (p = 0.048). Within the Antecedent condition, <em>he</em> was read more slowly than <em>they</em> with quantificational (p &lt; 0.001) and referential (p &lt; 0.001) antecedents, although no statistically significant difference between pronouns emerged in the Named antecedent condition.</p>
+<p>In region 8 (the region immediately following the critical pronoun region), no significant main effect or interaction emerged (although the interaction between Pronoun and Antecedent was nearly significant, p = 0.061).</p>
+<p>In region 9 (the second region following the critical pronoun region), there was a main effect of Antecedent, such that pronouns referring to a named antecedent were read more slowly than pronouns referring to a quantificational antecedent (p = 0.022).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify regions using string detection in 'stimulus'</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>rt_model <span class="ot">&lt;-</span> rt_clean <span class="sc">%&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(condition <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"quantificational_they"</span>, <span class="st">"specific_they"</span>, <span class="st">"named_they"</span>, </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"quantificational_he"</span>, <span class="st">"specific_he"</span>, <span class="st">"named_he"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(participant_id, item) <span class="sc">%&gt;%</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find the word_index where the stimulus CONTAINS our target words</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_pronoun_region =</span> <span class="fu">str_detect</span>(stimulus, <span class="fu">regex</span>(<span class="st">"them|him"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)),</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Grab the index number for that specific row</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># We use min() just in case the detection triggers twice in one trial</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">pron_idx =</span> <span class="cf">if</span>(<span class="fu">any</span>(is_pronoun_region)) <span class="fu">min</span>(word_index[is_pronoun_region]) <span class="cf">else</span> <span class="cn">NA_real_</span>,</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Define the three regions based on that index</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">region_label =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      word_index <span class="sc">==</span> pron_idx <span class="sc">~</span> <span class="st">"1_Critical"</span>,</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>      word_index <span class="sc">==</span> pron_idx <span class="sc">+</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"2_Spillover_1"</span>,</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>      word_index <span class="sc">==</span> pron_idx <span class="sc">+</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"3_Spillover_2"</span>,</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter to keep only our three regions</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(region_label)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Add columns specifying Antecedent and Pronoun (i.e., separating these two from one another)</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>rt_model <span class="ot">&lt;-</span> rt_model <span class="sc">%&gt;%</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> condition, </span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Antecedent"</span>, <span class="st">"Pronoun"</span>), </span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">sep =</span> <span class="st">"_"</span>, </span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">remove =</span> <span class="cn">FALSE</span> <span class="co"># Optional, but highly recommended!</span></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Check the results</span></span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co"># print(paste("Rows found:", nrow(rt_model)))</span></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co"># table(rt_model$region_label, rt_model$condition)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gemini suggested that I should use "sum coding" instead of standard dummy coding because that's more likely to be what H&amp;M used? I'm skeptical, but I'm trying it out</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. First, ensure R knows these columns are categorical factors</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>rt_model<span class="sc">$</span>Pronoun <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(rt_model<span class="sc">$</span>Pronoun)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>rt_model<span class="sc">$</span>Antecedent <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(rt_model<span class="sc">$</span>Antecedent)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Apply the Sum Coding</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># The number inside the parentheses is exactly how many levels that factor has</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(rt_model<span class="sc">$</span>Pronoun) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">2</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(rt_model<span class="sc">$</span>Antecedent) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">3</span>)</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Optional: Verify that it worked!</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># This should print a little matrix with 1s and -1s instead of 0s and 1s.</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># contrasts(rt_model$Pronoun)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Copy the model from the paper:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The below complete random models get singular fits, so I remove interactions until I get a proper result</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># # 1. Critical Region Model</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_critical &lt;- lmer(RRT ~ Antecedent * Pronoun + </span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                          (1 + Antecedent*Pronoun | participant_id) + </span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#                          (1 + Antecedent*Pronoun | item), </span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#                        data = filter(rt_model, region_label == "1_Critical"))</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># # 2. Spillover 1 Model</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># model_spillover1 &lt;- lmer(RRT ~ Antecedent * Pronoun + </span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#                            (1 + Antecedent*Pronoun | participant_id) + </span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#                            (1 + Antecedent*Pronoun | item), </span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#                          data = filter(rt_model, region_label == "2_Spillover_1"))</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># # 3. Spillover 2 Model</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># model_spillover2 &lt;- lmer(RRT ~ Antecedent * Pronoun + </span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#                            (1 + Antecedent*Pronoun | participant_id) + </span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#                            (1 + Antecedent*Pronoun | item), </span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#                          data = filter(rt_model, region_label == "3_Spillover_2"))</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Critical Region Model</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>model_critical <span class="ot">&lt;-</span> <span class="fu">lmer</span>(RRT <span class="sc">~</span> Antecedent <span class="sc">*</span> Pronoun <span class="sc">+</span> </span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>                         (<span class="dv">1</span> <span class="sc">|</span> participant_id) <span class="sc">+</span> </span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>                         (<span class="dv">1</span> <span class="sc">|</span> item), </span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> <span class="fu">filter</span>(rt_model, region_label <span class="sc">==</span> <span class="st">"1_Critical"</span>))</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Spillover 1 Model</span></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>model_spillover1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(RRT <span class="sc">~</span> Antecedent <span class="sc">*</span> Pronoun <span class="sc">+</span> </span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>                           (<span class="dv">1</span> <span class="sc">|</span> participant_id) <span class="sc">+</span> </span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>                           (<span class="dv">1</span> <span class="sc">|</span> item), </span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>                         <span class="at">data =</span> <span class="fu">filter</span>(rt_model, region_label <span class="sc">==</span> <span class="st">"2_Spillover_1"</span>))</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Spillover 2 Model</span></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>model_spillover2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(RRT <span class="sc">~</span> Antecedent <span class="sc">*</span> Pronoun <span class="sc">+</span> </span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>                           (<span class="dv">1</span> <span class="sc">|</span> participant_id) <span class="sc">+</span> </span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>                           (<span class="dv">1</span> <span class="sc">|</span> item), </span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>                         <span class="at">data =</span> <span class="fu">filter</span>(rt_model, region_label <span class="sc">==</span> <span class="st">"3_Spillover_2"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model_critical, <span class="at">type=</span><span class="st">"III"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Type III Analysis of Variance Table with Satterthwaite's method
-                    Sum Sq Mean Sq NumDF  DenDF F value    Pr(&gt;F)    
-Antecedent          456656  228328     2 8460.3  1.8713  0.153991    
-Pronoun            6137977 6137977     1 8461.5 50.3041 1.423e-12 ***
-Antecedent:Pronoun 1563881  781941     2 8462.2  6.4084  0.001656 ** 
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model_spillover1, <span class="at">type=</span><span class="st">"III"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Type III Analysis of Variance Table with Satterthwaite's method
-                   Sum Sq Mean Sq NumDF  DenDF F value  Pr(&gt;F)  
-Antecedent         515420  257710     2 8435.5  1.8191 0.16224  
-Pronoun            321945  321945     1 8435.7  2.2725 0.13173  
-Antecedent:Pronoun 791739  395869     2 8435.8  2.7943 0.06122 .
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model_spillover2, <span class="at">type=</span><span class="st">"III"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Type III Analysis of Variance Table with Satterthwaite's method
-                    Sum Sq Mean Sq NumDF  DenDF F value  Pr(&gt;F)  
-Antecedent         1014159  507079     2 8434.7  3.6257 0.02667 *
-Pronoun             436238  436238     1 8434.7  3.1192 0.07741 .
-Antecedent:Pronoun  118854   59427     2 8434.8  0.4249 0.65384  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is for the plotting</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>rt_summary <span class="ot">&lt;-</span> rt_model <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Antecedent, Pronoun, region_label) <span class="sc">%&gt;%</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_rt =</span> <span class="fu">mean</span>(rt, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span> <span class="fu">sd</span>(rt, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()),</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_RRT =</span> <span class="fu">mean</span>(RRT, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_RRT =</span> <span class="fu">sd</span>(RRT, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()),</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Fix the labels for the x-axis</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>rt_summary<span class="sc">$</span>region_label <span class="ot">&lt;-</span> <span class="fu">factor</span>(rt_summary<span class="sc">$</span>region_label, </span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"1_Critical"</span>, <span class="st">"2_Spillover_1"</span>, <span class="st">"3_Spillover_2"</span>),</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Critical"</span>, <span class="st">"Spillover 1"</span>, <span class="st">"Spillover 2"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Here I want to replicate H&amp;M’s table 3: RRT by condition for all regions. I want 6 rows: quant by pronoun, spec by pronoun, and named (my new data) by pronoun</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform the tibble into the desired table format</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>final_table <span class="ot">&lt;-</span> rt_summary <span class="sc">%&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 1. Create two combined string columns: one for raw RT, one for RRT</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">RT =</span> <span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f)"</span>, mean_rt, se),</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">RRT =</span> <span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f)"</span>, mean_RRT, se_RRT) <span class="co"># Kept at 2 decimals for residuals</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 2. Select our grouping variables, the region label, and our TWO new combined columns</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Antecedent, Pronoun, region_label, RT, RRT) <span class="sc">%&gt;%</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 3. Pivot the data to wide format</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># By providing a vector of column names to values_from, R will automatically</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create 6 columns (e.g., RT_critical, RRT_critical, RT_spillover 1...)</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> region_label,</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> <span class="fu">c</span>(RT, RRT)</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 4. Re-order the rows based on your custom theoretical hierarchy</span></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">Antecedent =</span> <span class="fu">factor</span>(Antecedent, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"quantificational"</span>, <span class="st">"specific"</span>, <span class="st">"named"</span>)),</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">Pronoun =</span> <span class="fu">factor</span>(Pronoun, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"they"</span>, <span class="st">"he"</span>))</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Antecedent, Pronoun)</span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="co"># View the final result</span></span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(final_table)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 8
-  Antecedent  Pronoun RT_Critical `RT_Spillover 1` `RT_Spillover 2` RRT_Critical
-  &lt;fct&gt;       &lt;fct&gt;   &lt;chr&gt;       &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;       
-1 quantifica… they    515 (10)    529 (9)          527 (9)          34 (9)      
-2 quantifica… he      507 (8)     538 (9)          515 (8)          100 (8)     
-3 specific    they    525 (11)    545 (15)         536 (10)         44 (9)      
-4 specific    he      529 (12)    536 (11)         530 (11)         121 (11)    
-5 named       they    555 (14)    574 (14)         556 (14)         75 (11)     
-6 named       he      498 (9)     531 (11)         535 (14)         90 (8)      
-# ℹ 2 more variables: `RRT_Spillover 1` &lt;chr&gt;, `RRT_Spillover 2` &lt;chr&gt;</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Can remove named data to create a plot more similar to H&amp;M's original</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>rt_summary_wo_named <span class="ot">&lt;-</span> rt_summary <span class="sc">%&gt;%</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Antecedent <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"quantificational"</span>, <span class="st">"specific"</span>))</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># The Plot</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(rt_summary, <span class="fu">aes</span>(<span class="at">x =</span> region_label, <span class="at">y =</span> mean_RRT, </span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                         <span class="at">color =</span> Antecedent, <span class="at">shape =</span> Pronoun, </span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">group =</span> <span class="fu">interaction</span>(Antecedent, Pronoun))) <span class="sc">+</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> mean_RRT <span class="sc">-</span> se_RRT, <span class="at">ymax =</span> mean_RRT <span class="sc">+</span> se_RRT), <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Critical"</span> <span class="ot">=</span> <span class="st">"Region 7</span><span class="sc">\n</span><span class="st">(them/him when)"</span>, </span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Spillover 1"</span> <span class="ot">=</span> <span class="st">"Region 8</span><span class="sc">\n</span><span class="st">(the times)"</span>, </span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Spillover 2"</span> <span class="ot">=</span> <span class="st">"Region 9</span><span class="sc">\n</span><span class="st">(were finally)"</span>)) <span class="sc">+</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Mean RRTs by condition"</span>,</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">""</span>,</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"RRT"</span>) <span class="sc">+</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Antecedent)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div>
+<table class="table table-striped table-hover table-condensed" style="font-size: 13px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="2">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Raw Reading Times (ms)
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Residual Reading Times (ms)
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+Antecedent
+</th>
+<th style="text-align:left;">
+Pronoun
+</th>
+<th style="text-align:center;">
+7
+</th>
+<th style="text-align:center;">
+8
+</th>
+<th style="text-align:center;">
+9
+</th>
+<th style="text-align:center;">
+7
+</th>
+<th style="text-align:center;">
+8
+</th>
+<th style="text-align:center;">
+9
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+quantificational
+</td>
+<td style="text-align:left;">
+they
+</td>
+<td style="text-align:center;">
+515 (10)
+</td>
+<td style="text-align:center;">
+529 (9)
+</td>
+<td style="text-align:center;">
+527 (9)
+</td>
+<td style="text-align:center;">
+34 (9)
+</td>
+<td style="text-align:center;">
+-119 (9)
+</td>
+<td style="text-align:center;">
+-154 (10)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+quantificational
+</td>
+<td style="text-align:left;">
+he
+</td>
+<td style="text-align:center;">
+507 (8)
+</td>
+<td style="text-align:center;">
+538 (9)
+</td>
+<td style="text-align:center;">
+515 (8)
+</td>
+<td style="text-align:center;">
+100 (8)
+</td>
+<td style="text-align:center;">
+-108 (9)
+</td>
+<td style="text-align:center;">
+-177 (10)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+specific
+</td>
+<td style="text-align:left;">
+they
+</td>
+<td style="text-align:center;">
+525 (11)
+</td>
+<td style="text-align:center;">
+545 (15)
+</td>
+<td style="text-align:center;">
+536 (10)
+</td>
+<td style="text-align:center;">
+44 (9)
+</td>
+<td style="text-align:center;">
+-103 (13)
+</td>
+<td style="text-align:center;">
+-153 (10)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+specific
+</td>
+<td style="text-align:left;">
+he
+</td>
+<td style="text-align:center;">
+529 (12)
+</td>
+<td style="text-align:center;">
+536 (11)
+</td>
+<td style="text-align:center;">
+530 (11)
+</td>
+<td style="text-align:center;">
+121 (11)
+</td>
+<td style="text-align:center;">
+-115 (10)
+</td>
+<td style="text-align:center;">
+-155 (12)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+named
+</td>
+<td style="text-align:left;">
+they
+</td>
+<td style="text-align:center;">
+555 (14)
+</td>
+<td style="text-align:center;">
+574 (14)
+</td>
+<td style="text-align:center;">
+556 (14)
+</td>
+<td style="text-align:center;">
+75 (11)
+</td>
+<td style="text-align:center;">
+-74 (13)
+</td>
+<td style="text-align:center;">
+-133 (13)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+named
+</td>
+<td style="text-align:left;">
+he
+</td>
+<td style="text-align:center;">
+498 (9)
+</td>
+<td style="text-align:center;">
+531 (11)
+</td>
+<td style="text-align:center;">
+535 (14)
+</td>
+<td style="text-align:center;">
+90 (8)
+</td>
+<td style="text-align:center;">
+-108 (10)
+</td>
+<td style="text-align:center;">
+-157 (14)
+</td>
+</tr>
+</tbody>
+</table>
+<p>Table 1: New experiment’s mean raw reading times (SE) and mean RRTs (SE) in ms</p>
+</div>
+</div>
+<p>&nbsp;</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="ReplicationReport_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="ReplicationReport_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption><strong>Figure 3.</strong> New experiment’s mean RRTs and standard errors for the regions of analysis</figcaption>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="confirmatory-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="confirmatory-analysis">Confirmatory analysis</h3>
-<p>The analyses as specified in the analysis plan.</p>
-<p><em>Side-by-side graph with original graph is ideal here</em></p>
+<p>&nbsp;</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./photos-for-report/HM2022Fig2.png" class="img-fluid figure-img"></p>
+<figcaption><strong>Figure 4.</strong> Original study’s mean RRTs and standard errors for the regions of analysis (Han and Moulton 2022, Figure 2)</figcaption>
+</figure>
+</div>
+<!-- *Side-by-side graph with original graph is ideal here* -->
 </section>
 <section id="exploratory-analyses" class="level3">
 <h3 class="anchored" data-anchor-id="exploratory-analyses">Exploratory analyses</h3>
-<p>Any follow-up analyses desired (not required).</p>
+<p>Any follow-up analyses desired (not required). Maybe include age stuff.</p>
 </section>
 </section>
 <section id="discussion" class="level2">
 <h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
 <section id="summary-of-replication-attempt" class="level3">
 <h3 class="anchored" data-anchor-id="summary-of-replication-attempt">Summary of Replication Attempt</h3>
-<p>Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.</p>
+<!-- Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.   -->
+<p>This study found that regardless of whether an antecedent is quantified or referential, readers slow down less when encountering the pronoun <em>they</em> than when encountering the pronoun <em>he</em>. This result was not a replication of the result from Han and Moulton’s original study. In fact, their study found the exact opposite: readers slowed down more when encountering <em>they</em> than when encountering <em>he</em> (and for Han and Moulton, this slowdown appeared not in the region where the critical pronoun was shown as it did for my participants, but in the following region that is referred to as Region 8 in the above discussion). One of Han and Moulton’s results, however, did replicate. In both their original study and this follow-up study, reading time of singular <em>they</em> was not significantly different for quantificational vs.&nbsp;referential antecedents.</p>
+<p>In comparing the results of each study, it is also worth noting that in Han and Moulton’s original study, their participants read faster than average in all of regions 7-9 (as shown by the negative RRTs for these regions, ranging from about 25 to 50 ms faster than average across regions and conditions). In contrast, participants in this follow-up study slowed down drastically when encountering the critical pronoun in region 7 (reading about 40 to 100 ms slower, depending on condition) and then sped up drastically in regions 8 and 9 (reading about 75 to 175 ms faster, depending on condition and region). This suggests that participants in my study incurred an overall processing cost associated with any pronoun, while Han and Moulton’s participants did not show evidence of incurring a similar processing cost.</p>
+<p>By introducing named antecedents, an additional condition that the original study did not include, this study also showed interesting results regarding how pronouns are processed with these antecedents. Most notably, readers slowed down similar amounts when encountering <em>they</em> vs <em>he</em> in the named condition, showing that whatever advantage <em>they</em> had over <em>he</em> in the referential and quantificational antecedent conditions disappeared in this condition.</p>
 </section>
 <section id="commentary" class="level3">
 <h3 class="anchored" data-anchor-id="commentary">Commentary</h3>
-<p>Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt. None of these need to be long.</p>
+<!-- Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long. -->
+<p>The failure to replicate Han and Moulton’s original primary result is itself an interesting result. Various possible explanations for the difference between the studies exist. Perhaps participants differed from those in the other study in some systematic way, giving rise to the difference in reading times. However, such a hypothesis is extremely difficult to test: participants in both studies were native English speakers with similar age ranges and average ages, and Han and Moulton did not report additional demographic information about their participants, so no further potential differences can be checked. Another possible explanation for the discrepancy between studies would be that processing of pronouns truly has changed significantly in the time between these studies. Han and Moulton’s study was published in 2022 (with data collected an unknown length of time before publication), and data for this follow-up study was collected in May 2026. This is not a significant gap (perhaps less than four years), so significant change in pronoun processing in this timeframe seems somewhat unlikely. However, singular <em>they</em> is currently undergoing rapid change (see for example Konnelly and Cowper 2020, Konnelly et al.&nbsp;2022, and Johnson in prep), so this is not entirely implausible. It is also possible that the experimental differences between studies introduced sufficient differences to affect reading time: this follow-up study introduced the Named Antecedent condition, replaced 10 filler items with critical items in this condition, and replaced all names in the original study’s filler items with different gender-neutral names. That is, when the original study included a name like ‘Ben’ or ‘Mary’, this study replaced it with an ostensibly gender-neutral name like ‘Kit’ or ‘Billie’. It is possible that processing these gender-neutral names followed by <em>they</em> and <em>he</em> pronouns across various critical and filler conditions introduced a confound in the data, although it is not clear how such a change could have prompted the results that this follow-up study did observe (specifically, how changes to names could have so drastically affected the quantificational and referential antecedent conditions where no names were present in the stimuli). Overall, this attempted replication introduces interesting new findings and suggests that further research should be conducted on the processing of singular <em>they</em> vs.&nbsp;<em>he</em> with different antecedent types.</p>
 </section>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p><strong>Conrod, K.</strong> (2019). <em>Pronouns raising and emerging</em> (Doctoral dissertation). University of Washington, Seattle, WA.</p>
+<p><strong>Conrod, K., Konnelly, L., &amp; Bradley, E. D.</strong> (2022). Non-binary singular <em>they</em>. In L. L. Paterson (Ed.), <em>The Routledge Handbook of Pronouns</em>. Routledge.</p>
+<p><strong>Ferreira, F., &amp; Clifton, C.</strong> (1986). The independence of syntactic processing. <em>Journal of Memory and Language</em>, 25(3), 348–368.</p>
+<p><strong>Han, C. H., &amp; Moulton, K.</strong> (2022). Processing bound-variable singular <em>they</em>. <em>Canadian Journal of Linguistics/Revue canadienne de linguistique</em>, 67(3), 273–294.</p>
+<p><strong>Johnson, K.</strong> (in prep). [Conditioning morphosyntactic variation: an exploration of social and linguistic factors constraining use of <em>themself</em>]. Stanford University.</p>
+<p><strong>Just, M. A., Carpenter, P. A., &amp; Woolley, J. D.</strong> (1982). Paradigms and processes in reading comprehension. <em>Journal of Experimental Psychology: General</em>, 111(2), 228–238.</p>
+<p><strong>Konnelly, L., &amp; Cowper, E.</strong> (2020). Gender diversity and morphosyntax: An account of singular <em>they</em>. <em>Glossa: a journal of general linguistics</em>, 5(1), 40.</p>
+<p><strong>Phillips, C.</strong> (2006). The real-time status of island phenomena. <em>Language</em>, 82(4), 795–823.</p>
+<p><strong>Trueswell, J. C., &amp; Tanenhaus, M. K.</strong> (1994). Semantic influence on parsing: Use of thematic role information in syntactic ambiguity resolution. <em>Journal of Memory and Language</em>, 33(3): 285–318.</p>
 </section>
 
-</main>
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>See explanation below for the difference from the originally planned 300 participants.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>This value was eventually changed to 75% in subsequent analysis; see justification below.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This model was ultimately simplified to avoid over-fitting the data (see below).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>This expectation was not necessarily borne out: see results and discussion below.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
